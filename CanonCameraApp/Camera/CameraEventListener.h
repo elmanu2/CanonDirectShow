@@ -15,10 +15,11 @@
 
 #pragma once 
 
-
+#include <iostream>
 #include "EDSDK.h"
 #include "CameraController.h"
 
+using namespace std;
 
 class CameraEventListener
 {
@@ -29,6 +30,7 @@ public:
 						EdsVoid *			inContext				
 						)
 	{
+        cout<<"handleObjectEvent called"<<endl;
 
 		CameraController*	controller = (CameraController *)inContext;
 
@@ -57,6 +59,7 @@ public:
 						EdsVoid *			inContext				
 						)
 	{
+        cout<<"handlePropertyEvent called"<<endl;
 
 		CameraController*	controller = (CameraController *)inContext;
 
@@ -71,7 +74,7 @@ public:
 				break;
 		}
 
-		return EDS_ERR_OK;		
+		return EDS_ERR_OK;
 	}	
 
 	static EdsError EDSCALLBACK  handleStateEvent (
@@ -80,6 +83,7 @@ public:
 						EdsVoid *			inContext				
 						)
 	{
+        cout<<"handleStateEvent called"<<endl;
 
 		CameraController*	controller = (CameraController *)inContext;
 

@@ -42,6 +42,13 @@ public:
 				locked = true;
 			}		
 		}
+
+        //Preservation ahead is set to PC
+			if(err == EDS_ERR_OK)
+			{
+				EdsUInt32 saveTo = kEdsSaveTo_Host;
+				err = EdsSetPropertyData(_model->getCameraObject(), kEdsPropID_SaveTo, 0, sizeof(saveTo) , &saveTo);
+			}
 		
 		//Taking a picture
 		err = EdsSendCommand(_model->getCameraObject(), kEdsCameraCommand_TakePicture, 0);
