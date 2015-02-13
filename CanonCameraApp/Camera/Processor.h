@@ -22,6 +22,9 @@
 #include "Synchronized.h"
 #include "Command.h"
 
+
+class CameraModel;
+
 class Processor : public Thread 
 {
 
@@ -33,14 +36,24 @@ protected:
 
 	// Command when ending
 	Command*	_closeCommand;
+
+    CameraModel* _cameraModele;
 		
+    EdsCameraListRef* _camListRef;
 	// Synchronized Object
     Synchronized _syncObject;
 
 
 public:
 	// Constructor  
-	Processor(): _running(false), _closeCommand(0){ }	
+	Processor(CameraModel* camModel_): _running(false), _closeCommand(0)
+    { 
+        _cameraModele = camModel_;
+    }
+
+    Processor(): _running(false), _closeCommand(0)
+    { 
+    }
 
 	// Destoracta
 	virtual ~Processor(){clear();}
@@ -48,6 +61,13 @@ public:
 	// Set command when ending
 	void setCloseCommand(Command* closeCommand){_closeCommand = closeCommand;}
 
+    void setCamListRef(EdsCameraListRef* camListRef_);
+
+    int promptUser() const;
+
+    bool mainUser() ;
+    
+    static void myExit();
 
 	/*
 	void enqueue(Command* command)
@@ -104,7 +124,8 @@ public:
 		_running = true;
 		while (_running)
 		{
-			Sleep(1);
+            mainUser();
+			//Sleep(1);
 
 			Command* command = take();
 			if(command != NULL)
@@ -129,6 +150,8 @@ public:
 		
 		// Clear que
 		clear();
+
+
 
 		// Command of end
 		if(_closeCommand != NULL)

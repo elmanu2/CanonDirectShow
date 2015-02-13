@@ -79,7 +79,7 @@ public:
 	}
 	*/
 
-public:
+protected :
 	virtual void run() = 0;
 
 protected:

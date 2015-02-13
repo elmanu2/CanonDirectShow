@@ -37,6 +37,7 @@ public:
 		switch(inEvent)
 		{
 		case kEdsObjectEvent_DirItemRequestTransfer:
+                cout<<"Item request transfer"<<endl;
 				fireEvent(controller, "download", inRef);
 				break;
 		
