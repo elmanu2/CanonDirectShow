@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CanonFilter", "CanonFilter\CanonFilter.vcxproj", "{B9FB58E1-0AB2-34D4-535B-26F9361002B6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Filters", "Filters\Filters.vcxproj", "{721F06B3-47B1-B224-84C5-D300156036F9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CanonCameraApp", "CanonCameraApp\CanonCameraApp.vcxproj", "{24309372-DF0D-43D3-AACE-291AC7A7EA7E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B9FB58E1-0AB2-34D4-535B-26F9361002B6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B9FB58E1-0AB2-34D4-535B-26F9361002B6}.Debug|Win32.Build.0 = Debug|Win32
+		{B9FB58E1-0AB2-34D4-535B-26F9361002B6}.Release|Win32.ActiveCfg = Release|Win32
+		{B9FB58E1-0AB2-34D4-535B-26F9361002B6}.Release|Win32.Build.0 = Release|Win32
+		{721F06B3-47B1-B224-84C5-D300156036F9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{721F06B3-47B1-B224-84C5-D300156036F9}.Debug|Win32.Build.0 = Debug|Win32
+		{721F06B3-47B1-B224-84C5-D300156036F9}.Release|Win32.ActiveCfg = Release|Win32
+		{721F06B3-47B1-B224-84C5-D300156036F9}.Release|Win32.Build.0 = Release|Win32
+		{24309372-DF0D-43D3-AACE-291AC7A7EA7E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{24309372-DF0D-43D3-AACE-291AC7A7EA7E}.Debug|Win32.Build.0 = Debug|Win32
+		{24309372-DF0D-43D3-AACE-291AC7A7EA7E}.Release|Win32.ActiveCfg = Release|Win32
+		{24309372-DF0D-43D3-AACE-291AC7A7EA7E}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
