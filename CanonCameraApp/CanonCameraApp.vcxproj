@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CameraObserver.cpp" />
+    <ClCompile Include="Camera\CameraEventListener.cpp" />
     <ClCompile Include="Camera\Processor.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>

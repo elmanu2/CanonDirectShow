@@ -38,7 +38,8 @@ public:
 		{
 		case kEdsObjectEvent_DirItemRequestTransfer:
                 cout<<"Item request transfer"<<endl;
-				fireEvent(controller, "download", inRef);
+				downloadImage(inRef,"","","");
+                //fireEvent(controller, "download", inRef);
 				break;
 		
 		default:
@@ -99,6 +100,12 @@ public:
 	}	
 
 private:
+
+    static EdsError downloadImage(EdsDirectoryItemRef dirItemRef_, 
+                                  std::string directory_, 
+                                  std::string fileName_,
+                                  std::string extension_);
+
 	static void fireEvent(ActionListener *listener, std::string command, void* arg = 0)
 	{
 		ActionEvent event(command, arg);
