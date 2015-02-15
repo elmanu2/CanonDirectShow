@@ -1,6 +1,9 @@
 #include "Processor.h"
 #include "TakePictureCommand.h"
 #include "GetPropertyCommand.h"
+#include "StartEvfCommand.h"
+#include "DownloadEvfCommand.h"
+#include "EndEvfCommand.h"
 #include <iostream>
 
 using namespace std;
@@ -36,6 +39,9 @@ int Processor::promptUser() const
     cout<<"1 - take photo"<<endl;
     cout<<"2 - get product name"<<endl;
     cout<<"3 - get battery level info"<<endl;
+    cout<<"4 - start live view"<<endl;
+    cout<<"5 - download live view"<<endl;
+    cout<<"6 - stop liveview"<<endl;
     fscanf(stdin,"%d",&userChoice);
 
     return userChoice;
@@ -46,7 +52,12 @@ bool Processor::mainUser()
     bool res;
     TakePictureCommand* _takePicCmd = new TakePictureCommand(_cameraModele);
     GetPropertyCommand* _propProductCmd = new GetPropertyCommand(_cameraModele, kEdsPropID_ProductName);
-    
+    GetPropertyCommand* _propEvfModeCmd = new GetPropertyCommand(_cameraModele, kEdsPropID_Evf_Mode);
+    GetPropertyCommand* _propEvfOutputDeviceCmd = new GetPropertyCommand(_cameraModele, kEdsPropID_Evf_OutputDevice);
+    StartEvfCommand* _startLiveViewCmd = new StartEvfCommand(_cameraModele);
+    DownloadEvfCommand* _downloadEvfCmd = new DownloadEvfCommand(_cameraModele);
+    EndEvfCommand* _stopLiveViewCmd = new EndEvfCommand(_cameraModele);
+
     int userChoice = -1;
     while(userChoice != 0)
     {
@@ -91,6 +102,29 @@ bool Processor::mainUser()
                 cout<<"Battery level : "<<endl;
                 break;
             }
+        case 4 :
+            {
+                cout<<"Start liveview"<<endl;
+                _propEvfModeCmd->execute();
+                _propEvfOutputDeviceCmd->execute();
+                res = _startLiveViewCmd->execute();
+                _propEvfOutputDeviceCmd->execute();
+                
+                break;
+            }
+        case 5 :
+            {
+                cout<<"Download liveview picture"<<endl;
+                res = _downloadEvfCmd->execute();
+                break;
+            }
+        case 6 :
+            {
+                cout<<"Download liveview picture"<<endl;
+                res = _stopLiveViewCmd->execute();
+                break;
+            }
+
         }
     }
     //GetPropertyCommand* _propBatteryLvlCmd = new GetPropertyCommand(cameraModele, kEdsPropID_BatteryLevel);
