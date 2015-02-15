@@ -18,98 +18,102 @@
 #include <iostream>
 #include "EDSDK.h"
 #include "CameraController.h"
+#include "CanonDict.h"
 
 using namespace std;
 
 class CameraEventListener
 {
 public:
-	static EdsError EDSCALLBACK  handleObjectEvent (
-						EdsUInt32			inEvent,
-						EdsBaseRef			inRef,
-						EdsVoid *			inContext				
-						)
-	{
-        cout<<"handleObjectEvent called"<<endl;
+    static EdsError EDSCALLBACK  handleObjectEvent (
+        EdsUInt32			inEvent,
+        EdsBaseRef			inRef,
+        EdsVoid *			inContext				
+        )
+    {
+        cout<<"handleObjectEvent called : inEvent= "<<
+            CanonDict::getInstance()->ObjectEventToString(inEvent)<<endl;
 
-		CameraController*	controller = (CameraController *)inContext;
+        CameraController*	controller = (CameraController *)inContext;
 
-		switch(inEvent)
-		{
-		case kEdsObjectEvent_DirItemRequestTransfer:
-                cout<<"Item request transfer"<<endl;
-				downloadImage(inRef,"","","");
-                //fireEvent(controller, "download", inRef);
-				break;
-		
-		default:
-			//Object without the necessity is released
-			if(inRef != NULL)
-			{
-				EdsRelease(inRef);
-			}
+        switch(inEvent)
+        {
+        case kEdsObjectEvent_DirItemRequestTransfer:
+            downloadImage(inRef,"","","");
+            //fireEvent(controller, "download", inRef);
             break;
-		}
 
-		return EDS_ERR_OK;		
-	}	
+        default:
+            //Object without the necessity is released
+            if(inRef != NULL)
+            {
+                EdsRelease(inRef);
+            }
+            break;
+        }
 
-	static EdsError EDSCALLBACK  handlePropertyEvent (
-						EdsUInt32			inEvent,
-						EdsUInt32			inPropertyID,
-						EdsUInt32			inParam, 
-						EdsVoid *			inContext				
-						)
-	{
-        cout<<"handlePropertyEvent called"<<endl;
+        return EDS_ERR_OK;		
+    }	
 
-		CameraController*	controller = (CameraController *)inContext;
+    static EdsError EDSCALLBACK  handlePropertyEvent (
+        EdsUInt32			inEvent,
+        EdsUInt32			inPropertyID,
+        EdsUInt32			inParam, 
+        EdsVoid *			inContext				
+        )
+    {
+        cout<<"handlePropertyEvent called : inEvent= "<<
+            CanonDict::getInstance()->PropertyEventToString(inEvent)<<endl;
 
-		switch(inEvent)
-		{
-		case kEdsPropertyEvent_PropertyChanged:
-				fireEvent(controller, "get_Property", &inPropertyID);
-				break;
+        CameraController*	controller = (CameraController *)inContext;
 
-		case kEdsPropertyEvent_PropertyDescChanged:
-				fireEvent(controller, "get_PropertyDesc", &inPropertyID);
-				break;
-		}
+        switch(inEvent)
+        {
+        case kEdsPropertyEvent_PropertyChanged:
+            fireEvent(controller, "get_Property", &inPropertyID);
+            break;
 
-		return EDS_ERR_OK;
-	}	
+        case kEdsPropertyEvent_PropertyDescChanged:
+            fireEvent(controller, "get_PropertyDesc", &inPropertyID);
+            break;
+        }
 
-	static EdsError EDSCALLBACK  handleStateEvent (
-						EdsUInt32			inEvent,
-						EdsUInt32			inParam, 
-						EdsVoid *			inContext				
-						)
-	{
-        cout<<"handleStateEvent called"<<endl;
+        return EDS_ERR_OK;
+    }	
 
-		CameraController*	controller = (CameraController *)inContext;
+    static EdsError EDSCALLBACK  handleStateEvent (
+        EdsUInt32			inEvent,
+        EdsUInt32			inParam, 
+        EdsVoid *			inContext				
+        )
+    {
+        cout<<"handleStateEvent called : inEvent= "<<
+            CanonDict::getInstance()->StateEventToString(inEvent)<<endl;
 
-		switch(inEvent)
-		{
-		case kEdsStateEvent_Shutdown:
-				fireEvent(controller, "shutDown");
-				break;
-		}
 
-		return EDS_ERR_OK;		
-	}	
+        CameraController*	controller = (CameraController *)inContext;
+
+        switch(inEvent)
+        {
+        case kEdsStateEvent_Shutdown:
+            fireEvent(controller, "shutDown");
+            break;
+        }
+
+        return EDS_ERR_OK;		
+    }	
 
 private:
 
     static EdsError downloadImage(EdsDirectoryItemRef dirItemRef_, 
-                                  std::string directory_, 
-                                  std::string fileName_,
-                                  std::string extension_);
+        std::string directory_, 
+        std::string fileName_,
+        std::string extension_);
 
-	static void fireEvent(ActionListener *listener, std::string command, void* arg = 0)
-	{
-		ActionEvent event(command, arg);
-		listener->actionPerformed(event);
-	}
+    static void fireEvent(ActionListener *listener, std::string command, void* arg = 0)
+    {
+        ActionEvent event(command, arg);
+        listener->actionPerformed(event);
+    }
 
 };

@@ -50,7 +50,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\EDSDK\Header;$(ProjectDir)\Camera;$(ProjectDir)\Command;$(ProjectDir)\Class;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\EDSDK\Header;$(ProjectDir)\Camera;$(ProjectDir)\Command;$(ProjectDir)\Class;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -80,6 +80,7 @@
     <ClCompile Include="CameraObserver.cpp" />
     <ClCompile Include="Camera\CameraEventListener.cpp" />
     <ClCompile Include="Camera\Processor.cpp" />
+    <ClCompile Include="CanonDict.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +92,7 @@
     <ClInclude Include="Camera\CameraModelLegacy.h" />
     <ClInclude Include="Camera\MessageLoop.h" />
     <ClInclude Include="Camera\Processor.h" />
+    <ClInclude Include="CanonDict.h" />
     <ClInclude Include="Class\ActionEvent.h" />
     <ClInclude Include="Class\ActionListener.h" />
     <ClInclude Include="Class\ActionSource.h" />
