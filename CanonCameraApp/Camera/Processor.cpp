@@ -107,8 +107,8 @@ void Processor::myExit()
         cout<<"EDSDK terminated successfully"<<endl;
     }
 
-    system("PAUSE");
-    exit(-1);
+    //system("PAUSE");
+    //exit(-1);
 }
 
 
@@ -135,7 +135,7 @@ int Processor::promptUser() const
 
 bool Processor::mainUser() 
 {
-    bool res;
+    bool res = true;
     TakePictureCommand* _takePicCmd = new TakePictureCommand(_cameraModele);
     GetPropertyCommand* _propProductCmd = new GetPropertyCommand(_cameraModele, kEdsPropID_ProductName);
     GetPropertyCommand* _propEvfModeCmd = new GetPropertyCommand(_cameraModele, kEdsPropID_Evf_Mode);
@@ -152,6 +152,7 @@ bool Processor::mainUser()
         {
         case 0:
             {
+                res = false;
                 break;
             }
         case 1:
@@ -230,9 +231,10 @@ bool Processor::mainUser()
     //GetPropertyCommand* _propEvfAFCmd = new GetPropertyCommand(cameraModele, kEdsPropID_Evf_AFMode);
     //GetPropertyCommand* _propFocusInfoCmd = new GetPropertyCommand(cameraModele, kEdsPropID_FocusInfo);
 
-    res = _closeCommand->execute();
-    if(res == true)
 
+    if(res == false)
+    {
+        bool resCmd = _closeCommand->execute();
         // Release camera list
         if(_camListRef != NULL)
         {
@@ -241,8 +243,9 @@ bool Processor::mainUser()
         }
 
         myExit();
+    }
 
-        return true;
+    return res;
 }
 
 void Processor::run()
@@ -254,7 +257,7 @@ void Processor::run()
     _running = true;
     while (_running)
     {
-        mainUser();
+        _running = mainUser();
         //Sleep(1);
 
         Command* command = take();

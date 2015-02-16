@@ -63,7 +63,9 @@ public:
         )
     {
         cout<<"handlePropertyEvent called : inEvent= "<<
-            CanonDict::getInstance()->PropertyEventToString(inEvent)<<endl;
+            CanonDict::getInstance()->PropertyEventToString(inEvent)<<
+            "Property id = "<<
+            CanonDict::getInstance()->PropIdToString(inPropertyID)<<endl;
 
         CameraController*	controller = (CameraController *)inContext;
 

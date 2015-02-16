@@ -1,6 +1,7 @@
 # Ignore directories
 /Bin
 /ipch
+/Debug
 /CanonCameraApp/Debug
 
 # Ignore file type

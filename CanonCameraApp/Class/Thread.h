@@ -44,6 +44,11 @@ public:
 		return (_hThread != NULL);
 	}
 
+    bool isActive()
+    {
+        return _active;
+    }
+
 	void join()
 	{
 		if(_hThread)

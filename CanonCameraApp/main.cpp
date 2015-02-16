@@ -15,9 +15,6 @@
 using namespace std;
 
 
-
-
-
 void main()
 {
     EdsError error;
@@ -93,18 +90,23 @@ void main()
     cli.setCloseCommand(_closeSessionCmd);
     cli.setCamListRef(&cameraListRef);
     cli.start();
+    Sleep(1000);
 
-
-    MSG msg;
-    while(GetMessage(&msg, NULL, NULL, NULL))
-    {        
-        TranslateMessage(&msg); 
-        DispatchMessage(&msg); 
+    while(cli.isActive())
+    {
+        Sleep(10);
+        if(cli.isActive())
+        {
+            error = EdsGetEvent();
+        }
+        if(error != EDS_ERR_OK)
+        {
+            cout<<"Error : "<<CanonDict::getInstance()->ErrToString(error);
+            cout<<endl;
+        }
     }
 
-
-
-
+    system("Pause");
 
 
 }
