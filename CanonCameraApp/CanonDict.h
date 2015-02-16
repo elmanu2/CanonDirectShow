@@ -21,6 +21,9 @@ public:
     //transform state event id into string
     static std::string StateEventToString(unsigned long propEvent_);
 
+    //transform property id into string
+    static std::string PropIdToString(unsigned long propEvent_);
+
 protected :
     //object event map
     static std::map<unsigned long, std::string> _objectEventDict;
@@ -30,6 +33,9 @@ protected :
 
     //state event map
     static std::map<unsigned long, std::string> _stateEventDict;
+
+    //property map
+    static std::map<unsigned long, std::string> _propIdDict;
 
     //The unique instance
     static CanonDict* _instance;
