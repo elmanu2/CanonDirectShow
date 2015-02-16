@@ -1,6 +1,5 @@
 # Ignore directories
 /Bin
-/Debug
 /ipch
 /CanonCameraApp/Debug
 
