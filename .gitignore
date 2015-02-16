@@ -1,0 +1,14 @@
+# Ignore directories
+/Bin
+/Debug
+/ipch
+/CanonCameraApp/Debug
+
+# Ignore file type
+*.vcxproj.*
+*.jpg
+*.suo
+
+# Ignore file type at root
+/*.sdf
+/*.opensdf
