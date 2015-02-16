@@ -24,6 +24,10 @@ public:
     //transform property id into string
     static std::string PropIdToString(unsigned long propEvent_);
 
+    //transform property id into string
+    static std::string ErrToString(unsigned long propEvent_);
+
+
 protected :
     //object event map
     static std::map<unsigned long, std::string> _objectEventDict;
@@ -36,6 +40,8 @@ protected :
 
     //property map
     static std::map<unsigned long, std::string> _propIdDict;
+
+    static std::map<unsigned long, std::string> _errorDict;
 
     //The unique instance
     static CanonDict* _instance;
