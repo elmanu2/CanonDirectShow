@@ -30,213 +30,98 @@ class Processor : public Thread
 
 protected:
     // Whether it is executing it or not?
-	bool _running;
-	// Que
-	std::deque<Command*>  _queue;
+    bool _running;
+    // Que
+    std::deque<Command*>  _queue;
 
-	// Command when ending
-	Command*	_closeCommand;
+    // Command when ending
+    Command*	_closeCommand;
 
     CameraModel* _cameraModele;
-		
+
     EdsCameraListRef* _camListRef;
-	// Synchronized Object
+    // Synchronized Object
     Synchronized _syncObject;
 
 
 public:
-	// Constructor  
-	Processor(CameraModel* camModel_): _running(false), _closeCommand(0)
-    { 
-        _cameraModele = camModel_;
-    }
+    // Constructor  
+    Processor(CameraModel* camModel_);
 
-    Processor(): _running(false), _closeCommand(0)
-    { 
-    }
+    Processor();
 
-	// Destoracta
-	virtual ~Processor(){clear();}
+    // Destructeur
+    virtual ~Processor();
 
-	// Set command when ending
-	void setCloseCommand(Command* closeCommand){_closeCommand = closeCommand;}
+    // Set command when ending
+    void setCloseCommand(Command* closeCommand){_closeCommand = closeCommand;}
 
     void setCamListRef(EdsCameraListRef* camListRef_);
 
     int promptUser() const;
 
     bool mainUser() ;
-    
+
     static void myExit();
 
-	/*
-	void enqueue(Command* command)
-	{
-		_syncObject.lock();
-		_queue.push_back(command);
-		_syncObject.unlock();
-		resume();	
-	}*/
-
-	
-	void enqueue(Command* command)
-	{
-		_syncObject.lock();
-		_queue.push_back(command);
-		_syncObject.notify();	
-		_syncObject.unlock();
-	}
+    /*
+    void enqueue(Command* command)
+    {
+    _syncObject.lock();
+    _queue.push_back(command);
+    _syncObject.unlock();
+    resume();	
+    }*/
 
 
+    void enqueue(Command* command);
 
-	void stop()
-	{
-		_syncObject.lock();
-		_running = false;
-		_syncObject.unlock();
-		//resume();
-	}  
+    void stop();
 
-
-	void clear() 
-	{
-		_syncObject.lock();
-
-		std::deque<Command*>::iterator it = _queue.begin();
-		while (it != _queue.end())
-		{
-			delete (*it);
-			++it;
-		}
-		_queue.clear();
-
-		_syncObject.unlock();
-	}
-
-
-public:
-	virtual void run()
-	{
-		//When using the SDK from another thread in Windows, 
-		// you must initialize the COM library by calling CoInitialize 
-		CoInitializeEx( NULL, COINIT_MULTITHREADED );
-
-		_running = true;
-		while (_running)
-		{
-            mainUser();
-			//Sleep(1);
-
-			Command* command = take();
-			if(command != NULL)
-			{
-				bool complete = command->execute();
-				
-				if(complete == false)
-				{
-					//If commands that were issued fail ( because of DeviceBusy or other reasons )
-					// and retry is required , note that some cameras may become unstable if multiple 
-					// commands are issued in succession without an intervening interval.
-					//Thus, leave an interval of about 500 ms before commands are reissued.
-					Sleep(500);
-					enqueue(command);
-				}
-				else
-				{
-					delete command;
-				}
-			}
-		}
-		
-		// Clear que
-		clear();
-
-
-
-		// Command of end
-		if(_closeCommand != NULL)
-		{
-			_closeCommand->execute();
-			delete _closeCommand;
-			_closeCommand = NULL;
-		}
-
-		CoUninitialize();
-
-	}
+    void clear();
 
 protected:
+    virtual void run();
 
-	//The command is taken out of the que
+    //The command is taken out of the que
 
-	/*
-	Command* take()
-	{
-	
-		Command* command = NULL;
-		
-		// Que stands by between emptiness.
-		while (true)
-		{
-			_syncObject.lock();
-			bool empty = _queue.empty();
-			_syncObject.unlock();
-			
-			if(empty == false)break;
+    /*
+    Command* take()
+    {
 
-			suspend();
+    Command* command = NULL;
 
-			if(_running == false)
-			{
-				return NULL;
-			}
-		}
-	
-		_syncObject.lock();
-		
-		command = _queue.front();
-		_queue.pop_front();
+    // Que stands by between emptiness.
+    while (true)
+    {
+    _syncObject.lock();
+    bool empty = _queue.empty();
+    _syncObject.unlock();
 
-		_syncObject.unlock();
-		
-		return command;
-	}*/
+    if(empty == false)break;
 
-	
- 	Command* take()
-	{
-	
-		Command* command = NULL;
-	
-		_syncObject.lock();
+    suspend();
 
-		// Que stands by between emptiness.
-		while (_queue.empty() && _running)
-		{
-			_syncObject.wait(10);
-		}
-	
-		if (_running)
-		{
-			command = _queue.front();
-			_queue.pop_front();
-		}
+    if(_running == false)
+    {
+    return NULL;
+    }
+    }
 
-		_syncObject.unlock();
+    _syncObject.lock();
 
-		return command;
-	}
- 
+    command = _queue.front();
+    _queue.pop_front();
 
-	bool isEmpty()
-	{
-		_syncObject.lock();
-		bool ret = _queue.empty();
-		_syncObject.unlock();
-		
-		return ret;
-	}
+    _syncObject.unlock();
 
+    return command;
+    }*/
+
+
+    Command* take();
+
+    bool isEmpty();
 };
 
 

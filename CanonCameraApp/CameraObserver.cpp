@@ -15,5 +15,5 @@ CameraObserver::~CameraObserver(void)
 
 void CameraObserver::update(Observable* from, CameraEvent *e)
 {
-	std::cout<<"Camera observer : update : "<<e->getEvent()<<std::endl;
+	std::cout<<"Camera observer notified : "<<e->getEvent()<<std::endl;
 }

@@ -8,6 +8,92 @@
 
 using namespace std;
 
+Processor::Processor(CameraModel* camModel_): _running(false), _closeCommand(0)
+{ 
+    _cameraModele = camModel_;
+}
+
+Processor::Processor(): _running(false), _closeCommand(0)
+{ 
+}
+
+Processor::~Processor()
+{
+    clear();
+}
+
+
+void Processor::enqueue(Command* command)
+{
+    _syncObject.lock();
+    _queue.push_back(command);
+    _syncObject.notify();	
+    _syncObject.unlock();
+}
+
+
+
+void Processor::stop()
+{
+    _syncObject.lock();
+    _running = false;
+    _syncObject.unlock();
+    //resume();
+}  
+
+
+void Processor::clear() 
+{
+    _syncObject.lock();
+
+    std::deque<Command*>::iterator it = _queue.begin();
+    while (it != _queue.end())
+    {
+        delete (*it);
+        ++it;
+    }
+    _queue.clear();
+
+    _syncObject.unlock();
+}
+
+
+Command* Processor::take()
+{
+
+    Command* command = NULL;
+
+    _syncObject.lock();
+
+    // Que stands by between emptiness.
+    while (_queue.empty() && _running)
+    {
+        _syncObject.wait(10);
+    }
+
+    if (_running)
+    {
+        command = _queue.front();
+        _queue.pop_front();
+    }
+
+    _syncObject.unlock();
+
+    return command;
+}
+
+
+bool Processor::isEmpty()
+{
+    _syncObject.lock();
+    bool ret = _queue.empty();
+    _syncObject.unlock();
+
+    return ret;
+}
+
+
+
 void Processor::myExit()
 {
     EdsError error;
@@ -109,7 +195,7 @@ bool Processor::mainUser()
                 _propEvfOutputDeviceCmd->execute();
                 res = _startLiveViewCmd->execute();
                 _propEvfOutputDeviceCmd->execute();
-                
+
                 break;
             }
         case 5 :
@@ -147,14 +233,62 @@ bool Processor::mainUser()
     res = _closeCommand->execute();
     if(res == true)
 
-    // Release camera list
-    if(_camListRef != NULL)
+        // Release camera list
+        if(_camListRef != NULL)
+        {
+            EdsRelease(*_camListRef);
+            _camListRef = NULL;
+        }
+
+        myExit();
+
+        return true;
+}
+
+void Processor::run()
+{
+    //When using the SDK from another thread in Windows, 
+    // you must initialize the COM library by calling CoInitialize 
+    CoInitializeEx( NULL, COINIT_MULTITHREADED );
+
+    _running = true;
+    while (_running)
     {
-        EdsRelease(*_camListRef);
-        _camListRef = NULL;
+        mainUser();
+        //Sleep(1);
+
+        Command* command = take();
+        if(command != NULL)
+        {
+            bool complete = command->execute();
+
+            if(complete == false)
+            {
+                //If commands that were issued fail ( because of DeviceBusy or other reasons )
+                // and retry is required , note that some cameras may become unstable if multiple 
+                // commands are issued in succession without an intervening interval.
+                //Thus, leave an interval of about 500 ms before commands are reissued.
+                Sleep(500);
+                enqueue(command);
+            }
+            else
+            {
+                delete command;
+            }
+        }
     }
 
-    myExit();
+    // Clear queue
+    clear();
 
-    return true;
-}   
+    // Command of end
+    if(_closeCommand != NULL)
+    {
+        _closeCommand->execute();
+        delete _closeCommand;
+        _closeCommand = NULL;
+    }
+
+    CoUninitialize();
+
+}
