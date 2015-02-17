@@ -2,7 +2,13 @@
 /Bin
 /ipch
 /Debug
+/Release
 /CanonCameraApp/Debug
+/CanonCameraApp/Release
+/CanonFilter/Debug
+/CanonFilter/Release
+/CanonFilter/ipch
+/Filters
 
 # Ignore file type
 *.vcxproj.*
