@@ -108,7 +108,7 @@
       <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
       <CallingConvention>Cdecl</CallingConvention>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <AdditionalIncludeDirectories>$(SolutionDir)\EDSDK\Header;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(SolutionDir)\CanonCameraApp\Camera;$(SolutionDir)\CanonCameraApp\Command;$(SolutionDir)\CanonCameraApp\Class;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\EDSDK\Header;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(SolutionDir)\CanonCameraApp\Camera;$(SolutionDir)\CanonCameraApp\Command;$(SolutionDir)\CanonCameraApp\Class;$(SolutionDir)\CanonCameraApp\utils;$(SolutionDir)\CanonCameraApp\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -142,6 +142,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\CanonCameraApp\CameraObserver.cpp" />
+    <ClCompile Include="..\CanonCameraApp\Camera\CameraEventListener.cpp" />
+    <ClCompile Include="..\CanonCameraApp\Camera\CliProcessor.cpp" />
+    <ClCompile Include="..\CanonCameraApp\utils\CanonDict.cpp" />
     <ClCompile Include="canoncamera.cpp" />
     <ClCompile Include="Dll.cpp" />
     <ClCompile Include="Filters.cpp" />
@@ -150,6 +154,35 @@
     <CustomBuild Include="Filters.def" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\CanonCameraApp\Camera\CameraController.h" />
+    <ClInclude Include="..\CanonCameraApp\Camera\CameraEvent.h" />
+    <ClInclude Include="..\CanonCameraApp\Camera\CameraEventListener.h" />
+    <ClInclude Include="..\CanonCameraApp\Camera\CameraModel.h" />
+    <ClInclude Include="..\CanonCameraApp\Camera\CameraModelLegacy.h" />
+    <ClInclude Include="..\CanonCameraApp\Camera\CliProcessor.h" />
+    <ClInclude Include="..\CanonCameraApp\Class\ActionEvent.h" />
+    <ClInclude Include="..\CanonCameraApp\Class\ActionListener.h" />
+    <ClInclude Include="..\CanonCameraApp\Class\ActionSource.h" />
+    <ClInclude Include="..\CanonCameraApp\Class\Observer.h" />
+    <ClInclude Include="..\CanonCameraApp\Class\Synchronized.h" />
+    <ClInclude Include="..\CanonCameraApp\Class\Thread.h" />
+    <ClInclude Include="..\CanonCameraApp\Command\CloseSessionCommand.h" />
+    <ClInclude Include="..\CanonCameraApp\Command\Command.h" />
+    <ClInclude Include="..\CanonCameraApp\Command\DoEvfAFCommand.h" />
+    <ClInclude Include="..\CanonCameraApp\Command\DownloadCommand.h" />
+    <ClInclude Include="..\CanonCameraApp\Command\DownloadEvfCommand.h" />
+    <ClInclude Include="..\CanonCameraApp\Command\DriveLensCommand.h" />
+    <ClInclude Include="..\CanonCameraApp\Command\EndEvfCommand.h" />
+    <ClInclude Include="..\CanonCameraApp\Command\GetPropertyCommand.h" />
+    <ClInclude Include="..\CanonCameraApp\Command\GetPropertyDescCommand.h" />
+    <ClInclude Include="..\CanonCameraApp\Command\NotifyCommand.h" />
+    <ClInclude Include="..\CanonCameraApp\Command\OpenSessionCommand.h" />
+    <ClInclude Include="..\CanonCameraApp\Command\PressShutterButtonCommand.h" />
+    <ClInclude Include="..\CanonCameraApp\Command\SaveSettingCommand.h" />
+    <ClInclude Include="..\CanonCameraApp\Command\SetCapacityCommand.h" />
+    <ClInclude Include="..\CanonCameraApp\Command\SetPropertyCommand.h" />
+    <ClInclude Include="..\CanonCameraApp\Command\StartEvfCommand.h" />
+    <ClInclude Include="..\CanonCameraApp\Command\TakePictureCommand.h" />
     <ClInclude Include="canoncamera.h" />
     <ClInclude Include="Filters.h" />
   </ItemGroup>
