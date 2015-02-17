@@ -87,7 +87,7 @@
   <ItemGroup>
     <ClCompile Include="CameraObserver.cpp" />
     <ClCompile Include="Camera\CameraEventListener.cpp" />
-    <ClCompile Include="Camera\Processor.cpp" />
+    <ClCompile Include="Camera\CliProcessor.cpp" />
     <ClCompile Include="CanonDict.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -99,7 +99,7 @@
     <ClInclude Include="Camera\CameraModel.h" />
     <ClInclude Include="Camera\CameraModelLegacy.h" />
     <ClInclude Include="Camera\MessageLoop.h" />
-    <ClInclude Include="Camera\Processor.h" />
+    <ClInclude Include="Camera\CliProcessor.h" />
     <ClInclude Include="CanonDict.h" />
     <ClInclude Include="Class\ActionEvent.h" />
     <ClInclude Include="Class\ActionListener.h" />

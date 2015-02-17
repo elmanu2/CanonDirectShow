@@ -17,7 +17,7 @@
 
 #include "EDSDK.h"
 #include "CameraModel.h"
-#include "Processor.h"
+#include "CliProcessor.h"
 
 #include "ActionListener.h"
 #include "ActionEvent.h"
@@ -49,7 +49,7 @@ protected:
 	CameraModel* _model;
 	
 	// Command processing
-	Processor _processor;
+	CliProcessor _CliProcessor;
 
 public:
 	// Constructor
@@ -63,7 +63,7 @@ public:
 	//Execution beginning
 	void run()
 	{
-		_processor.start();
+		_CliProcessor.start();
 
 		//The communication with the camera begins
 		StoreAsync(new OpenSessionCommand(_model));
@@ -165,9 +165,9 @@ public:
 
 		if( command == "closing")
 		{
-			_processor.setCloseCommand(new CloseSessionCommand(_model));
-			_processor.stop();
-			_processor.join();		
+			_CliProcessor.setCloseCommand(new CloseSessionCommand(_model));
+			_CliProcessor.stop();
+			_CliProcessor.join();		
 		}
 
 /////////////////////////////
@@ -263,7 +263,7 @@ protected:
 	{
 		if ( command != NULL )
 		{
-			_processor.enqueue( command );
+			_CliProcessor.enqueue( command );
 		}
 	}
 

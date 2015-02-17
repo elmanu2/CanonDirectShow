@@ -29,7 +29,7 @@ void main()
     }
     else
     {
-        Processor::myExit();
+        CliProcessor::myExit();
     }
 
     error = EdsGetCameraList(&cameraListRef);
@@ -44,7 +44,7 @@ void main()
         if(count == 0)
         {
             error = EDS_ERR_DEVICE_NOT_FOUND;
-            Processor::myExit();
+            CliProcessor::myExit();
         }
     }
     // Get first camera retrieved
@@ -86,7 +86,7 @@ void main()
 
     bool res = _openSessionCmd->execute();
 
-    Processor cli(cameraModele);
+    CliProcessor cli(cameraModele);
     cli.setCloseCommand(_closeSessionCmd);
     cli.setCamListRef(&cameraListRef);
     cli.start();

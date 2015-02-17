@@ -1,4 +1,4 @@
-#include "Processor.h"
+#include "CliProcessor.h"
 #include "TakePictureCommand.h"
 #include "GetPropertyCommand.h"
 #include "StartEvfCommand.h"
@@ -8,22 +8,22 @@
 
 using namespace std;
 
-Processor::Processor(CameraModel* camModel_): _running(false), _closeCommand(0)
+CliProcessor::CliProcessor(CameraModel* camModel_): _running(false), _closeCommand(0)
 { 
     _cameraModele = camModel_;
 }
 
-Processor::Processor(): _running(false), _closeCommand(0)
+CliProcessor::CliProcessor(): _running(false), _closeCommand(0)
 { 
 }
 
-Processor::~Processor()
+CliProcessor::~CliProcessor()
 {
     clear();
 }
 
 
-void Processor::enqueue(Command* command)
+void CliProcessor::enqueue(Command* command)
 {
     _syncObject.lock();
     _queue.push_back(command);
@@ -33,7 +33,7 @@ void Processor::enqueue(Command* command)
 
 
 
-void Processor::stop()
+void CliProcessor::stop()
 {
     _syncObject.lock();
     _running = false;
@@ -42,7 +42,7 @@ void Processor::stop()
 }  
 
 
-void Processor::clear() 
+void CliProcessor::clear() 
 {
     _syncObject.lock();
 
@@ -58,7 +58,7 @@ void Processor::clear()
 }
 
 
-Command* Processor::take()
+Command* CliProcessor::take()
 {
 
     Command* command = NULL;
@@ -83,7 +83,7 @@ Command* Processor::take()
 }
 
 
-bool Processor::isEmpty()
+bool CliProcessor::isEmpty()
 {
     _syncObject.lock();
     bool ret = _queue.empty();
@@ -94,7 +94,7 @@ bool Processor::isEmpty()
 
 
 
-void Processor::myExit()
+void CliProcessor::myExit()
 {
     EdsError error;
     error = EdsTerminateSDK();
@@ -112,12 +112,12 @@ void Processor::myExit()
 }
 
 
-void Processor::setCamListRef(EdsCameraListRef* camListRef_)
+void CliProcessor::setCamListRef(EdsCameraListRef* camListRef_)
 {
     _camListRef = camListRef_;
 }
 
-int Processor::promptUser() const
+int CliProcessor::promptUser() const
 {
     int userChoice;
 
@@ -133,7 +133,7 @@ int Processor::promptUser() const
     return userChoice;
 }
 
-bool Processor::mainUser() 
+bool CliProcessor::mainUser() 
 {
     bool res = true;
     TakePictureCommand* _takePicCmd = new TakePictureCommand(_cameraModele);
@@ -248,7 +248,7 @@ bool Processor::mainUser()
     return res;
 }
 
-void Processor::run()
+void CliProcessor::run()
 {
     //When using the SDK from another thread in Windows, 
     // you must initialize the COM library by calling CoInitialize 

@@ -1,7 +1,7 @@
 /******************************************************************************
 *                                                                             *
 *   PROJECT : EOS Digital Software Development Kit EDSDK                      *
-*      NAME : Processor.h	                                                  *
+*      NAME : CliProcessor.h	                                                  *
 *                                                                             *
 *   Description: This is the Sample code to show the usage of EDSDK.          *
 *                                                                             *
@@ -25,7 +25,7 @@
 
 class CameraModel;
 
-class Processor : public Thread 
+class CliProcessor : public Thread 
 {
 
 protected:
@@ -46,12 +46,12 @@ protected:
 
 public:
     // Constructor  
-    Processor(CameraModel* camModel_);
+    CliProcessor(CameraModel* camModel_);
 
-    Processor();
+    CliProcessor();
 
     // Destructeur
-    virtual ~Processor();
+    virtual ~CliProcessor();
 
     // Set command when ending
     void setCloseCommand(Command* closeCommand){_closeCommand = closeCommand;}
