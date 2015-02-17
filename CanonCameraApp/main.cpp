@@ -10,7 +10,6 @@
 
 #include "CameraObserver.h"
 
-#include "MessageLoop.h"
 
 using namespace std;
 
@@ -97,6 +96,8 @@ void main()
         Sleep(10);
         if(cli.isActive())
         {
+            //Must be called periodically, so that EDSDK callbacks will
+            //be called
             error = EdsGetEvent();
         }
         if(error != EDS_ERR_OK)

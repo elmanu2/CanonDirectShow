@@ -98,7 +98,6 @@
     <ClInclude Include="Camera\CameraEventListener.h" />
     <ClInclude Include="Camera\CameraModel.h" />
     <ClInclude Include="Camera\CameraModelLegacy.h" />
-    <ClInclude Include="Camera\MessageLoop.h" />
     <ClInclude Include="Camera\CliProcessor.h" />
     <ClInclude Include="CanonDict.h" />
     <ClInclude Include="Class\ActionEvent.h" />

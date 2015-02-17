@@ -108,7 +108,7 @@
       <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
       <CallingConvention>Cdecl</CallingConvention>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <AdditionalIncludeDirectories>C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(SolutionDir)\EDSDK\Header;$(ProjectDir)\Camera;$(ProjectDir)\Command;$(ProjectDir)\Class;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\EDSDK\Header;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(SolutionDir)\CanonCameraApp\Camera;$(SolutionDir)\CanonCameraApp\Command;$(SolutionDir)\CanonCameraApp\Class;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="canoncamera.cpp" />
     <ClCompile Include="Dll.cpp" />
     <ClCompile Include="Filters.cpp" />
   </ItemGroup>
@@ -149,6 +150,7 @@
     <CustomBuild Include="Filters.def" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="canoncamera.h" />
     <ClInclude Include="Filters.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
