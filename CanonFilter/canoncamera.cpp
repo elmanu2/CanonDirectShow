@@ -7,6 +7,7 @@
 #include "CameraModelLegacy.h"
 #include "CameraEventListener.h"
 #include "OpenSessionCommand.h"
+#include "CloseSessionCommand.h"
 #include "CameraObserver.h"
 
 CanonCamera::CanonCamera(void)
@@ -48,43 +49,42 @@ bool CanonCamera::Initialize()
         {
             error = EDS_ERR_DEVICE_NOT_FOUND;
             CliProcessor::myExit();
+            return false;
         }
     }
     // Get first camera retrieved
     if(error == EDS_ERR_OK)
     {
         error = EdsGetChildAtIndex(cameraListRef , 0 , &camera);
-        assert(error == EDS_ERR_OK);
     }
 
     //Create CameraController
-    CameraController* _controller = new CameraController();
+    _camController = new CameraController();
 
-    CameraModel* cameraModele = new CameraModel(camera);
-    cameraModele->addObserver(new CameraObserver());
+    _camModel = new CameraModel(camera);
+    _camModel->addObserver(new CameraObserver());
 
-    _controller->setCameraModel(cameraModele);
+    _camController->setCameraModel(_camModel);
 
-    OpenSessionCommand* _openSessionCmd = new OpenSessionCommand(cameraModele);
-    CloseSessionCommand* _closeSessionCmd = new CloseSessionCommand(cameraModele);
-
+    _openSessionCmd = new OpenSessionCommand(_camModel);
+    _closeSessionCmd = new CloseSessionCommand(_camModel);
 
     //Set Property Event Handler
     if(error == EDS_ERR_OK)
     {
-        error = EdsSetPropertyEventHandler( camera, kEdsPropertyEvent_All, CameraEventListener::handlePropertyEvent , (EdsVoid *)_controller);
+        error = EdsSetPropertyEventHandler( camera, kEdsPropertyEvent_All, CameraEventListener::handlePropertyEvent , (EdsVoid *)_camController);
     }
 
     //Set Object Event Handler
     if(error == EDS_ERR_OK)
     {
-        error = EdsSetObjectEventHandler( camera, kEdsObjectEvent_All, CameraEventListener::handleObjectEvent , (EdsVoid *)_controller);
+        error = EdsSetObjectEventHandler( camera, kEdsObjectEvent_All, CameraEventListener::handleObjectEvent , (EdsVoid *)_camController);
     }
 
     //Set State Event Handler
     if(error == EDS_ERR_OK)
     {
-        error = EdsSetCameraStateEventHandler( camera, kEdsStateEvent_All, CameraEventListener::handleStateEvent , (EdsVoid *)_controller);
+        error = EdsSetCameraStateEventHandler( camera, kEdsStateEvent_All, CameraEventListener::handleStateEvent , (EdsVoid *)_camController);
     }
 
     bool res = _openSessionCmd->execute();
@@ -94,5 +94,17 @@ bool CanonCamera::Initialize()
 
 bool CanonCamera::Close()
 {
+    _closeSessionCmd->execute();
+
+    EdsError error;
+    error = EdsTerminateSDK();
+    if(error != EDS_ERR_OK)
+    {
+        cout<<"Fail to terminate EDSDK"<<endl;
+    }
+    else
+    {
+        cout<<"EDSDK terminated successfully"<<endl;
+    }
     return true;
 }

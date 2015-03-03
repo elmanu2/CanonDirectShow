@@ -175,83 +175,83 @@ EdsFocusInfo  CameraModel::getFocusInfo()const
 }
 
 //List of value in which taking a picture parameter can be set
-EdsPropertyDesc getAEModeDesc() const
+EdsPropertyDesc CameraModel::getAEModeDesc() const
 {
     return _AEModeDesc;
 }
 
-EdsPropertyDesc getAvDesc() const
+EdsPropertyDesc CameraModel::getAvDesc() const
 {
     return _AvDesc;
 }
 
-EdsPropertyDesc getTvDesc()	const
+EdsPropertyDesc CameraModel::getTvDesc()	const
 {
     return _TvDesc;
 }
 
-EdsPropertyDesc getIsoDesc()	const
+EdsPropertyDesc CameraModel::getIsoDesc()	const
 {
     return _IsoDesc;
 }
 
-EdsPropertyDesc getMeteringModeDesc()	const
+EdsPropertyDesc CameraModel::getMeteringModeDesc()	const
 {
     return _MeteringModeDesc;
 }
 
-EdsPropertyDesc getExposureCompensationDesc()	const
+EdsPropertyDesc CameraModel::getExposureCompensationDesc()	const
 {
     return _ExposureCompensationDesc;
 }
 
-EdsPropertyDesc getImageQualityDesc()	const
+EdsPropertyDesc CameraModel::getImageQualityDesc()	const
 {
     return _ImageQualityDesc;
 }
 
-EdsPropertyDesc getEvfAFModeDesc()	const
+EdsPropertyDesc CameraModel::getEvfAFModeDesc()	const
 {
     return _evfAFModeDesc;
 }
 
 //List of value in which taking a picture parameter can be set
-void setAEModeDesc(const EdsPropertyDesc* desc)
+void CameraModel::setAEModeDesc(const EdsPropertyDesc* desc)
 {
     _AEModeDesc = *desc;
 }
 
-void setAvDesc(const EdsPropertyDesc* desc)
+void CameraModel::setAvDesc(const EdsPropertyDesc* desc)
 {
     _AvDesc = *desc;
 }
 
-void setTvDesc(const EdsPropertyDesc* desc)
+void CameraModel::setTvDesc(const EdsPropertyDesc* desc)
 {
     _TvDesc = *desc;
 }
 
-void setIsoDesc(const EdsPropertyDesc* desc)
+void CameraModel::setIsoDesc(const EdsPropertyDesc* desc)
 {
     _IsoDesc = *desc;
 }
 
-void setMeteringModeDesc(const EdsPropertyDesc* desc)
+void CameraModel::setMeteringModeDesc(const EdsPropertyDesc* desc)
 {
     _MeteringModeDesc = *desc;
 }
 
-void setExposureCompensationDesc(const EdsPropertyDesc* desc)
+void CameraModel::setExposureCompensationDesc(const EdsPropertyDesc* desc)
 {
     _ExposureCompensationDesc = *desc;
 }
 
-void setImageQualityDesc(const EdsPropertyDesc* desc)
+void CameraModel::setImageQualityDesc(const EdsPropertyDesc* desc)
 {
     _ImageQualityDesc = *desc;
 }
 
-void setEvfAFModeDesc(const EdsPropertyDesc* desc)
+void CameraModel::setEvfAFModeDesc(const EdsPropertyDesc* desc)
 {
     _evfAFModeDesc = *desc;
 }

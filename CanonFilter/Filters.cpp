@@ -7,11 +7,16 @@
 #include <dvdmedia.h>
 #include "filters.h"
 
+#include "canoncamera.h"
+
 //////////////////////////////////////////////////////////////////////////
 //  CVCam is the source filter which masquerades as a capture device
 //////////////////////////////////////////////////////////////////////////
 CUnknown * WINAPI CVCam::CreateInstance(LPUNKNOWN lpunk, HRESULT *phr)
 {
+    //Called when the filter is called :
+    //1-when the filter is inserted from graphedit
+    //2-when GetUserMedia is called from the browser
     ASSERT(phr);
     CUnknown *punk = new CVCam(lpunk, phr);
     return punk;
@@ -20,11 +25,16 @@ CUnknown * WINAPI CVCam::CreateInstance(LPUNKNOWN lpunk, HRESULT *phr)
 CVCam::CVCam(LPUNKNOWN lpunk, HRESULT *phr) : 
     CSource(NAME("Virtual Cam"), lpunk, CLSID_VirtualCam)
 {
+    //Called when the filter is called :
+    //1-when the filter is inserted from graphedit
+    //2-when GetUserMedia is called from the browser
     ASSERT(phr);
     CAutoLock cAutoLock(&m_cStateLock);
     // Create the one and only output pin
     m_paStreams = (CSourceStream **) new CVCamStream*[1];
     m_paStreams[0] = new CVCamStream(phr, this, L"Virtual Cam");
+
+    
 }
 
 HRESULT CVCam::QueryInterface(REFIID riid, void **ppv)
@@ -45,10 +55,18 @@ CVCamStream::CVCamStream(HRESULT *phr, CVCam *pParent, LPCWSTR pPinName) :
 {
     // Set the default media type as 320x240x24@15
     GetMediaType(4, &m_mt);
+
+    _canonCamera = new CanonCamera();
+    _canonCamera->Initialize();
 }
 
 CVCamStream::~CVCamStream()
 {
+    //Called when the filter is released :
+    //1-when the filter is released from graphedit
+    //2-when the webrowser close the page
+    _canonCamera->Close();
+    int a = 10;
 } 
 
 HRESULT CVCamStream::QueryInterface(REFIID riid, void **ppv)

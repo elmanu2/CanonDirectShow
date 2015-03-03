@@ -17,6 +17,7 @@
 #pragma once
 
 #include "EDSDK.h"
+#include <string>
 
 
 class CameraEvent
@@ -24,11 +25,10 @@ class CameraEvent
 	std::string _event;	
 	void* _arg;
 public:
-	const std::string getEvent() const{ return _event; }
-	void* getArg() const{ return _arg; }
+	const std::string getEvent() const;
+	void* getArg() const;
 
-	CameraEvent(std::string event,void* arg=0) : 
-	 _event(event), _arg(arg) {}
+	CameraEvent(std::string event,void* arg=0);
 
 };
 

@@ -11,7 +11,7 @@ void* CameraEvent::getArg() const
     return _arg;
 }
 
-CameraEvent::CameraEvent(std::string event,void* arg=0)
+CameraEvent::CameraEvent(std::string event,void* arg)
     :
       _event(event),
       _arg(arg) {}

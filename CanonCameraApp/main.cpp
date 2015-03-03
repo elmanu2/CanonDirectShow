@@ -7,6 +7,7 @@
 #include "CameraEventListener.h"
 
 #include "OpenSessionCommand.h"
+#include "CloseSessionCommand.h"
 
 #include "CameraObserver.h"
 
@@ -44,6 +45,7 @@ void main()
         {
             error = EDS_ERR_DEVICE_NOT_FOUND;
             CliProcessor::myExit();
+            return;
         }
     }
     // Get first camera retrieved

@@ -5,6 +5,7 @@
 EXTERN_C const GUID CLSID_VirtualCam;
 
 class CVCamStream;
+class CanonCamera;
 class CVCam : public CSource
 {
 public:
@@ -70,6 +71,8 @@ private:
     HBITMAP m_hLogoBmp;
     CCritSec m_cSharedState;
     IReferenceClock *m_pClock;
+
+    CanonCamera* _canonCamera;
 
 };
 
