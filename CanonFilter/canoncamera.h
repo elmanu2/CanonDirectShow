@@ -26,7 +26,11 @@ public:
 
 	bool DownloadLiveViewPic();
 
+	bool IsInitialized()const;
+
 protected:
+
+	bool _isInitialized;
 
     CameraController* _camController;
 

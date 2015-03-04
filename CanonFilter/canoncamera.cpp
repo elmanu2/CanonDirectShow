@@ -15,6 +15,7 @@
 
 CanonCamera::CanonCamera(void)
 {
+	_isInitialized = false;
 }
 
 
@@ -32,12 +33,12 @@ bool CanonCamera::Initialize()
     error = EdsInitializeSDK();
     if(error == EDS_ERR_OK)
     {
-        cout<<"EDSDK initilized successfully"<<endl;
+        cout<<"EDSDK initialized successfully"<<endl;
     }
     else
     {
-        CliProcessor::myExit();
-    }
+		return false;
+	}
 
     error = EdsGetCameraList(&cameraListRef);
     cout<<"EDSDK Get Camera List successfully"<<endl;
@@ -51,7 +52,6 @@ bool CanonCamera::Initialize()
         if(count == 0)
         {
             error = EDS_ERR_DEVICE_NOT_FOUND;
-            CliProcessor::myExit();
             return false;
         }
     }
@@ -96,16 +96,18 @@ bool CanonCamera::Initialize()
         error = EdsSetCameraStateEventHandler( camera, kEdsStateEvent_All, CameraEventListener::handleStateEvent , (EdsVoid *)_camController);
     }
 
-    bool res = _openSessionCmd->execute();
+    _isInitialized = _openSessionCmd->execute();
 
-
-
-    return true;
+    return _isInitialized;
 }
 
 bool CanonCamera::Close()
 {
-    _closeSessionCmd->execute();
+
+	if(_isInitialized)
+	{
+		_closeSessionCmd->execute();
+	}
 
     EdsError error;
     error = EdsTerminateSDK();
@@ -122,6 +124,10 @@ bool CanonCamera::Close()
 
 bool CanonCamera::StartLiveView()
 {
+	if(!IsInitialized())
+	{
+		return _isInitialized;
+	}
 	_propEvfModeCmd->execute();
 	_propEvfOutputDeviceCmd->execute();
 	bool res = _startLiveViewCmd->execute();
@@ -131,11 +137,25 @@ bool CanonCamera::StartLiveView()
 
 bool CanonCamera::StopLiveView()
 {
+	if(!IsInitialized())
+	{
+		return _isInitialized;
+	}
 	bool res = _stopLiveViewCmd->execute();
 	return res;
 }
 
 bool CanonCamera::DownloadLiveViewPic()
 {
+	if(!IsInitialized())
+	{
+		return _isInitialized;
+	}
 	return _downloadEvfCmd->execute();
 }
+
+bool CanonCamera::IsInitialized()const
+{
+	return _isInitialized;
+}
+
