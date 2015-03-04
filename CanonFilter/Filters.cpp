@@ -58,6 +58,7 @@ CVCamStream::CVCamStream(HRESULT *phr, CVCam *pParent, LPCWSTR pPinName) :
 
     _canonCamera = new CanonCamera();
     _canonCamera->Initialize();
+	_canonCamera->StartLiveView();
 }
 
 CVCamStream::~CVCamStream()
@@ -65,6 +66,7 @@ CVCamStream::~CVCamStream()
     //Called when the filter is released :
     //1-when the filter is released from graphedit
     //2-when the webrowser close the page
+	_canonCamera->StopLiveView();
     _canonCamera->Close();
     int a = 10;
 } 
@@ -107,6 +109,7 @@ HRESULT CVCamStream::FillBuffer(IMediaSample *pms)
     for(int i = 0; i < lDataLen; ++i)
         pData[i] = rand();
 
+	_canonCamera->DownloadLiveViewPic();
     return NOERROR;
 } // FillBuffer
 

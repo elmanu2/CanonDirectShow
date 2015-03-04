@@ -4,6 +4,10 @@ class CameraController;
 class CameraModel;
 class OpenSessionCommand;
 class CloseSessionCommand;
+class GetPropertyCommand;
+class StartEvfCommand;
+class EndEvfCommand;
+class DownloadEvfCommand;
 
 class CanonCamera
 {
@@ -16,6 +20,12 @@ public:
 
     bool Close();
 
+	bool StartLiveView();
+
+	bool StopLiveView();
+
+	bool DownloadLiveViewPic();
+
 protected:
 
     CameraController* _camController;
@@ -26,7 +36,16 @@ protected:
     
     CloseSessionCommand* _closeSessionCmd;
 
+	GetPropertyCommand* _propEvfModeCmd;
 
+	GetPropertyCommand* _propEvfOutputDeviceCmd;
+
+    StartEvfCommand* _startLiveViewCmd;
+
+	EndEvfCommand* _stopLiveViewCmd;
+
+	DownloadEvfCommand* _downloadEvfCmd;
+  
 
 };
 

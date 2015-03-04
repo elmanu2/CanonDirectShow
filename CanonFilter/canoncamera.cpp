@@ -9,6 +9,9 @@
 #include "OpenSessionCommand.h"
 #include "CloseSessionCommand.h"
 #include "CameraObserver.h"
+#include "StartEvfCommand.h"
+#include "EndEvfCommand.h"
+#include "DownloadEvfCommand.h"
 
 CanonCamera::CanonCamera(void)
 {
@@ -68,6 +71,12 @@ bool CanonCamera::Initialize()
 
     _openSessionCmd = new OpenSessionCommand(_camModel);
     _closeSessionCmd = new CloseSessionCommand(_camModel);
+	_propEvfModeCmd = new GetPropertyCommand(_camModel, kEdsPropID_Evf_Mode);
+	_propEvfOutputDeviceCmd = new GetPropertyCommand(_camModel, kEdsPropID_Evf_OutputDevice);
+    _startLiveViewCmd = new StartEvfCommand(_camModel);
+	_stopLiveViewCmd = new EndEvfCommand(_camModel);
+	_downloadEvfCmd = new DownloadEvfCommand(_camModel);
+    
 
     //Set Property Event Handler
     if(error == EDS_ERR_OK)
@@ -89,6 +98,8 @@ bool CanonCamera::Initialize()
 
     bool res = _openSessionCmd->execute();
 
+
+
     return true;
 }
 
@@ -107,4 +118,24 @@ bool CanonCamera::Close()
         cout<<"EDSDK terminated successfully"<<endl;
     }
     return true;
+}
+
+bool CanonCamera::StartLiveView()
+{
+	_propEvfModeCmd->execute();
+	_propEvfOutputDeviceCmd->execute();
+	bool res = _startLiveViewCmd->execute();
+	_propEvfOutputDeviceCmd->execute();
+	return res;
+}
+
+bool CanonCamera::StopLiveView()
+{
+	bool res = _stopLiveViewCmd->execute();
+	return res;
+}
+
+bool CanonCamera::DownloadLiveViewPic()
+{
+	return _downloadEvfCmd->execute();
 }
