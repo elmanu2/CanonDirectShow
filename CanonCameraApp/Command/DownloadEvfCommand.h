@@ -57,7 +57,7 @@ public:
 		err = EdsCreateMemoryStream(bufferSize, &stream);
 
 		// When creating to a file.
-		err = EdsCreateFileStream("liveview.jpg", kEdsFileCreateDisposition_CreateAlways, kEdsAccess_ReadWrite, &stream);
+		err = EdsCreateFileStream("D:\\liveview.jpg", kEdsFileCreateDisposition_CreateAlways, kEdsAccess_ReadWrite, &stream);
 
 
 		// Create EvfImageRef.

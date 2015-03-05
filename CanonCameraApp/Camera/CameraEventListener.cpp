@@ -27,7 +27,7 @@ EdsError CameraEventListener::downloadImage(EdsDirectoryItemRef dirItemRef_,
     const EdsChar* CurrentPhoto = path.c_str() ;
 
     //create filestream to data
-    Error = EdsCreateFileStream(dirInfo.szFileName, kEdsFileCreateDisposition_CreateAlways, kEdsAccess_ReadWrite, &streamRef);
+    Error = EdsCreateFileStream("D:\\toto.jpg", kEdsFileCreateDisposition_CreateAlways, kEdsAccess_ReadWrite, &streamRef);
     //download file
     Error = EdsDownload(dirItemRef_, dirInfo.size, streamRef);
     //release stream

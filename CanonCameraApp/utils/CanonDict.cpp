@@ -4,16 +4,6 @@
 
 CanonDict* CanonDict::_instance = NULL;
 
-std::map<unsigned long, std::string> CanonDict::_objectEventDict;
-
-std::map<unsigned long, std::string> CanonDict::_propEventDict;
-
-std::map<unsigned long, std::string> CanonDict::_stateEventDict;
-
-std::map<unsigned long, std::string> CanonDict::_propIdDict;
-
-std::map<unsigned long, std::string> CanonDict::_errorDict;
-
 CanonDict* CanonDict::getInstance()
 {
     if(_instance == NULL)
