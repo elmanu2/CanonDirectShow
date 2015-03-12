@@ -1,5 +1,7 @@
 #pragma once
 
+#include "DownloadEvfCommand.h"
+
 class CameraController;
 class CameraModel;
 class OpenSessionCommand;
@@ -24,7 +26,9 @@ public:
 
 	bool StopLiveView();
 
-	bool DownloadLiveViewPic();
+	bool DownloadLiveViewPic(EVF_DATASET* &dataset_);
+
+	bool ReleaseLiveViewPic();
 
 	bool IsInitialized()const;
 

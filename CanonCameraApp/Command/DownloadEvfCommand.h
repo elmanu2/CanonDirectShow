@@ -28,11 +28,20 @@ typedef struct _EVF_DATASET
 	EdsPoint		imagePosition;
 	EdsUInt32		histogram[256 * 4]; //(YRGB) YRGBYRGBYRGBYRGB....
 	EdsSize			sizeJpegLarge;
+	EdsUInt32		dataLength;
 }EVF_DATASET;
 
 
 class DownloadEvfCommand : public Command
 {
+protected :
+	EVF_DATASET dataSet;
+
+	EdsError err;
+	EdsEvfImageRef evfImage;
+	EdsStreamRef stream;
+	EdsUInt32 bufferSize;
+
 
 public:
 	DownloadEvfCommand(CameraModel *model) : Command(model){}
@@ -41,11 +50,10 @@ public:
 	virtual bool execute()
 	{
 	
-		EdsError err = EDS_ERR_OK;
-
-		EdsEvfImageRef evfImage = NULL;
-		EdsStreamRef stream = NULL;
-		EdsUInt32 bufferSize = 2 * 1024 * 1024;
+		evfImage = NULL;
+		stream = NULL;
+		bufferSize = 2 * 1024 * 1024;
+		err = EDS_ERR_OK;
 
 		// Exit unless during live view.
 		if ((_model->getEvfOutputDevice() & kEdsEvfOutputDevice_PC) == 0)
@@ -75,8 +83,6 @@ public:
 		// Get meta data for live view image data.
 		if (err == EDS_ERR_OK)
 		{
-			EVF_DATASET dataSet = {0};
-
 			dataSet.stream = stream;
 
 			// Get magnification ratio (x1, x5, or x10).
@@ -96,6 +102,9 @@ public:
 			// Get the size as a reference of the coordinates of rectangle of the focus border.
 			EdsGetPropertyData(evfImage, kEdsPropID_Evf_CoordinateSystem, 0, sizeof(dataSet.sizeJpegLarge), &dataSet.sizeJpegLarge);
 
+			EdsGetLength(stream, &(dataSet.dataLength));
+
+
 			// Set to model.
 			_model->setEvfZoom(dataSet.zoom);
 			_model->setEvfZoomPosition(dataSet.zoomRect.point);
@@ -110,10 +119,23 @@ public:
 		}
 
 
-		if(stream != NULL)
+
+
+		return true;
+	}
+
+	bool getDataset(EVF_DATASET* &dataset_)
+	{
+		dataset_ = &dataSet;
+		return true;
+	}
+
+	bool releaseImage()
+	{
+		if(dataSet.stream != NULL)
 		{
-			EdsRelease(stream);
-			stream = NULL;
+			EdsRelease(dataSet.stream);
+			dataSet.stream = NULL;
 		}
 		
 		if(evfImage != NULL)
@@ -144,8 +166,6 @@ public:
 			CameraEvent e("error", &err);
 			_model->notifyObservers(&e);
 		}
-
-		return true;
 	}
 
 

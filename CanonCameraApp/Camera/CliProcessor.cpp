@@ -195,7 +195,7 @@ bool CliProcessor::mainUser()
                 _propEvfModeCmd->execute();
                 _propEvfOutputDeviceCmd->execute();
                 res = _startLiveViewCmd->execute();
-                _propEvfOutputDeviceCmd->execute();
+                res &= _propEvfOutputDeviceCmd->execute();
 
                 break;
             }
@@ -203,6 +203,7 @@ bool CliProcessor::mainUser()
             {
                 cout<<"Download liveview picture"<<endl;
                 res = _downloadEvfCmd->execute();
+				res = _downloadEvfCmd->releaseImage();
                 break;
             }
         case 6 :

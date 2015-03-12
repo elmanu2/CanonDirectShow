@@ -109,7 +109,16 @@ HRESULT CVCamStream::FillBuffer(IMediaSample *pms)
     for(int i = 0; i < lDataLen; ++i)
         pData[i] = rand();
 
-	_canonCamera->DownloadLiveViewPic();
+	EVF_DATASET* canonDataset;
+	_canonCamera->DownloadLiveViewPic(canonDataset);
+
+				unsigned char *data;
+			EdsVoid* ptr;
+			EdsGetPointer(canonDataset->stream, (EdsVoid**) &ptr);
+			memcpy(data, ptr, canonDataset->dataLength); 
+
+
+	_canonCamera->ReleaseLiveViewPic();
     return NOERROR;
 } // FillBuffer
 
@@ -147,7 +156,7 @@ HRESULT CVCamStream::GetMediaType(int iPosition, CMediaType *pmt)
     DECLARE_PTR(VIDEOINFOHEADER, pvi, pmt->AllocFormatBuffer(sizeof(VIDEOINFOHEADER)));
     ZeroMemory(pvi, sizeof(VIDEOINFOHEADER));
 
-    pvi->bmiHeader.biCompression = BI_RGB;
+    pvi->bmiHeader.biCompression = BI_JPEG;
     pvi->bmiHeader.biBitCount    = 24;
     pvi->bmiHeader.biSize       = sizeof(BITMAPINFOHEADER);
     pvi->bmiHeader.biWidth      = 80 * iPosition;
@@ -168,6 +177,7 @@ HRESULT CVCamStream::GetMediaType(int iPosition, CMediaType *pmt)
     // Work out the GUID for the subtype from the header info.
     const GUID SubTypeGUID = GetBitmapSubtype(&pvi->bmiHeader);
     pmt->SetSubtype(&SubTypeGUID);
+
     pmt->SetSampleSize(pvi->bmiHeader.biSizeImage);
     
     return NOERROR;

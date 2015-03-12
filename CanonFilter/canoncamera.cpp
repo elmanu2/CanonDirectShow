@@ -145,14 +145,26 @@ bool CanonCamera::StopLiveView()
 	return res;
 }
 
-bool CanonCamera::DownloadLiveViewPic()
+bool CanonCamera::DownloadLiveViewPic(EVF_DATASET* &dataset_)
+{
+	bool res;
+	if(!IsInitialized())
+	{
+		return _isInitialized;
+	}
+	res = _downloadEvfCmd->execute();
+	_downloadEvfCmd->getDataset(dataset_);
+}
+
+bool CanonCamera::ReleaseLiveViewPic()
 {
 	if(!IsInitialized())
 	{
 		return _isInitialized;
 	}
-	return _downloadEvfCmd->execute();
+	return _downloadEvfCmd->releaseImage();
 }
+
 
 bool CanonCamera::IsInitialized()const
 {
