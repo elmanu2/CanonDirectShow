@@ -143,10 +143,9 @@ HRESULT CVCamStream::FillBuffer(IMediaSample *pms)
 	}
 	tjDestroy(_jpegDecompressor);
 
-	//memcpy(pData, buffer, _width * _height * COLOR_COMPONENTS);
-	pData = buffer;
-    // display RGB image in opencv
-
+	//memcpy(pData, buffer, _width * _height * COLOR_COMPONENTS-10000);
+    memcpy(pData, ptr, canonDataset->dataLength);
+	// display RGB image in opencv
 
 	_canonCamera->ReleaseLiveViewPic();
 
