@@ -6,6 +6,7 @@
 #include <olectl.h>
 #include <dvdmedia.h>
 #include "filters.h"
+#include "turbojpeg.h"
 
 #include "canoncamera.h"
 
@@ -131,7 +132,7 @@ HRESULT CVCamStream::FillBuffer(IMediaSample *pms)
 
     tjhandle _jpegCompressor = tjInitCompress();
 
-    tjCompress2(_jpegCompressor, buffer, _width, 0, _height, TJPF_RGB, &_compressedImage, &_jpegSize, TJSAMP_444, JPEG_QUALITY, TJFLAG_FASTDCT);
+    tjDecompress(_jpegCompressor, buffer, _width, 0, _height, TJPF_RGB, &_compressedImage, &_jpegSize, TJSAMP_444, JPEG_QUALITY, TJFLAG_FASTDCT);
 
     tjDestroy(_jpegCompressor);
 
