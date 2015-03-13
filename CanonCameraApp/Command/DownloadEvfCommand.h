@@ -62,7 +62,7 @@ public:
 		}
 
 		// Create memory stream.
-		err = EdsCreateMemoryStream(bufferSize, &stream);
+		err = EdsCreateMemoryStream(0, &stream);
 
 		// When creating to a file.
 		//err = EdsCreateFileStream("D:\\liveview.jpg", kEdsFileCreateDisposition_CreateAlways, kEdsAccess_ReadWrite, &stream);
@@ -104,6 +104,7 @@ public:
 			EdsGetPropertyData(evfImage, kEdsPropID_Evf_CoordinateSystem, 0, sizeof(dataSet.sizeJpegLarge), &dataSet.sizeJpegLarge);
 
 			EdsGetLength(stream, &(dataSet.dataLength));
+
 
 			unsigned char *data;
 			EdsVoid* ptr;

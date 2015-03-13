@@ -10,6 +10,8 @@
 
 #include "canoncamera.h"
 
+#include "atlimage.h"
+
 //////////////////////////////////////////////////////////////////////////
 //  CVCam is the source filter which masquerades as a capture device
 //////////////////////////////////////////////////////////////////////////
@@ -113,6 +115,11 @@ HRESULT CVCamStream::FillBuffer(IMediaSample *pms)
 	EVF_DATASET* canonDataset;
 	_canonCamera->DownloadLiveViewPic(canonDataset);
 
+
+	ATL::Cimage cImage;
+
+
+
 	EdsVoid* ptr;
 	EdsGetPointer(canonDataset->stream, (EdsVoid**) &ptr);
 	
@@ -143,7 +150,7 @@ HRESULT CVCamStream::FillBuffer(IMediaSample *pms)
 	}
 	tjDestroy(_jpegDecompressor);
 
-	//memcpy(pData, buffer, _width * _height * COLOR_COMPONENTS);
+	memcpy(pData, buffer, _width * _height * COLOR_COMPONENTS);
 	pData = buffer;
     // display RGB image in opencv
 
