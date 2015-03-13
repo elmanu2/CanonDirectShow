@@ -113,31 +113,42 @@ HRESULT CVCamStream::FillBuffer(IMediaSample *pms)
 	EVF_DATASET* canonDataset;
 	_canonCamera->DownloadLiveViewPic(canonDataset);
 
-				unsigned char *data;
-			EdsVoid* ptr;
-			EdsGetPointer(canonDataset->stream, (EdsVoid**) &ptr);
-			memcpy(data, ptr, canonDataset->dataLength); 
-
-
-	_canonCamera->ReleaseLiveViewPic();
-
+	EdsVoid* ptr;
+	EdsGetPointer(canonDataset->stream, (EdsVoid**) &ptr);
+	
+	
     // libjpegTurbo(data, size);
-    int JPEG_QUALITY = 75;
     int COLOR_COMPONENTS = 3;
-    int _width = 1920;
-    int _height = 1080;
+    int _width = 1056;
+    int _height = 704;
     long unsigned int _jpegSize = 0;
     unsigned char *_compressedImage = NULL;
     unsigned char *buffer = new unsigned char [_width * _height * COLOR_COMPONENTS];
 
-    tjhandle _jpegCompressor = tjInitCompress();
+	tjhandle _jpegDecompressor = tjInitDecompress();
 
-    tjDecompress(_jpegCompressor, buffer, _width, 0, _height, TJPF_RGB, &_compressedImage, &_jpegSize, TJSAMP_444, JPEG_QUALITY, TJFLAG_FASTDCT);
+	int width;
+	int height;
+	int jpegsubsamp;
+	int colorspace;
+	tjDecompressHeader3(_jpegDecompressor,(unsigned char*)ptr,canonDataset->dataLength,&width,&height,&jpegsubsamp,&colorspace);
 
-    tjDestroy(_jpegCompressor);
+	int resultat = tjDecompress(_jpegDecompressor, (unsigned char*)ptr, canonDataset->dataLength, buffer, _width, 0, _height, TJPF_BGR,0);
+    
+	std::string errorStr;
 
+	if(resultat == -1)
+	{
+		 errorStr = tjGetErrorStr();
+	}
+	tjDestroy(_jpegDecompressor);
+
+	//memcpy(pData, buffer, _width * _height * COLOR_COMPONENTS);
+	pData = buffer;
     // display RGB image in opencv
 
+
+	_canonCamera->ReleaseLiveViewPic();
 
 
     return NOERROR;
@@ -180,8 +191,8 @@ HRESULT CVCamStream::GetMediaType(int iPosition, CMediaType *pmt)
     pvi->bmiHeader.biCompression = BI_RGB;
     pvi->bmiHeader.biBitCount    = 24;
     pvi->bmiHeader.biSize       = sizeof(BITMAPINFOHEADER);
-    pvi->bmiHeader.biWidth      = 80 * iPosition;
-    pvi->bmiHeader.biHeight     = 60 * iPosition;
+    pvi->bmiHeader.biWidth      = 1056;
+    pvi->bmiHeader.biHeight     = 704;
     pvi->bmiHeader.biPlanes     = 1;
     pvi->bmiHeader.biSizeImage  = GetBitmapSize(&pvi->bmiHeader);
     pvi->bmiHeader.biClrImportant = 0;
@@ -282,8 +293,8 @@ HRESULT STDMETHODCALLTYPE CVCamStream::GetStreamCaps(int iIndex, AM_MEDIA_TYPE *
     pvi->bmiHeader.biCompression = BI_RGB;
     pvi->bmiHeader.biBitCount    = 24;
     pvi->bmiHeader.biSize       = sizeof(BITMAPINFOHEADER);
-    pvi->bmiHeader.biWidth      = 80 * iIndex;
-    pvi->bmiHeader.biHeight     = 60 * iIndex;
+    pvi->bmiHeader.biWidth      = 1056;
+    pvi->bmiHeader.biHeight     = 704;
     pvi->bmiHeader.biPlanes     = 1;
     pvi->bmiHeader.biSizeImage  = GetBitmapSize(&pvi->bmiHeader);
     pvi->bmiHeader.biClrImportant = 0;
@@ -303,8 +314,8 @@ HRESULT STDMETHODCALLTYPE CVCamStream::GetStreamCaps(int iIndex, AM_MEDIA_TYPE *
     
     pvscc->guid = FORMAT_VideoInfo;
     pvscc->VideoStandard = AnalogVideo_None;
-    pvscc->InputSize.cx = 640;
-    pvscc->InputSize.cy = 480;
+    pvscc->InputSize.cx = 1056;
+    pvscc->InputSize.cy = 704;
     pvscc->MinCroppingSize.cx = 80;
     pvscc->MinCroppingSize.cy = 60;
     pvscc->MaxCroppingSize.cx = 640;
@@ -316,8 +327,8 @@ HRESULT STDMETHODCALLTYPE CVCamStream::GetStreamCaps(int iIndex, AM_MEDIA_TYPE *
 
     pvscc->MinOutputSize.cx = 80;
     pvscc->MinOutputSize.cy = 60;
-    pvscc->MaxOutputSize.cx = 640;
-    pvscc->MaxOutputSize.cy = 480;
+    pvscc->MaxOutputSize.cx = 1056;
+    pvscc->MaxOutputSize.cy = 704;
     pvscc->OutputGranularityX = 0;
     pvscc->OutputGranularityY = 0;
     pvscc->StretchTapsX = 0;
@@ -327,7 +338,7 @@ HRESULT STDMETHODCALLTYPE CVCamStream::GetStreamCaps(int iIndex, AM_MEDIA_TYPE *
     pvscc->MinFrameInterval = 200000;   //50 fps
     pvscc->MaxFrameInterval = 50000000; // 0.2 fps
     pvscc->MinBitsPerSecond = (80 * 60 * 3 * 8) / 5;
-    pvscc->MaxBitsPerSecond = 640 * 480 * 3 * 8 * 50;
+    pvscc->MaxBitsPerSecond = 1056 * 704 * 3 * 8 * 50;
 
     return S_OK;
 }

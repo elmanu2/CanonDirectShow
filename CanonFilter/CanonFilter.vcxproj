@@ -108,7 +108,7 @@
       <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
       <CallingConvention>Cdecl</CallingConvention>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <AdditionalIncludeDirectories>$(SolutionDir)\EDSDK\Header;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(SolutionDir)\CanonCameraApp\Camera;$(SolutionDir)\CanonCameraApp\Command;$(SolutionDir)\CanonCameraApp\Class;$(SolutionDir)\CanonCameraApp\utils;$(SolutionDir)\CanonCameraApp\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\EDSDK\Header;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(SolutionDir)\CanonCameraApp\Camera;$(SolutionDir)\CanonCameraApp\Command;$(SolutionDir)\CanonCameraApp\Class;$(SolutionDir)\CanonCameraApp\utils;$(SolutionDir)\CanonCameraApp\;$(SolutionDir)\libjpeg-turbo\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -137,8 +137,8 @@
       <StackCommitSize>2097152</StackCommitSize>
       <EntryPointSymbol>DllEntryPoint%4012</EntryPointSymbol>
       <ModuleDefinitionFile>.\Filters.def</ModuleDefinitionFile>
-      <AdditionalLibraryDirectories>C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses\debug;$(SolutionDir)\EDSDK\Library</AdditionalLibraryDirectories>
-      <AdditionalDependencies>EDSDK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses\debug;$(SolutionDir)\EDSDK\Library;$(SolutionDir)\libjpeg-turbo\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>EDSDK.lib;turbojpeg.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

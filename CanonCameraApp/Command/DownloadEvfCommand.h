@@ -1,17 +1,17 @@
 /******************************************************************************
-*                                                                             *
-*   PROJECT : EOS Digital Software Development Kit EDSDK                      *
-*      NAME : DownloadEvfCommand.h	                                          *
-*                                                                             *
-*   Description: This is the Sample code to show the usage of EDSDK.          *
-*                                                                             *
-*                                                                             *
-*******************************************************************************
-*                                                                             *
-*   Written and developed by Camera Design Dept.53                            *
-*   Copyright Canon Inc. 2006-2008 All Rights Reserved                        *
-*                                                                             *
-*******************************************************************************/
+	*                                                                             *
+	*   PROJECT : EOS Digital Software Development Kit EDSDK                      *
+	*      NAME : DownloadEvfCommand.h	                                          *
+	*                                                                             *
+	*   Description: This is the Sample code to show the usage of EDSDK.          *
+	*                                                                             *
+	*                                                                             *
+	*******************************************************************************
+	*                                                                             *
+	*   Written and developed by Camera Design Dept.53                            *
+	*   Copyright Canon Inc. 2006-2008 All Rights Reserved                        *
+	*                                                                             *
+	*******************************************************************************/
 
 #pragma once
 
@@ -20,7 +20,7 @@
 #include "EDSDK.h"
 
 
-typedef struct _EVF_DATASET 
+	typedef struct _EVF_DATASET 
 {
 	EdsStreamRef	stream; // JPEG stream.
 	EdsUInt32		zoom;
@@ -46,10 +46,10 @@ protected :
 public:
 	DownloadEvfCommand(CameraModel *model) : Command(model){}
 
-    // Execute command	
+	// Execute command	
 	virtual bool execute()
 	{
-	
+
 		evfImage = NULL;
 		stream = NULL;
 		bufferSize = 2 * 1024 * 1024;
@@ -65,7 +65,8 @@ public:
 		err = EdsCreateMemoryStream(bufferSize, &stream);
 
 		// When creating to a file.
-		err = EdsCreateFileStream("D:\\liveview.jpg", kEdsFileCreateDisposition_CreateAlways, kEdsAccess_ReadWrite, &stream);
+		//err = EdsCreateFileStream("D:\\liveview.jpg", kEdsFileCreateDisposition_CreateAlways, kEdsAccess_ReadWrite, &stream);
+
 
 
 		// Create EvfImageRef.
@@ -104,6 +105,10 @@ public:
 
 			EdsGetLength(stream, &(dataSet.dataLength));
 
+			unsigned char *data;
+			EdsVoid* ptr;
+			err = EdsGetPointer(stream, (EdsVoid**) &ptr);
+
 
 			// Set to model.
 			_model->setEvfZoom(dataSet.zoom);
@@ -137,17 +142,17 @@ public:
 			EdsRelease(dataSet.stream);
 			dataSet.stream = NULL;
 		}
-		
+
 		if(evfImage != NULL)
 		{
 			EdsRelease(evfImage);
 			evfImage = NULL;
 		}
-         
+
 		//Notification of error
 		if(err != EDS_ERR_OK)
 		{
-		
+
 			// Retry getting image data if EDS_ERR_OBJECT_NOTREADY is returned
 			// when the image data is not ready yet.
 			if(err == EDS_ERR_OBJECT_NOTREADY)
