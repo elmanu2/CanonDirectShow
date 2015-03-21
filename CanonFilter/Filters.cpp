@@ -10,7 +10,7 @@
 
 #include "canoncamera.h"
 
-#include "atlimage.h"
+#include "opencv2/opencv.hpp"
 
 //////////////////////////////////////////////////////////////////////////
 //  CVCam is the source filter which masquerades as a capture device
@@ -110,53 +110,55 @@ HRESULT CVCamStream::FillBuffer(IMediaSample *pms)
     pms->GetPointer(&pData);
     lDataLen = pms->GetSize();
     for(int i = 0; i < lDataLen; ++i)
-        pData[i] = rand();
+		pData[i] = rand();
 
 	EVF_DATASET* canonDataset;
 	_canonCamera->DownloadLiveViewPic(canonDataset);
 
-
-	ATL::Cimage cImage;
-
-
-
-	EdsVoid* ptr;
-	EdsGetPointer(canonDataset->stream, (EdsVoid**) &ptr);
-	
-	
-    // libjpegTurbo(data, size);
-    int COLOR_COMPONENTS = 3;
-    int _width = 1056;
-    int _height = 704;
-    long unsigned int _jpegSize = 0;
-    unsigned char *_compressedImage = NULL;
-    unsigned char *buffer = new unsigned char [_width * _height * COLOR_COMPONENTS];
-
-	tjhandle _jpegDecompressor = tjInitDecompress();
-
-	int width;
-	int height;
-	int jpegsubsamp;
-	int colorspace;
-	tjDecompressHeader3(_jpegDecompressor,(unsigned char*)ptr,canonDataset->dataLength,&width,&height,&jpegsubsamp,&colorspace);
-
-	int resultat = tjDecompress(_jpegDecompressor, (unsigned char*)ptr, canonDataset->dataLength, buffer, _width, 0, _height, TJPF_BGR,0);
-    
-	std::string errorStr;
-
-	if(resultat == -1)
+	if(_canonCamera->IsInitialized())
 	{
-		 errorStr = tjGetErrorStr();
+		EdsVoid* ptr;
+		EdsGetPointer(canonDataset->stream, (EdsVoid**) &ptr);
+
+		// libjpegTurbo(data, size);
+		int COLOR_COMPONENTS = 3;
+		int _width = 1056;
+		int _height = 704;
+		long unsigned int _jpegSize = canonDataset->dataLength;
+		unsigned char *buffer = new unsigned char [_width * _height * COLOR_COMPONENTS];
+
+		tjhandle _jpegDecompressor = tjInitDecompress();
+
+		int width;
+		int height;
+		int jpegsubsamp;
+		int colorspace;
+		tjDecompressHeader3(_jpegDecompressor,(unsigned char*)ptr,_jpegSize,&width,&height,&jpegsubsamp,&colorspace);
+
+
+		int resultat = tjDecompress2(_jpegDecompressor, (unsigned char*)ptr, 
+			canonDataset->dataLength, 
+			buffer, 
+			_width, 0, _height, 
+			TJPF_BGR,TJFLAG_BOTTOMUP);
+
+		//cv::imdecode((cv::InputArray) ptr, CV_LOAD_IMAGE_COLOR);
+
+		std::string errorStr;
+
+		if(resultat == -1)
+		{
+			errorStr = tjGetErrorStr();
+		}
+		tjDestroy(_jpegDecompressor);
+
+		memcpy(pData, buffer, _width * _height * COLOR_COMPONENTS);
+		pData = buffer;
+		// display RGB image in opencv
+
+
+		_canonCamera->ReleaseLiveViewPic();
 	}
-	tjDestroy(_jpegDecompressor);
-
-	memcpy(pData, buffer, _width * _height * COLOR_COMPONENTS);
-	pData = buffer;
-    // display RGB image in opencv
-
-
-	_canonCamera->ReleaseLiveViewPic();
-
 
     return NOERROR;
 } // FillBuffer
