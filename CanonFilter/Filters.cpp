@@ -158,7 +158,7 @@ HRESULT CVCamStream::FillBuffer(IMediaSample *pms)
 				_modeVideo = false;
 				cptFrame = 0;
 			}
-		}
+		} 
 		else
 		{
 			bool res;
