@@ -105,12 +105,6 @@ public:
 
 			EdsGetLength(stream, &(dataSet.dataLength));
 
-
-			unsigned char *data;
-			EdsVoid* ptr;
-			err = EdsGetPointer(stream, (EdsVoid**) &ptr);
-
-
 			// Set to model.
 			_model->setEvfZoom(dataSet.zoom);
 			_model->setEvfZoomPosition(dataSet.zoomRect.point);
@@ -123,10 +117,6 @@ public:
 				_model->notifyObservers(&e);		
 			}
 		}
-
-
-
-
 		return true;
 	}
 

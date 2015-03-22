@@ -19,6 +19,7 @@
 #include "EDSDK.h"
 #include "CameraController.h"
 #include "CanonDict.h"
+#include "CameraEvent.h"
 
 using namespace std;
 
@@ -39,7 +40,9 @@ public:
         switch(inEvent)
         {
         case kEdsObjectEvent_DirItemRequestTransfer:
-            downloadImage(inRef,"","","");
+			controller->getCameraModel()->notifyObservers(new CameraEvent("DownloadStart"));
+			downloadImage(inRef,"","","");
+			controller->getCameraModel()->notifyObservers(new CameraEvent("DownloadComplete"));
             //fireEvent(controller, "download", inRef);
             break;
 

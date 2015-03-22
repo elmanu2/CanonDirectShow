@@ -10,6 +10,8 @@ class GetPropertyCommand;
 class StartEvfCommand;
 class EndEvfCommand;
 class DownloadEvfCommand;
+class TakePictureCommand;
+class Observer;
 
 class CanonCamera
 {
@@ -22,6 +24,8 @@ public:
 
     bool Close();
 
+	void AddObserver(Observer* observer_);
+
 	bool StartLiveView();
 
 	bool StopLiveView();
@@ -29,6 +33,8 @@ public:
 	bool DownloadLiveViewPic(EVF_DATASET* &dataset_);
 
 	bool ReleaseLiveViewPic();
+
+	bool TakePicture();
 
 	bool IsInitialized()const;
 
@@ -54,6 +60,7 @@ protected:
 
 	DownloadEvfCommand* _downloadEvfCmd;
   
+	TakePictureCommand* _takePictureCmd;
 
 };
 

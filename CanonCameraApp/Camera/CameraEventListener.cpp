@@ -32,6 +32,7 @@ EdsError CameraEventListener::downloadImage(EdsDirectoryItemRef dirItemRef_,
     Error = EdsDownload(dirItemRef_, dirInfo.size, streamRef);
     //release stream
     Error = EdsRelease(streamRef);
+	Error = EdsRelease(dirItemRef_);
     return Error;
 
 }

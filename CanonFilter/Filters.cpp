@@ -10,8 +10,6 @@
 
 #include "canoncamera.h"
 
-#include "opencv2/opencv.hpp"
-
 //////////////////////////////////////////////////////////////////////////
 //  CVCam is the source filter which masquerades as a capture device
 //////////////////////////////////////////////////////////////////////////
@@ -61,7 +59,12 @@ CVCamStream::CVCamStream(HRESULT *phr, CVCam *pParent, LPCWSTR pPinName) :
 
     _canonCamera = new CanonCamera();
     _canonCamera->Initialize();
-	_canonCamera->StartLiveView();
+	if(_canonCamera->IsInitialized())
+	{
+		_canonCamera->StartLiveView();
+		_canonCamera->AddObserver(this);
+		_modeVideo = true;
+	}
 }
 
 CVCamStream::~CVCamStream()
@@ -71,7 +74,6 @@ CVCamStream::~CVCamStream()
     //2-when the webrowser close the page
 	_canonCamera->StopLiveView();
     _canonCamera->Close();
-    int a = 10;
 } 
 
 HRESULT CVCamStream::QueryInterface(REFIID riid, void **ppv)
@@ -93,7 +95,8 @@ HRESULT CVCamStream::QueryInterface(REFIID riid, void **ppv)
 //  This is the routine where we create the data being output by the Virtual
 //  Camera device.
 //////////////////////////////////////////////////////////////////////////
-
+int frameToShoot = 100;
+int cptFrame = 0;
 HRESULT CVCamStream::FillBuffer(IMediaSample *pms)
 {
     REFERENCE_TIME rtNow;
@@ -109,60 +112,86 @@ HRESULT CVCamStream::FillBuffer(IMediaSample *pms)
     long lDataLen;
     pms->GetPointer(&pData);
     lDataLen = pms->GetSize();
-    for(int i = 0; i < lDataLen; ++i)
-		pData[i] = rand();
 
 	EVF_DATASET* canonDataset;
 	_canonCamera->DownloadLiveViewPic(canonDataset);
 
+	EdsError error;
 	if(_canonCamera->IsInitialized())
 	{
-		EdsVoid* ptr;
-		EdsGetPointer(canonDataset->stream, (EdsVoid**) &ptr);
-
-		// libjpegTurbo(data, size);
-		int COLOR_COMPONENTS = 3;
-		int _width = 1056;
-		int _height = 704;
-		long unsigned int _jpegSize = canonDataset->dataLength;
-		unsigned char *buffer = new unsigned char [_width * _height * COLOR_COMPONENTS];
-
-		tjhandle _jpegDecompressor = tjInitDecompress();
-
-		int width;
-		int height;
-		int jpegsubsamp;
-		int colorspace;
-		tjDecompressHeader3(_jpegDecompressor,(unsigned char*)ptr,_jpegSize,&width,&height,&jpegsubsamp,&colorspace);
-
-
-		int resultat = tjDecompress2(_jpegDecompressor, (unsigned char*)ptr, 
-			canonDataset->dataLength, 
-			buffer, 
-			_width, 0, _height, 
-			TJPF_BGR,TJFLAG_BOTTOMUP);
-
-		//cv::imdecode((cv::InputArray) ptr, CV_LOAD_IMAGE_COLOR);
-
-		std::string errorStr;
-
-		if(resultat == -1)
+		if(_modeVideo)
 		{
-			errorStr = tjGetErrorStr();
+			EdsVoid* ptr;
+			error = EdsGetPointer(canonDataset->stream, (EdsVoid**) &ptr);
+			if(error != EDS_ERR_OK)
+			{
+				return NOERROR;
+			}
+			long unsigned int _jpegSize = canonDataset->dataLength;
+
+			tjhandle _jpegDecompressor = tjInitDecompress();
+
+			int width;
+			int height;
+			int jpegsubsamp;
+			int colorspace;
+			tjDecompressHeader3(_jpegDecompressor,(unsigned char*)ptr,_jpegSize,&width,&height,&jpegsubsamp,&colorspace);
+
+			int resultat = tjDecompress2(_jpegDecompressor, (unsigned char*)ptr, 
+				canonDataset->dataLength, 
+				pData, 
+				width, 0, height, 
+				colorspace,TJFLAG_BOTTOMUP);
+
+			std::string errorStr;
+
+			if(resultat == -1)
+			{
+				errorStr = tjGetErrorStr();
+			}
+			tjDestroy(_jpegDecompressor);
+
+			_canonCamera->ReleaseLiveViewPic();
+			cptFrame++;
+			if(cptFrame == frameToShoot)
+			{
+				_modeVideo = false;
+				cptFrame = 0;
+			}
 		}
-		tjDestroy(_jpegDecompressor);
-
-		memcpy(pData, buffer, _width * _height * COLOR_COMPONENTS);
-		pData = buffer;
-		// display RGB image in opencv
-
-
-		_canonCamera->ReleaseLiveViewPic();
+		else
+		{
+			bool res;
+			res = _canonCamera->StopLiveView();
+			if(res)
+			{
+				res = _canonCamera->TakePicture();
+			}
+			if(res)
+			{
+				_pictureDownloaded = false;
+				while(!_pictureDownloaded)
+				{
+					EdsGetEvent();
+				}
+			}
+			res = _canonCamera->StartLiveView();
+			_modeVideo = true;
+		}
 	}
 
     return NOERROR;
 } // FillBuffer
 
+
+void CVCamStream::update(Observable* from, CameraEvent *e)
+{
+	int myevent = 1;
+	if(e->getEvent() == "DownloadComplete")
+	{
+		_pictureDownloaded = true;
+	}
+}
 
 //
 // Notify

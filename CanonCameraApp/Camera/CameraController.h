@@ -45,6 +45,8 @@ public:
 
     void setCameraModel(CameraModel* model);
 
+	CameraModel* getCameraModel();
+
     //Execution beginning
     void run();
 

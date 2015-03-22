@@ -12,6 +12,7 @@
 #include "StartEvfCommand.h"
 #include "EndEvfCommand.h"
 #include "DownloadEvfCommand.h"
+#include "TakePictureCommand.h"
 
 CanonCamera::CanonCamera(void)
 {
@@ -76,6 +77,7 @@ bool CanonCamera::Initialize()
     _startLiveViewCmd = new StartEvfCommand(_camModel);
 	_stopLiveViewCmd = new EndEvfCommand(_camModel);
 	_downloadEvfCmd = new DownloadEvfCommand(_camModel);
+	_takePictureCmd = new TakePictureCommand(_camModel);
     
 
     //Set Property Event Handler
@@ -99,6 +101,11 @@ bool CanonCamera::Initialize()
     _isInitialized = _openSessionCmd->execute();
 
     return _isInitialized;
+}
+
+void CanonCamera::AddObserver(Observer* observer_)
+{
+	_camModel->addObserver(observer_);
 }
 
 bool CanonCamera::Close()
@@ -163,6 +170,15 @@ bool CanonCamera::ReleaseLiveViewPic()
 		return _isInitialized;
 	}
 	return _downloadEvfCmd->releaseImage();
+}
+
+bool CanonCamera::TakePicture()
+{
+	if(!IsInitialized())
+	{
+		return _isInitialized;
+	}
+	return _takePictureCmd->execute();
 }
 
 

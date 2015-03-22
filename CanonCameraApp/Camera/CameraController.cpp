@@ -31,6 +31,11 @@ void CameraController::setCameraModel(CameraModel* model)
     _model = model;
 }
 
+CameraModel* CameraController::getCameraModel()
+{
+	return _model;
+}
+
 //Execution beginning
 void CameraController::run()
 {
