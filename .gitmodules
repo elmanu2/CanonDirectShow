@@ -1,3 +1,6 @@
 [submodule "libjson-rpc-cpp"]
 	path = libjson-rpc-cpp
 	url = https://github.com/cinemast/libjson-rpc-cpp.git
+[submodule "CppUtil"]
+	path = CppUtil
+	url = https://github.com/elmanu2/CppUtil.git
