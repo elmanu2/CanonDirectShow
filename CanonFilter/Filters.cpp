@@ -10,6 +10,8 @@
 
 #include "canoncamera.h"
 
+#include "logger.h"
+
 //////////////////////////////////////////////////////////////////////////
 //  CVCam is the source filter which masquerades as a capture device
 //////////////////////////////////////////////////////////////////////////
@@ -20,6 +22,8 @@ CUnknown * WINAPI CVCam::CreateInstance(LPUNKNOWN lpunk, HRESULT *phr)
     //2-when GetUserMedia is called from the browser
     ASSERT(phr);
     CUnknown *punk = new CVCam(lpunk, phr);
+	LOG_INFO("Create directshow filter instance");
+
     return punk;
 }
 
