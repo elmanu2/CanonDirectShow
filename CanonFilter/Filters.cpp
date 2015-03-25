@@ -1,7 +1,7 @@
 #pragma warning(disable:4244)
 #pragma warning(disable:4711)
 
-#include <streams.h>
+//#include <streams.h>
 #include <stdio.h>
 #include <olectl.h>
 #include <dvdmedia.h>

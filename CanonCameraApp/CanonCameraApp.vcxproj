@@ -53,13 +53,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\EDSDK\Header;$(ProjectDir)\Camera;$(ProjectDir)\Command;$(ProjectDir)\Utils;$(ProjectDir)\Class;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\EDSDK\Header;$(ProjectDir)\Camera;$(ProjectDir)\Command;$(ProjectDir)\Utils;$(ProjectDir)\Class;$(ProjectDir);$(SolutionDir)\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\EDSDK\Library</AdditionalLibraryDirectories>
-      <AdditionalDependencies>EDSDK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\EDSDK\Library;$(SolutionDir)\CppUtil\Debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>EDSDK.lib;CppUtil.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <ProgramDatabaseFile>$(TargetDir)$(TargetName).d.pdb</ProgramDatabaseFile>
     </Link>
@@ -73,7 +73,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\EDSDK\Header;$(ProjectDir)\Camera;$(ProjectDir)\Command;$(ProjectDir)\Class;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\EDSDK\Header;$(ProjectDir)\Camera;$(ProjectDir)\Command;$(ProjectDir)\Utils;$(ProjectDir)\Class;$(ProjectDir);$(SolutionDir)\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

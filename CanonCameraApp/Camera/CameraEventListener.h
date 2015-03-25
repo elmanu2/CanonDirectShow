@@ -20,6 +20,7 @@
 #include "CameraController.h"
 #include "CanonDict.h"
 #include "CameraEvent.h"
+#include "logger.h"
 
 using namespace std;
 
@@ -32,8 +33,8 @@ public:
         EdsVoid *			inContext				
         )
     {
-        cout<<"handleObjectEvent called : inEvent= "<<
-            CanonDict::getInstance()->ObjectEventToString(inEvent)<<endl;
+        LOG_INFO("handleObjectEvent called : inEvent= "+
+            CanonDict::getInstance()->ObjectEventToString(inEvent));
 
         CameraController*	controller = (CameraController *)inContext;
 
@@ -65,10 +66,10 @@ public:
         EdsVoid *			inContext				
         )
     {
-        cout<<"handlePropertyEvent called : inEvent= "<<
-            CanonDict::getInstance()->PropertyEventToString(inEvent)<<
-            "Property id = "<<
-            CanonDict::getInstance()->PropIdToString(inPropertyID)<<endl;
+        LOG_INFO("handlePropertyEvent called : inEvent= "+
+            CanonDict::getInstance()->PropertyEventToString(inEvent)+
+            "Property id = "+
+            CanonDict::getInstance()->PropIdToString(inPropertyID));
 
         CameraController*	controller = (CameraController *)inContext;
 
@@ -92,8 +93,8 @@ public:
         EdsVoid *			inContext				
         )
     {
-        cout<<"handleStateEvent called : inEvent= "<<
-            CanonDict::getInstance()->StateEventToString(inEvent)<<endl;
+        LOG_INFO("handleStateEvent called : inEvent= "+
+            CanonDict::getInstance()->StateEventToString(inEvent));
 
 
         CameraController*	controller = (CameraController *)inContext;
