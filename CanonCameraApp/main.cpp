@@ -13,12 +13,15 @@
 
 #include "logger.h"
 #include "helper.h"
+#include "environment.h"
 
 using namespace std;
 
 
 void main()
 {
+	environment::logEnvironment();
+
     EdsError error;
     EdsCameraListRef cameraListRef = NULL;
     EdsCameraRef camera;
