@@ -14,6 +14,9 @@
 #include "DownloadEvfCommand.h"
 #include "TakePictureCommand.h"
 
+#include "logger.h"
+#include "helper.h"
+
 CanonCamera::CanonCamera(void)
 {
 	_isInitialized = false;
@@ -34,7 +37,7 @@ bool CanonCamera::Initialize()
     error = EdsInitializeSDK();
     if(error == EDS_ERR_OK)
     {
-        cout<<"EDSDK initialized successfully"<<endl;
+		LOG_INFO("EDSDK initialized successfully");
     }
     else
     {
@@ -42,13 +45,15 @@ bool CanonCamera::Initialize()
 	}
 
     error = EdsGetCameraList(&cameraListRef);
-    cout<<"EDSDK Get Camera List successfully"<<endl;
-
+	if(error == EDS_ERR_OK)
+	{
+		LOG_INFO("EDSDK Get Camera List successfully");
+	}
     // Get number of cameras
     if(error == EDS_ERR_OK)
     {
         error = EdsGetChildCount(cameraListRef, &count);
-        cout<<"Found "<<count<<" camera(s)"<<endl;
+		LOG_INFO("Found " + Helper::toString((int)count) + " camera(s)");
 
         if(count == 0)
         {
@@ -120,11 +125,11 @@ bool CanonCamera::Close()
     error = EdsTerminateSDK();
     if(error != EDS_ERR_OK)
     {
-        cout<<"Fail to terminate EDSDK"<<endl;
+        LOG_ERROR("Fail to terminate EDSDK");
     }
     else
     {
-        cout<<"EDSDK terminated successfully"<<endl;
+        LOG_INFO("EDSDK terminated successfully");
     }
     return true;
 }
