@@ -7,6 +7,13 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Filters", "Filters\Filters.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CanonCameraApp", "CanonCameraApp\CanonCameraApp.vcxproj", "{24309372-DF0D-43D3-AACE-291AC7A7EA7E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppUtil", "..\CppUtil\CppUtil\CppUtil.vcxproj", "{80786399-42D9-4865-91A6-944D9BDB4A5E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCppUtil", "..\CppUtil\TestCppUtil\TestCppUtil.vcxproj", "{7B85B6E0-B903-44D0-95AA-B36F0120FAD0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{80786399-42D9-4865-91A6-944D9BDB4A5E} = {80786399-42D9-4865-91A6-944D9BDB4A5E}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -25,6 +32,14 @@ Global
 		{24309372-DF0D-43D3-AACE-291AC7A7EA7E}.Debug|Win32.Build.0 = Debug|Win32
 		{24309372-DF0D-43D3-AACE-291AC7A7EA7E}.Release|Win32.ActiveCfg = Release|Win32
 		{24309372-DF0D-43D3-AACE-291AC7A7EA7E}.Release|Win32.Build.0 = Release|Win32
+		{80786399-42D9-4865-91A6-944D9BDB4A5E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{80786399-42D9-4865-91A6-944D9BDB4A5E}.Debug|Win32.Build.0 = Debug|Win32
+		{80786399-42D9-4865-91A6-944D9BDB4A5E}.Release|Win32.ActiveCfg = Release|Win32
+		{80786399-42D9-4865-91A6-944D9BDB4A5E}.Release|Win32.Build.0 = Release|Win32
+		{7B85B6E0-B903-44D0-95AA-B36F0120FAD0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7B85B6E0-B903-44D0-95AA-B36F0120FAD0}.Debug|Win32.Build.0 = Debug|Win32
+		{7B85B6E0-B903-44D0-95AA-B36F0120FAD0}.Release|Win32.ActiveCfg = Release|Win32
+		{7B85B6E0-B903-44D0-95AA-B36F0120FAD0}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
