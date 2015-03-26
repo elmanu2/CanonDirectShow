@@ -5,6 +5,7 @@
 #include "DownloadEvfCommand.h"
 #include "EndEvfCommand.h"
 #include <iostream>
+#include "logger.h"
 
 using namespace std;
 
@@ -100,14 +101,13 @@ void CliProcessor::myExit()
     error = EdsTerminateSDK();
     if(error != EDS_ERR_OK)
     {
-        cout<<"Fail to terminate EDSDK"<<endl;
+        LOG_ERROR("Fail to terminate EDSDK");
     }
     else
     {
-        cout<<"EDSDK terminated successfully"<<endl;
+        LOG_INFO("EDSDK terminated successfully");
     }
-
-    //system("PAUSE");
+    system("PAUSE");
     //exit(-1);
 }
 
