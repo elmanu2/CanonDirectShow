@@ -137,7 +137,7 @@
       <StackCommitSize>2097152</StackCommitSize>
       <EntryPointSymbol>DllEntryPoint%4012</EntryPointSymbol>
       <ModuleDefinitionFile>.\Filters.def</ModuleDefinitionFile>
-      <AdditionalLibraryDirectories>C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses\debug;$(SolutionDir)\EDSDK\Library;$(SolutionDir)\libjpeg-turbo\lib;$(SolutionDir)\CppUtil\Debug</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses\debug;$(SolutionDir)\EDSDK\Library;$(SolutionDir)\libjpeg-turbo\lib;$(SolutionDir)\Debug</AdditionalLibraryDirectories>
       <AdditionalDependencies>EDSDK.lib;turbojpeg.lib;CppUtil.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

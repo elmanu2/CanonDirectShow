@@ -1,2 +1,2 @@
 #!/bin/bash
-cp CppUtil/Debug/CppUtil.dll Bin/
+cp Debug/CppUtil.dll Bin/
