@@ -58,8 +58,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\EDSDK\Library;$(SolutionDir)\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>EDSDK.lib;CppUtil.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\EDSDK\Library;$(SolutionDir)\CppUtil\CppUtil\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>EDSDK.lib;CppUtil.d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <ProgramDatabaseFile>$(TargetDir)$(TargetName).d.pdb</ProgramDatabaseFile>
     </Link>
@@ -80,8 +80,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>EDSDK.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\EDSDK\Library</AdditionalLibraryDirectories>
+      <AdditionalDependencies>EDSDK.lib;CppUtil.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\EDSDK\Library;$(SolutionDir)\CppUtil\CppUtil\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
