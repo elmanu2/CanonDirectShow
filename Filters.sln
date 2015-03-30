@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CanonFilter", "CanonFilter\CanonFilter.vcxproj", "{A12763F0-FC14-536A-3B8D-487988083BDF}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CanonFilter", "CanonFilter\CanonFilter.vcxproj", "{31639785-2DF5-4CF8-16E7-458382CFBE0C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Filters", "Filters\Filters.vcxproj", "{8BAD951E-02F9-7C2F-5D30-DBCAAB51D0AB}"
 EndProject
@@ -26,10 +26,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A12763F0-FC14-536A-3B8D-487988083BDF}.Debug|Win32.ActiveCfg = Debug|Win32
-		{A12763F0-FC14-536A-3B8D-487988083BDF}.Debug|Win32.Build.0 = Debug|Win32
-		{A12763F0-FC14-536A-3B8D-487988083BDF}.Release|Win32.ActiveCfg = Release|Win32
-		{A12763F0-FC14-536A-3B8D-487988083BDF}.Release|Win32.Build.0 = Release|Win32
+		{31639785-2DF5-4CF8-16E7-458382CFBE0C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{31639785-2DF5-4CF8-16E7-458382CFBE0C}.Debug|Win32.Build.0 = Debug|Win32
+		{31639785-2DF5-4CF8-16E7-458382CFBE0C}.Release|Win32.ActiveCfg = Release|Win32
+		{31639785-2DF5-4CF8-16E7-458382CFBE0C}.Release|Win32.Build.0 = Release|Win32
 		{8BAD951E-02F9-7C2F-5D30-DBCAAB51D0AB}.Debug|Win32.ActiveCfg = Debug|Win32
 		{8BAD951E-02F9-7C2F-5D30-DBCAAB51D0AB}.Debug|Win32.Build.0 = Debug|Win32
 		{8BAD951E-02F9-7C2F-5D30-DBCAAB51D0AB}.Release|Win32.ActiveCfg = Release|Win32

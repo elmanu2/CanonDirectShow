@@ -1,3 +1,6 @@
 #!/bin/bash
-Bin/TestCppUtil.exe
-Bin/TestCppUtil.d.exe
+bin/TestCppUtil.exe
+bin/TestCppUtil.d.exe
+
+bin/CanonCameraApp.d.exe
+bin/CanonCameraApp.exe

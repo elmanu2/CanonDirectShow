@@ -1,4 +1,24 @@
 #!/bin/bash
-cp CppUtil/CppUtil/bin/*.dll Bin/
-cp CppUtil/TestCppUtil/bin/*.exe Bin/
+MSBUILD=C:/Windows/Microsoft.NET/Framework/v4.0.30319/msbuild.exe
+
+
+cd CppUtil
+./install.sh
+cd ..
+
+$MSBUILD CanonCameraApp/CanonCameraApp.vcxproj //t:Clean
+$MSBUILD CanonCameraApp/CanonFilter.vcxproj //t:Clean
+
+$MSBUILD CanonCameraApp/CanonCameraApp.vcxproj //p:Configuration=Debug
+$MSBUILD CanonCameraApp/CanonCameraApp.vcxproj //p:Configuration=Release
+$MSBUILD CanonFilter/CanonFilter.vcxproj //p:Configuration=Debug
+
+cp -r -v CanonCameraApp/bin/*.exe bin/
+cp -r -v CanonFilter/bin/*.ax bin/
+cp -v libjpeg-turbo/bin/turbojpeg.dll bin/
+cp -r EDSDK/Dll/* bin/
+
+
+cp -v CppUtil/CppUtil/bin/*.dll Bin/
+cp -v CppUtil/TestCppUtil/bin/*.exe Bin/
 

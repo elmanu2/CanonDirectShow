@@ -42,9 +42,10 @@
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>.\Debug\</OutDir>
-    <IntDir>.\Debug\</IntDir>
+    <OutDir>$(ProjectDir)\bin\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <TargetExt>.d.ax</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -109,7 +110,7 @@
       <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
       <CallingConvention>Cdecl</CallingConvention>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <AdditionalIncludeDirectories>$(SolutionDir)\EDSDK\Header;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(SolutionDir)\CanonCameraApp\Camera;$(SolutionDir)\CanonCameraApp\Command;$(SolutionDir)\CanonCameraApp\Class;$(SolutionDir)\CanonCameraApp\utils;$(SolutionDir)\CanonCameraApp\;$(SolutionDir)\libjpeg-turbo\include;$(SolutionDir)\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\EDSDK\Header;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(ProjectDir)..\CanonCameraApp\Camera;$(ProjectDir)..\CanonCameraApp\Command;$(ProjectDir)..\CanonCameraApp\Class;$(ProjectDir)..\CanonCameraApp\utils;$(ProjectDir)\CanonCameraApp\;$(ProjectDir)\libjpeg-turbo\include;$(ProjectDir)\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -132,13 +133,13 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <OutputFile>$(SolutionDir)\Bin\VCanonCamD.ax</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <ImportLibrary>.\Debug\VCamD.lib</ImportLibrary>
       <StackReserveSize>2097152</StackReserveSize>
       <StackCommitSize>2097152</StackCommitSize>
       <EntryPointSymbol>DllEntryPoint%4012</EntryPointSymbol>
       <ModuleDefinitionFile>.\Filters.def</ModuleDefinitionFile>
-      <AdditionalLibraryDirectories>C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses\debug;$(SolutionDir)\EDSDK\Library;$(SolutionDir)\libjpeg-turbo\lib;$(SolutionDir)\CppUtil\CppUtil\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses\debug;$(ProjectDir)..\EDSDK\Library;$(ProjectDir)..\libjpeg-turbo\lib;$(ProjectDir)..\CppUtil\CppUtil\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>EDSDK.lib;turbojpeg.lib;CppUtil.d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

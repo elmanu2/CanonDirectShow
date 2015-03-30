@@ -39,12 +39,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)\bin\</OutDir>
+    <OutDir>$(ProjectDir)\bin\</OutDir>
     <TargetExt>.d.exe</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)\bin</OutDir>
+    <OutDir>$(ProjectDir)\bin</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -53,12 +53,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\EDSDK\Header;$(ProjectDir)\Camera;$(ProjectDir)\Command;$(ProjectDir)\Utils;$(ProjectDir)\Class;$(ProjectDir);$(SolutionDir)\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\EDSDK\Header;$(ProjectDir)\Camera;$(ProjectDir)\Command;$(ProjectDir)\Utils;$(ProjectDir)\Class;$(ProjectDir);$(ProjectDir)..\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)\EDSDK\Library;$(SolutionDir)\CppUtil\CppUtil\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)\..\EDSDK\Library;$(ProjectDir)\..\CppUtil\CppUtil\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>EDSDK.lib;CppUtil.d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <ProgramDatabaseFile>$(TargetDir)$(TargetName).d.pdb</ProgramDatabaseFile>
@@ -73,7 +73,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\EDSDK\Header;$(ProjectDir)\Camera;$(ProjectDir)\Command;$(ProjectDir)\Utils;$(ProjectDir)\Class;$(ProjectDir);$(SolutionDir)\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\EDSDK\Header;$(ProjectDir)\Camera;$(ProjectDir)\Command;$(ProjectDir)\Utils;$(ProjectDir)\Class;$(ProjectDir);$(ProjectDir)..\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -81,7 +81,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>EDSDK.lib;CppUtil.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)\EDSDK\Library;$(SolutionDir)\CppUtil\CppUtil\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\EDSDK\Library;$(ProjectDir)..\CppUtil\CppUtil\lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
