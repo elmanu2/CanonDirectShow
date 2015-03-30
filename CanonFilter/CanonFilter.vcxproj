@@ -110,7 +110,7 @@
       <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
       <CallingConvention>Cdecl</CallingConvention>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\EDSDK\Header;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(ProjectDir)..\CanonCameraApp\Camera;$(ProjectDir)..\CanonCameraApp\Command;$(ProjectDir)..\CanonCameraApp\Class;$(ProjectDir)..\CanonCameraApp\utils;$(ProjectDir)\CanonCameraApp\;$(ProjectDir)\libjpeg-turbo\include;$(ProjectDir)\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\EDSDK\Header;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(ProjectDir)..\CanonCameraApp\Camera;$(ProjectDir)..\CanonCameraApp\Command;$(ProjectDir)..\CanonCameraApp\Class;$(ProjectDir)..\CanonCameraApp\utils;$(ProjectDir)..\CanonCameraApp\;$(ProjectDir)..\libjpeg-turbo\include;$(ProjectDir)..\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>

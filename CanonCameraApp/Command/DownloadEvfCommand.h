@@ -162,6 +162,7 @@ public:
 			CameraEvent e("error", &err);
 			_model->notifyObservers(&e);
 		}
+		return true;
 	}
 
 
