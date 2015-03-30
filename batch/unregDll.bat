@@ -3,5 +3,7 @@
 #set to System32 directory, so before launchin the regsvr command
 #we must set the true path where we can find the dll to record
 
-regsvr32 /u CanonCam.d.ax
+D:
+cd 007-Manu\dev\CanonDirectShow\Bin
+regsvr32 /u CanonFilter.d.ax
 pause

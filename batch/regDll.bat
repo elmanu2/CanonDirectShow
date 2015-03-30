@@ -5,5 +5,5 @@ REM we must set the true path where we can find the dll to record
 
 D:
 cd 007-Manu\dev\CanonDirectShow\Bin
-regsvr32 CanonCam.d.ax
+regsvr32 CanonFilter.d.ax
 pause
