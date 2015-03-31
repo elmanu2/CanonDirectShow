@@ -37,15 +37,17 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>.\Release\</OutDir>
-    <IntDir>.\Release\</IntDir>
+    <OutDir>$(ProjectDir)\bin\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <TargetExt>.ax</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(ProjectDir)\bin\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <TargetExt>.d.ax</TargetExt>
+    <TargetExt>.ax</TargetExt>
+    <TargetName>$(ProjectName).d</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -61,8 +63,8 @@
       <PrecompiledHeaderOutputFile>.\Release\Filters.pch</PrecompiledHeaderOutputFile>
       <ObjectFileName>.\Release\</ObjectFileName>
       <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
-      <CallingConvention>StdCall</CallingConvention>
-      <AdditionalIncludeDirectories>C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(SolutionDir)\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CallingConvention>Cdecl</CallingConvention>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\EDSDK\Header;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(ProjectDir)..\CanonCameraApp\Camera;$(ProjectDir)..\CanonCameraApp\Command;$(ProjectDir)..\CanonCameraApp\Class;$(ProjectDir)..\CanonCameraApp\utils;$(ProjectDir)..\CanonCameraApp\;$(ProjectDir)..\libjpeg-turbo\include;$(ProjectDir)..\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -85,14 +87,14 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <OutputFile>..\Bin\VCam.ax</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <ImportLibrary>.\Release\VCam.lib</ImportLibrary>
       <StackReserveSize>2097152</StackReserveSize>
       <StackCommitSize>2097152</StackCommitSize>
       <EntryPointSymbol>DllEntryPoint%4012</EntryPointSymbol>
       <ModuleDefinitionFile>.\Filters.def</ModuleDefinitionFile>
-      <AdditionalLibraryDirectories>C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses\release;$(SolutionDir)\CppUtil\CppUtil\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>CppUtil.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses\release;$(ProjectDir)..\EDSDK\Library;$(ProjectDir)..\libjpeg-turbo\lib;$(ProjectDir)..\CppUtil\CppUtil\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>EDSDK.lib;turbojpeg.lib;CppUtil.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

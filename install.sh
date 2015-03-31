@@ -14,6 +14,8 @@ $MSBUILD CanonCameraApp/CanonFilter.vcxproj //t:Clean
 $MSBUILD CanonCameraApp/CanonCameraApp.vcxproj //p:Configuration=Debug
 $MSBUILD CanonCameraApp/CanonCameraApp.vcxproj //p:Configuration=Release
 $MSBUILD CanonFilter/CanonFilter.vcxproj //p:Configuration=Debug
+$MSBUILD CanonFilter/CanonFilter.vcxproj //p:Configuration=Release
+
 
 cp -r -v CanonCameraApp/bin/*.exe bin/
 cp -r -v CanonFilter/bin/*.ax bin/
