@@ -34,8 +34,8 @@
 	requested that these non-binding requests be included whenever the
 	above license is reproduced.
 */
-#ifndef INCLUDED_OSCPACK_OSCPACKETLISTENER_H
-#define INCLUDED_OSCPACK_OSCPACKETLISTENER_H
+#ifndef INCLUDED_OSCPACK_TIMERLISTENER_H
+#define INCLUDED_OSCPACK_TIMERLISTENER_H
 
 #ifdef OSCBUILDDLL
 #define OSCEXPORT  __declspec( dllexport ) 
@@ -43,25 +43,10 @@
 #define OSCEXPORT  __declspec( dllimport ) 
 #endif
 
-#include "OscReceivedElements.h"
-#include "../ip/PacketListener.h"
-
-
-namespace osc{
-
-class OSCEXPORT OscPacketListener : public PacketListener{ 
-protected:
-    virtual void ProcessBundle( const osc::ReceivedBundle& b, 
-				const IpEndpointName& remoteEndpoint );
-
-    virtual void ProcessMessage( const osc::ReceivedMessage& m, 
-				const IpEndpointName& remoteEndpoint ) = 0;
-    
+class OSCEXPORT TimerListener{
 public:
-	virtual void ProcessPacket( const char *data, int size, 
-			const IpEndpointName& remoteEndpoint );
+    virtual ~TimerListener() {}
+    virtual void TimerExpired() = 0;
 };
 
-} // namespace osc
-
-#endif /* INCLUDED_OSCPACK_OSCPACKETLISTENER_H */
+#endif /* INCLUDED_OSCPACK_TIMERLISTENER_H */

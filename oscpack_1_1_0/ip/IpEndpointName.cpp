@@ -34,34 +34,55 @@
 	requested that these non-binding requests be included whenever the
 	above license is reproduced.
 */
-#ifndef INCLUDED_OSCPACK_OSCPACKETLISTENER_H
-#define INCLUDED_OSCPACK_OSCPACKETLISTENER_H
+#include "IpEndpointName.h"
 
-#ifdef OSCBUILDDLL
-#define OSCEXPORT  __declspec( dllexport ) 
-#else
-#define OSCEXPORT  __declspec( dllimport ) 
-#endif
+#include <cstdio>
 
-#include "OscReceivedElements.h"
-#include "../ip/PacketListener.h"
+#include "NetworkingUtils.h"
 
 
-namespace osc{
+unsigned long IpEndpointName::GetHostByName( const char *s )
+{
+	return ::GetHostByName(s);
+}
 
-class OSCEXPORT OscPacketListener : public PacketListener{ 
-protected:
-    virtual void ProcessBundle( const osc::ReceivedBundle& b, 
-				const IpEndpointName& remoteEndpoint );
 
-    virtual void ProcessMessage( const osc::ReceivedMessage& m, 
-				const IpEndpointName& remoteEndpoint ) = 0;
-    
-public:
-	virtual void ProcessPacket( const char *data, int size, 
-			const IpEndpointName& remoteEndpoint );
-};
+void IpEndpointName::AddressAsString( char *s ) const
+{
+	if( address == ANY_ADDRESS ){
+		std::sprintf( s, "<any>" );
+	}else{
+		std::sprintf( s, "%d.%d.%d.%d",
+				(int)((address >> 24) & 0xFF),
+				(int)((address >> 16) & 0xFF),
+				(int)((address >> 8) & 0xFF),
+				(int)(address & 0xFF) );
+	}
+}
 
-} // namespace osc
 
-#endif /* INCLUDED_OSCPACK_OSCPACKETLISTENER_H */
+void IpEndpointName::AddressAndPortAsString( char *s ) const
+{
+	if( port == ANY_PORT ){
+		if( address == ANY_ADDRESS ){
+			std::sprintf( s, "<any>:<any>" );
+		}else{
+			std::sprintf( s, "%d.%d.%d.%d:<any>",
+				(int)((address >> 24) & 0xFF),
+				(int)((address >> 16) & 0xFF),
+				(int)((address >> 8) & 0xFF),
+				(int)(address & 0xFF) );
+		}
+	}else{
+		if( address == ANY_ADDRESS ){
+			std::sprintf( s, "<any>:%d", port );
+		}else{
+			std::sprintf( s, "%d.%d.%d.%d:%d",
+				(int)((address >> 24) & 0xFF),
+				(int)((address >> 16) & 0xFF),
+				(int)((address >> 8) & 0xFF),
+				(int)(address & 0xFF),
+				(int)port );
+		}
+	}	
+}
