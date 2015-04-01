@@ -37,6 +37,11 @@
 #ifndef INCLUDED_OSCPACK_OSCTYPES_H
 #define INCLUDED_OSCPACK_OSCTYPES_H
 
+#ifdef OSCBUILDDLL
+#define OSCEXPORT  __declspec( dllexport ) 
+#else
+#define OSCEXPORT  __declspec( dllimport ) 
+#endif
 
 namespace osc{
 
@@ -139,7 +144,7 @@ struct BundleInitiator{
     uint64 timeTag;
 };
 
-extern BundleInitiator BeginBundleImmediate;
+extern OSCEXPORT BundleInitiator BeginBundleImmediate;
 
 inline BundleInitiator BeginBundle( uint64 timeTag=1 )
 {
@@ -150,7 +155,7 @@ inline BundleInitiator BeginBundle( uint64 timeTag=1 )
 struct BundleTerminator{
 };
 
-extern BundleTerminator EndBundle;
+extern OSCEXPORT BundleTerminator EndBundle;
 
 struct BeginMessage{
     explicit BeginMessage( const char *addressPattern_ ) : addressPattern( addressPattern_ ) {}
@@ -160,7 +165,7 @@ struct BeginMessage{
 struct MessageTerminator{
 };
 
-extern MessageTerminator EndMessage;
+extern OSCEXPORT MessageTerminator EndMessage;
 
 
 // osc specific types. they are defined as structs so they can be used
@@ -169,16 +174,16 @@ extern MessageTerminator EndMessage;
 struct NilType{
 };
 
-extern NilType OscNil;
+extern OSCEXPORT NilType OscNil;
 
 #ifndef _OBJC_OBJC_H_
-extern NilType Nil; // Objective-C defines Nil. so our Nil is deprecated. use OscNil instead
+extern OSCEXPORT NilType Nil; // Objective-C defines Nil. so our Nil is deprecated. use OscNil instead
 #endif
 
 struct InfinitumType{
 };
 
-extern InfinitumType Infinitum;
+extern OSCEXPORT InfinitumType Infinitum;
 
 struct RgbaColor{
     RgbaColor() {}
@@ -227,12 +232,12 @@ struct Blob{
 struct ArrayInitiator{
 };
 
-extern ArrayInitiator BeginArray;
+extern OSCEXPORT ArrayInitiator BeginArray;
 
 struct ArrayTerminator{
 };
 
-extern ArrayTerminator EndArray;
+extern OSCEXPORT ArrayTerminator EndArray;
 
 } // namespace osc
 

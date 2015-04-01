@@ -60,38 +60,38 @@ public:
         : Exception( w ) {}
 };
 
-class MalformedMessageException : public Exception{
+class OSCEXPORT MalformedMessageException : public Exception{
 public:
     MalformedMessageException( const char *w="malformed message" )
         : Exception( w ) {}
 };
 
-class MalformedBundleException : public Exception{
+class OSCEXPORT MalformedBundleException : public Exception{
 public:
     MalformedBundleException( const char *w="malformed bundle" )
         : Exception( w ) {}
 };
 
-class WrongArgumentTypeException : public Exception{
+class OSCEXPORT WrongArgumentTypeException : public Exception{
 public:
     WrongArgumentTypeException( const char *w="wrong argument type" )
         : Exception( w ) {}
 };
 
-class MissingArgumentException : public Exception{
+class OSCEXPORT MissingArgumentException : public Exception{
 public:
     MissingArgumentException( const char *w="missing argument" )
         : Exception( w ) {}
 };
 
-class ExcessArgumentException : public Exception{
+class OSCEXPORT ExcessArgumentException : public Exception{
 public:
     ExcessArgumentException( const char *w="too many arguments" )
         : Exception( w ) {}
 };
 
 
-class ReceivedPacket{
+class OSCEXPORT ReceivedPacket{
 public:
     // Although the OSC spec is not entirely clear on this, we only support
     // packets up to 0x7FFFFFFC bytes long (the maximum 4-byte aligned value
@@ -145,7 +145,7 @@ private:
 };
 
 
-class ReceivedBundleElement{
+class OSCEXPORT ReceivedBundleElement{
 public:
     ReceivedBundleElement( const char *sizePtr )
         : sizePtr_( sizePtr ) {}
@@ -163,7 +163,7 @@ private:
 };
 
 
-class ReceivedBundleElementIterator{
+class OSCEXPORT ReceivedBundleElementIterator{
 public:
 	ReceivedBundleElementIterator( const char *sizePtr )
         : value_( sizePtr ) {}
@@ -212,7 +212,7 @@ inline bool operator!=(const ReceivedBundleElementIterator& lhs,
 }
 
 
-class ReceivedMessageArgument{
+class OSCEXPORT ReceivedMessageArgument{
 public:
 	ReceivedMessageArgument( const char *typeTagPtr, const char *argumentPtr )
 		: typeTagPtr_( typeTagPtr )
@@ -290,7 +290,7 @@ private:
 };
 
 
-class ReceivedMessageArgumentIterator{
+class OSCEXPORT ReceivedMessageArgumentIterator{
 public:
 	ReceivedMessageArgumentIterator( const char *typeTags, const char *arguments )
         : value_( typeTags, arguments ) {}
@@ -339,7 +339,7 @@ inline bool operator!=(const ReceivedMessageArgumentIterator& lhs,
 }
 
 
-class ReceivedMessageArgumentStream{
+class OSCEXPORT ReceivedMessageArgumentStream{
     friend class ReceivedMessage;
     ReceivedMessageArgumentStream( const ReceivedMessageArgumentIterator& begin,
             const ReceivedMessageArgumentIterator& end )
@@ -477,7 +477,7 @@ public:
 };
 
 
-class ReceivedMessage{
+class OSCEXPORT ReceivedMessage{
     void Init( const char *bundle, osc_bundle_element_size_t size );
 public:
     explicit ReceivedMessage( const ReceivedPacket& packet );
@@ -519,7 +519,7 @@ private:
 };
 
 
-class ReceivedBundle{
+class OSCEXPORT ReceivedBundle{
     void Init( const char *message, osc_bundle_element_size_t size );
 public:
     explicit ReceivedBundle( const ReceivedPacket& packet );
