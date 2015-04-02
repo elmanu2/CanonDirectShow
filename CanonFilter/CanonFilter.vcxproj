@@ -112,7 +112,7 @@
       <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
       <CallingConvention>Cdecl</CallingConvention>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\EDSDK\Header;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(ProjectDir)..\CanonCameraApp\Camera;$(ProjectDir)..\CanonCameraApp\Command;$(ProjectDir)..\CanonCameraApp\Class;$(ProjectDir)..\CanonCameraApp\utils;$(ProjectDir)..\CanonCameraApp\;$(ProjectDir)..\libjpeg-turbo\include;$(ProjectDir)..\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\oscpack_1_1_0\;$(ProjectDir)..\EDSDK\Header;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(ProjectDir)..\CanonCameraApp\Camera;$(ProjectDir)..\CanonCameraApp\Command;$(ProjectDir)..\CanonCameraApp\Class;$(ProjectDir)..\CanonCameraApp\utils;$(ProjectDir)..\CanonCameraApp\;$(ProjectDir)..\libjpeg-turbo\include;$(ProjectDir)..\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -141,8 +141,8 @@
       <StackCommitSize>2097152</StackCommitSize>
       <EntryPointSymbol>DllEntryPoint%4012</EntryPointSymbol>
       <ModuleDefinitionFile>.\Filters.def</ModuleDefinitionFile>
-      <AdditionalLibraryDirectories>C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses\debug;$(ProjectDir)..\EDSDK\Library;$(ProjectDir)..\libjpeg-turbo\lib;$(ProjectDir)..\CppUtil\CppUtil\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>EDSDK.lib;turbojpeg.lib;CppUtil.d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses\debug;$(ProjectDir)..\EDSDK\Library;$(ProjectDir)..\libjpeg-turbo\lib;$(ProjectDir)..\CppUtil\CppUtil\lib;$(ProjectDir)..\oscpack_1_1_0\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>oscpack.d.lib;EDSDK.lib;turbojpeg.lib;CppUtil.d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -154,8 +154,10 @@
     <ClCompile Include="..\CanonCameraApp\Camera\CliProcessor.cpp" />
     <ClCompile Include="..\CanonCameraApp\utils\CanonDict.cpp" />
     <ClCompile Include="canoncamera.cpp" />
+    <ClCompile Include="canonserver.cpp" />
     <ClCompile Include="Dll.cpp" />
     <ClCompile Include="Filters.cpp" />
+    <ClCompile Include="netcomthread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Filters.def" />
@@ -191,7 +193,9 @@
     <ClInclude Include="..\CanonCameraApp\Command\StartEvfCommand.h" />
     <ClInclude Include="..\CanonCameraApp\Command\TakePictureCommand.h" />
     <ClInclude Include="canoncamera.h" />
+    <ClInclude Include="canonserver.h" />
     <ClInclude Include="Filters.h" />
+    <ClInclude Include="netcomthread.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

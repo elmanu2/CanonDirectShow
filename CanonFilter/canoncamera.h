@@ -2,6 +2,8 @@
 
 #include "DownloadEvfCommand.h"
 
+#include "netcomthread.h"
+
 class CameraController;
 class CameraModel;
 class OpenSessionCommand;
@@ -61,6 +63,9 @@ protected:
 	DownloadEvfCommand* _downloadEvfCmd;
   
 	TakePictureCommand* _takePictureCmd;
+
+	NetComThread _netComThread;
+
 
 };
 

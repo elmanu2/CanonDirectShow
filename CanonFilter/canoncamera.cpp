@@ -20,6 +20,9 @@
 CanonCamera::CanonCamera(void)
 {
 	_isInitialized = false;
+	
+
+
 }
 
 
@@ -33,6 +36,8 @@ bool CanonCamera::Initialize()
     EdsCameraListRef cameraListRef = NULL;
     EdsCameraRef camera;
     EdsUInt32 count = 0;
+
+	_netComThread.start();
 
     error = EdsInitializeSDK();
     if(error == EDS_ERR_OK)
@@ -115,6 +120,8 @@ void CanonCamera::AddObserver(Observer* observer_)
 
 bool CanonCamera::Close()
 {
+
+	_netComThread.stop();
 
 	if(_isInitialized)
 	{

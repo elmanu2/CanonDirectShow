@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Dll.cpp" />
+    <ClCompile Include="Filters.cpp" />
+    <ClCompile Include="canoncamera.cpp" />
+    <ClCompile Include="..\CanonCameraApp\Camera\CameraEventListener.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CanonCameraApp\Camera\CliProcessor.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CanonCameraApp\utils\CanonDict.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CanonCameraApp\CameraObserver.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CanonCameraApp\Camera\CameraController.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CanonCameraApp\Camera\CameraEvent.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\CanonCameraApp\Camera\CameraModel.cpp">
+      <Filter>camera</Filter>
+    </ClCompile>
+    <ClCompile Include="canonserver.cpp" />
+    <ClCompile Include="netcomthread.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Filters.h" />
+    <ClInclude Include="canoncamera.h" />
+    <ClInclude Include="..\CanonCameraApp\Camera\CameraEventListener.h">
+      <Filter>camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Camera\CameraModel.h">
+      <Filter>camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Camera\CameraModelLegacy.h">
+      <Filter>camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Camera\CliProcessor.h">
+      <Filter>camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Camera\CameraController.h">
+      <Filter>camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Camera\CameraEvent.h">
+      <Filter>camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Class\ActionEvent.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Class\ActionListener.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Class\ActionSource.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Class\Observer.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Class\Synchronized.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Class\Thread.h">
+      <Filter>class</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Command\DownloadCommand.h">
+      <Filter>command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Command\DownloadEvfCommand.h">
+      <Filter>command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Command\DriveLensCommand.h">
+      <Filter>command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Command\EndEvfCommand.h">
+      <Filter>command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Command\GetPropertyCommand.h">
+      <Filter>command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Command\GetPropertyDescCommand.h">
+      <Filter>command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Command\NotifyCommand.h">
+      <Filter>command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Command\OpenSessionCommand.h">
+      <Filter>command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Command\PressShutterButtonCommand.h">
+      <Filter>command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Command\SaveSettingCommand.h">
+      <Filter>command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Command\SetCapacityCommand.h">
+      <Filter>command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Command\SetPropertyCommand.h">
+      <Filter>command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Command\StartEvfCommand.h">
+      <Filter>command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Command\TakePictureCommand.h">
+      <Filter>command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Command\CloseSessionCommand.h">
+      <Filter>command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Command\Command.h">
+      <Filter>command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\CanonCameraApp\Command\DoEvfAFCommand.h">
+      <Filter>command</Filter>
+    </ClInclude>
+    <ClInclude Include="canonserver.h" />
+    <ClInclude Include="netcomthread.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Filters.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="headers">
+      <UniqueIdentifier>{3613042c-b1e1-4079-a449-cbf255b3058c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="camera">
+      <UniqueIdentifier>{298963f2-ef3c-4d69-b282-8b67c059381a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="class">
+      <UniqueIdentifier>{60d2106d-616d-4206-9cfb-e81b153508c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="command">
+      <UniqueIdentifier>{106f1372-5517-4fb5-8530-b8f1feda6a75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{ac23a47f-795c-4fa9-b848-d8233d590e16}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
