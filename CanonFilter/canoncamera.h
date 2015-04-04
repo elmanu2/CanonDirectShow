@@ -40,6 +40,8 @@ public:
 
 	bool IsInitialized()const;
 
+	NetComThread* GetComThread(); 
+
 protected:
 
 	bool _isInitialized;

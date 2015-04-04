@@ -15,11 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CppUtil", "CppUtil\CppUtil\CppUtil.vcxproj", "{80786399-42D9-4865-91A6-944D9BDB4A5E}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCppUtil", "CppUtil\TestCppUtil\TestCppUtil.vcxproj", "{7B85B6E0-B903-44D0-95AA-B36F0120FAD0}"
-	ProjectSection(ProjectDependencies) = postProject
-		{80786399-42D9-4865-91A6-944D9BDB4A5E} = {80786399-42D9-4865-91A6-944D9BDB4A5E}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "oscpack", "oscpack_1_1_0\oscpack_1_1_0.vcxproj", "{AC42A8ED-51EC-48CA-AE25-A35B46FA265E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CanonFilterClient", "CanonFilterClient\CanonFilterClient.vcxproj", "{B49028DB-BB68-4F26-A679-84038D45A1FC}"
@@ -46,10 +41,6 @@ Global
 		{80786399-42D9-4865-91A6-944D9BDB4A5E}.Debug|Win32.Build.0 = Debug|Win32
 		{80786399-42D9-4865-91A6-944D9BDB4A5E}.Release|Win32.ActiveCfg = Release|Win32
 		{80786399-42D9-4865-91A6-944D9BDB4A5E}.Release|Win32.Build.0 = Release|Win32
-		{7B85B6E0-B903-44D0-95AA-B36F0120FAD0}.Debug|Win32.ActiveCfg = Debug|Win32
-		{7B85B6E0-B903-44D0-95AA-B36F0120FAD0}.Debug|Win32.Build.0 = Debug|Win32
-		{7B85B6E0-B903-44D0-95AA-B36F0120FAD0}.Release|Win32.ActiveCfg = Release|Win32
-		{7B85B6E0-B903-44D0-95AA-B36F0120FAD0}.Release|Win32.Build.0 = Release|Win32
 		{AC42A8ED-51EC-48CA-AE25-A35B46FA265E}.Debug|Win32.ActiveCfg = Debug|Win32
 		{AC42A8ED-51EC-48CA-AE25-A35B46FA265E}.Debug|Win32.Build.0 = Debug|Win32
 		{AC42A8ED-51EC-48CA-AE25-A35B46FA265E}.Release|Win32.ActiveCfg = Release|Win32

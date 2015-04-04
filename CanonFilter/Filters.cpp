@@ -158,11 +158,10 @@ HRESULT CVCamStream::FillBuffer(IMediaSample *pms)
 			tjDestroy(_jpegDecompressor);
 
 			_canonCamera->ReleaseLiveViewPic();
-			cptFrame++;
-			if(cptFrame == frameToShoot)
+
+			if(_canonCamera->GetComThread()->getCanonServer()->getOrderToTakePhoto())
 			{
 				_modeVideo = false;
-				cptFrame = 0;
 			}
 		} 
 		else
@@ -183,6 +182,7 @@ HRESULT CVCamStream::FillBuffer(IMediaSample *pms)
 			}
 			res = _canonCamera->StartLiveView();
 			_modeVideo = true;
+			_canonCamera->GetComThread()->photoTaked();
 		}
 	}
 

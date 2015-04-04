@@ -20,22 +20,16 @@ void sendMessage(IpEndpointName host_)
 	UdpTransmitSocket socket( host_ );
 
     p.Clear();
-    p << osc::BeginMessage( "/test1" )
+    p << osc::BeginMessage( "/CanonClient" )
             << "hello" << osc::EndMessage;
     socket.Send( p.Data(), p.Size() );
 
-    LOG_INFO("NOTE: sending /test1 message with too few arguments\n"\
-                    "(expect an exception if receiving with OscReceiveTest)");
-
-	SocketReceiveMultiplexer s = SocketReceiveMultiplexer();
-	_client = new CanonClient();
-	s.AttachSocketListener(&socket, _client);
-	s.Run();
-	//TODO make the server send a message
 }
 
 int main(int argc, char* argv[])
 {
+	int clientReceiveingPort = 5001; 
+
     if( argc >= 2 && std::strcmp( argv[1], "-h" ) == 0 ){
         LOG_INFO("usage: OscSendTests [hostname [port]]");
         return 0;
@@ -61,5 +55,16 @@ int main(int argc, char* argv[])
 
     sendMessage( host );
 
+
+    CanonClient listener;
+	UdpListeningReceiveSocket s(
+            IpEndpointName( IpEndpointName::ANY_ADDRESS, clientReceiveingPort ),
+            &listener );
+
+	LOG_INFO("listening for input on port " + Helper::toString(clientReceiveingPort) + "...");
+	
+	s.Run();
+
+	LOG_INFO("finishing.");
 
 }

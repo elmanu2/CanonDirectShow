@@ -17,6 +17,10 @@
 #include "logger.h"
 #include "helper.h"
 
+
+
+
+
 CanonCamera::CanonCamera(void)
 {
 	_isInitialized = false;
@@ -121,6 +125,8 @@ void CanonCamera::AddObserver(Observer* observer_)
 bool CanonCamera::Close()
 {
 
+	_netComThread.closeCamera();
+
 	_netComThread.stop();
 
 	if(_isInitialized)
@@ -197,5 +203,10 @@ bool CanonCamera::TakePicture()
 bool CanonCamera::IsInitialized()const
 {
 	return _isInitialized;
+}
+
+NetComThread* CanonCamera::GetComThread()
+{
+	return &_netComThread;
 }
 

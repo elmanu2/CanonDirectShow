@@ -13,10 +13,19 @@ public:
 
 	virtual ~CanonServer(void);
 
+	IpEndpointName getClient();
+
+	bool getOrderToTakePhoto();
+
+	void setOrderToTakePhoto(bool state);
 protected :
 
 	virtual void ProcessMessage(const osc::ReceivedMessage& m, 
 							    const IpEndpointName& remoteEndpoint );
+
+	IpEndpointName client_;
+
+	bool orderToTakePhoto;
 };
 
 #endif
