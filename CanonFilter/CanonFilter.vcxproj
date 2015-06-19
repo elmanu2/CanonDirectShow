@@ -64,7 +64,7 @@
       <ObjectFileName>.\Release\</ObjectFileName>
       <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
       <CallingConvention>Cdecl</CallingConvention>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\EDSDK\Header;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(ProjectDir)..\CanonCameraApp\Camera;$(ProjectDir)..\CanonCameraApp\Command;$(ProjectDir)..\CanonCameraApp\Class;$(ProjectDir)..\CanonCameraApp\utils;$(ProjectDir)..\CanonCameraApp\;$(ProjectDir)..\libjpeg-turbo\include;$(ProjectDir)..\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\oscpack_1_1_0\;$(ProjectDir)..\EDSDK\Header;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(ProjectDir)..\CanonCameraApp\Camera;$(ProjectDir)..\CanonCameraApp\Command;$(ProjectDir)..\CanonCameraApp\Class;$(ProjectDir)..\CanonCameraApp\utils;$(ProjectDir)..\CanonCameraApp\;$(ProjectDir)..\libjpeg-turbo\include;$(ProjectDir)..\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -93,8 +93,8 @@
       <StackCommitSize>2097152</StackCommitSize>
       <EntryPointSymbol>DllEntryPoint%4012</EntryPointSymbol>
       <ModuleDefinitionFile>.\Filters.def</ModuleDefinitionFile>
-      <AdditionalLibraryDirectories>C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses\release;$(ProjectDir)..\EDSDK\Library;$(ProjectDir)..\libjpeg-turbo\lib;$(ProjectDir)..\CppUtil\CppUtil\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>EDSDK.lib;turbojpeg.lib;CppUtil.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\oscpack_1_1_0\lib;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses\release;$(ProjectDir)..\EDSDK\Library;$(ProjectDir)..\libjpeg-turbo\lib;$(ProjectDir)..\CppUtil\CppUtil\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>oscpack.d.lib;EDSDK.lib;turbojpeg.lib;CppUtil.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
