@@ -21,6 +21,8 @@
 #include "EDSDK.h"
 #include "GetPropertyCommand.h"
 #include "GetPropertyDescCommand.h"
+#include "logger.h"
+
 
 class OpenSessionCommand : public Command
 {
@@ -35,9 +37,17 @@ public:
 		EdsError err = EDS_ERR_OK;
 		bool	 locked = false;
 	
+        LOG_INFO("Open session command starts...");
 		//The communication with the camera begins
 		err = EdsOpenSession(_model->getCameraObject());
-	
+        if(err == EDS_ERR_OK)
+        {
+            LOG_INFO("Open session command succeeded");
+        }
+        else
+        {
+            LOG_ERROR("Open session command failed");
+        }
 
 		if(_model->isLegacy())
 		{

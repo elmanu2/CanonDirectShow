@@ -46,10 +46,11 @@ bool CanonCamera::Initialize()
     error = EdsInitializeSDK();
     if(error == EDS_ERR_OK)
     {
-		LOG_INFO("EDSDK initialized successfully");
+		LOG_INFO("EDSDK initialization succeed");
     }
     else
     {
+        LOG_ERROR("EDSDK initialization failed");
 		return false;
 	}
 
@@ -67,6 +68,7 @@ bool CanonCamera::Initialize()
         if(count == 0)
         {
             error = EDS_ERR_DEVICE_NOT_FOUND;
+            LOG_ERROR("No Canon Camera found");
             return false;
         }
     }

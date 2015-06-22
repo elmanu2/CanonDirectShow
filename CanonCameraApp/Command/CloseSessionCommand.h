@@ -19,6 +19,8 @@
 #include "Command.h"
 #include "CameraEvent.h"
 #include "EDSDK.h"
+#include "logger.h"
+
 
 class CloseSessionCommand : public Command
 {
@@ -32,9 +34,17 @@ public:
 	{
 		EdsError err = EDS_ERR_OK;
 	
+        LOG_INFO("Close session command starts...");
 		//The communication with the camera is ended
 		err = EdsCloseSession(_model->getCameraObject());
-
+        if(err == EDS_ERR_OK)
+        {
+            LOG_INFO("Close session command succeeded");
+        }
+        else
+        {
+            LOG_ERROR("Close session command failed");
+        }
 
 		//Notification of error
 		if(err != EDS_ERR_OK)

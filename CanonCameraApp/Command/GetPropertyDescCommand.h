@@ -31,7 +31,7 @@ public:
 		:_propertyID(propertyID), Command(model){}
 
 
-	// Execute command	
+    // Execute command	
 	virtual bool execute()
 	{
 		EdsError err = EDS_ERR_OK;
@@ -94,8 +94,8 @@ private:
 			if(err == EDS_ERR_OK) err = getPropertyDesc(kEdsPropID_Av);
 			if(err == EDS_ERR_OK) err = getPropertyDesc(kEdsPropID_ISOSpeed);
 			if(err == EDS_ERR_OK) err = getPropertyDesc(kEdsPropID_MeteringMode);
-			if(err == EDS_ERR_OK) err = getPropertyDesc(kEdsPropID_ExposureCompensation);			
-			if(err == EDS_ERR_OK) err = getPropertyDesc(kEdsPropID_ImageQuality);			
+			if(err == EDS_ERR_OK) err = getPropertyDesc(kEdsPropID_ExposureCompensation);
+			if(err == EDS_ERR_OK) err = getPropertyDesc(kEdsPropID_ImageQuality);
 			
 			return err;
 		}		

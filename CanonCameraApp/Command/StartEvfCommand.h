@@ -18,7 +18,7 @@
 #include "Command.h"
 #include "CameraEvent.h"
 #include "EDSDK.h"
-
+#include "logger.h"
 
 
 class StartEvfCommand : public Command
@@ -32,7 +32,7 @@ public:
 	{
 		EdsError err = EDS_ERR_OK;
 
-
+        LOG_INFO("Start live view command...");
 		/// Change settings because live view cannot be started
 		/// when camera settings are set to gdo not perform live view.h
 		EdsUInt32 evfMode = _model->getEvfMode();
@@ -61,6 +61,8 @@ public:
 		//Notification of error
 		if(err != EDS_ERR_OK)
 		{
+            LOG_ERROR("Start live view command failed");
+        
 			// It doesn't retry it at device busy
 			if(err == EDS_ERR_DEVICE_BUSY)
 			{
@@ -72,6 +74,10 @@ public:
 			CameraEvent e("error", &err);
 			_model->notifyObservers(&e);
 		}
+        else
+        {
+            LOG_INFO("Start live view command succeeded");
+        }
 
 		return true;
 	}

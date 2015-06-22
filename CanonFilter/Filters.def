@@ -1,4 +1,4 @@
-LIBRARY     Vcam.ax
+LIBRARY     CanonFilter.ax
 EXPORTS
             DllMain                 PRIVATE
             DllGetClassObject       PRIVATE

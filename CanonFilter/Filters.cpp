@@ -287,7 +287,7 @@ HRESULT CVCamStream::DecideBufferSize(IMemAllocator *pAlloc, ALLOCATOR_PROPERTIE
 // Called when graph is run
 HRESULT CVCamStream::OnThreadCreate()
 {
-
+    LOG_INFO("Directshow graph has started. trying to initialize Canon camera...");
 	_canonCamera = new CanonCamera();
     _canonCamera->Initialize();
 	if(_canonCamera->IsInitialized())
@@ -303,6 +303,7 @@ HRESULT CVCamStream::OnThreadCreate()
 // Called when graph is destroyed
 HRESULT CVCamStream::OnThreadDestroy()
 {
+    LOG_INFO("Directshow graph has ended. closing Canon camera...");
     //1-when the filter is released from graphedit
     //2-when the webrowser close the page
 	_canonCamera->StopLiveView();

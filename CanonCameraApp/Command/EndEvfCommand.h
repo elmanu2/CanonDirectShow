@@ -18,6 +18,8 @@
 #include "Command.h"
 #include "CameraEvent.h"
 #include "EDSDK.h"
+#include "logger.h"
+
 
 
 
@@ -33,6 +35,7 @@ public:
 	{
 		EdsError err = EDS_ERR_OK;
 
+         LOG_INFO("End live view command...");
 
 		// Get the current output device.
 		EdsUInt32 device = _model->getEvfOutputDevice();
@@ -71,6 +74,8 @@ public:
 		//Notification of error
 		if(err != EDS_ERR_OK)
 		{
+            LOG_ERROR("End live view command failed");
+
 			// It retries it at device busy
 			if(err == EDS_ERR_DEVICE_BUSY)
 			{
@@ -85,6 +90,10 @@ public:
 			// Retry until successful.
 			return false;
 		}
+          else
+        {
+            LOG_INFO("End live view command succeeded");
+        }
 
 		return true;
 	}
