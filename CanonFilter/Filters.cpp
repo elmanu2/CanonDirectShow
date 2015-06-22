@@ -13,6 +13,8 @@
 #include "logger.h"
 #include "environment.h"
 
+CVCam* CVCam::_instance = NULL;
+
 //////////////////////////////////////////////////////////////////////////
 //  CVCam is the source filter which masquerades as a capture device
 //////////////////////////////////////////////////////////////////////////
@@ -22,7 +24,12 @@ CUnknown * WINAPI CVCam::CreateInstance(LPUNKNOWN lpunk, HRESULT *phr)
     //1-when the filter is inserted from graphedit
     //2-when GetUserMedia is called from the browser
     ASSERT(phr);
-    CUnknown *punk = new CVCam(lpunk, phr);
+	//if(_instance == NULL)
+	//{
+		_instance = new CVCam(lpunk, phr);
+	//}
+
+	CUnknown *punk = _instance;
 	environment::logEnvironment();
 	LOG_INFO("Create directshow filter instance");
 
@@ -63,23 +70,12 @@ CVCamStream::CVCamStream(HRESULT *phr, CVCam *pParent, LPCWSTR pPinName) :
     // Set the default media type as 320x240x24@15
     GetMediaType(4, &m_mt);
 
-    _canonCamera = new CanonCamera();
-    _canonCamera->Initialize();
-	if(_canonCamera->IsInitialized())
-	{
-		_canonCamera->StartLiveView();
-		_canonCamera->AddObserver(this);
-		_modeVideo = true;
-	}
+
 }
 
 CVCamStream::~CVCamStream()
 {
-    //Called when the filter is released :
-    //1-when the filter is released from graphedit
-    //2-when the webrowser close the page
-	_canonCamera->StopLiveView();
-    _canonCamera->Close();
+
 } 
 
 HRESULT CVCamStream::QueryInterface(REFIID riid, void **ppv)
@@ -291,9 +287,29 @@ HRESULT CVCamStream::DecideBufferSize(IMemAllocator *pAlloc, ALLOCATOR_PROPERTIE
 // Called when graph is run
 HRESULT CVCamStream::OnThreadCreate()
 {
-    m_rtLastTime = 0;
+
+	_canonCamera = new CanonCamera();
+    _canonCamera->Initialize();
+	if(_canonCamera->IsInitialized())
+	{
+		_canonCamera->StartLiveView();
+		_canonCamera->AddObserver(this);
+		_modeVideo = true;
+	}
+
     return NOERROR;
 } // OnThreadCreate
+
+// Called when graph is destroyed
+HRESULT CVCamStream::OnThreadDestroy()
+{
+    //1-when the filter is released from graphedit
+    //2-when the webrowser close the page
+	_canonCamera->StopLiveView();
+    _canonCamera->Close();
+
+    return NOERROR;
+} // OnThreadDestroy
 
 
 //////////////////////////////////////////////////////////////////////////

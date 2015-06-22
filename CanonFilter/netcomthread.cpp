@@ -6,31 +6,31 @@
 
 NetComThread::NetComThread(void)	
 {
-	_receiveSocket = new UdpListeningReceiveSocket(
-            IpEndpointName( IpEndpointName::ANY_ADDRESS, 5000 ),
-            &_server );
+	//_receiveSocket = new UdpListeningReceiveSocket(
+ //           IpEndpointName( IpEndpointName::ANY_ADDRESS, 4999 ),
+ //           &_server );
 
-	_transmitSocket = new UdpTransmitSocket(IpEndpointName("localhost", 5001));
+	//_transmitSocket = new UdpTransmitSocket(IpEndpointName("localhost", 5001));
 
-	
-	LOG_INFO("listening for input on port " + Helper::toString(5000) + "...");
+	//
+	//LOG_INFO("listening for input on port " + Helper::toString(4999) + "...");
 }
 
 NetComThread::~NetComThread(void)
 {
-	delete _receiveSocket;
+	//delete _receiveSocket;
 }
 
 void NetComThread::run()
 {
-	LOG_INFO("run network communication thread");
-	_receiveSocket->Run();
+	//LOG_INFO("run network communication thread");
+	//_receiveSocket->Run();
 }
 
 void NetComThread::stop()
 {
-	LOG_INFO("stop network communication thread");
-	_receiveSocket->Break();
+	//LOG_INFO("stop network communication thread");
+	//_receiveSocket->Break();
 }
 
 CanonServer* NetComThread::getCanonServer()
@@ -40,32 +40,32 @@ CanonServer* NetComThread::getCanonServer()
 
 void NetComThread::closeCamera()
 {
-	char buffer[IP_MTU_SIZE];
-    osc::OutboundPacketStream p( buffer, IP_MTU_SIZE );
-	
-    p.Clear();
-    p << osc::BeginMessage( "/CanonServer" )
-            << "close camera" << osc::EndMessage;
-	sendMessage( p);
+	//char buffer[IP_MTU_SIZE];
+ //   osc::OutboundPacketStream p( buffer, IP_MTU_SIZE );
+	//
+ //   p.Clear();
+ //   p << osc::BeginMessage( "/CanonServer" )
+ //           << "close camera" << osc::EndMessage;
+	//sendMessage( p);
 }
 
 void NetComThread::photoTaked()
 {
-	_server.setOrderToTakePhoto(false);
+	//_server.setOrderToTakePhoto(false);
 
-	char buffer[IP_MTU_SIZE];
-    osc::OutboundPacketStream p( buffer, IP_MTU_SIZE );
-	
-    p.Clear();
-    p << osc::BeginMessage( "/CanonServer" )
-            << "photo taked"<< osc::EndMessage;
-	sendMessage( p);
+	//char buffer[IP_MTU_SIZE];
+ //   osc::OutboundPacketStream p( buffer, IP_MTU_SIZE );
+	//
+ //   p.Clear();
+ //   p << osc::BeginMessage( "/CanonServer" )
+ //           << "photo taked"<< osc::EndMessage;
+	//sendMessage( p);
 }
 
 
 void NetComThread::sendMessage(const osc::OutboundPacketStream& data)
 {
-	_transmitSocket->Send(data.Data(), data.Size());
+	//_transmitSocket->Send(data.Data(), data.Size());
 }
 
 

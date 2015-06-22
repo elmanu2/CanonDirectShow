@@ -20,6 +20,7 @@ public:
     IFilterGraph *GetGraph() {return m_pGraph;}
 
 private:
+	static CVCam *_instance;
     CVCam(LPUNKNOWN lpunk, HRESULT *phr);
 };
 
@@ -66,6 +67,7 @@ public:
     HRESULT GetMediaType(int iPosition, CMediaType *pmt);
     HRESULT SetMediaType(const CMediaType *pmt);
     HRESULT OnThreadCreate(void);
+	HRESULT OnThreadDestroy(void);
 
 	//////////////////////////////////////////////////////////////////////////
     //  Observer
