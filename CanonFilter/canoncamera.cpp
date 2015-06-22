@@ -2,13 +2,11 @@
 #include "stdlib.h"
 #include <cassert>
 #include <iostream>
-//#include "CameraController.h"
 #include "CameraModel.h"
 #include "CameraModelLegacy.h"
 #include "CameraEventListener.h"
 #include "OpenSessionCommand.h"
 #include "CloseSessionCommand.h"
-#include "CameraObserver.h"
 #include "StartEvfCommand.h"
 #include "EndEvfCommand.h"
 #include "DownloadEvfCommand.h"
@@ -82,8 +80,7 @@ bool CanonCamera::Initialize()
     _camController = new CameraController();
 
     _camModel = new CameraModel(camera);
-    _camModel->addObserver(new CameraObserver());
-
+    
     _camController->setCameraModel(_camModel);
 
     _openSessionCmd = new OpenSessionCommand(_camModel);
