@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "oscpack", "oscpack_1_1_0\os
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CanonFilterClient", "CanonFilterClient\CanonFilterClient.vcxproj", "{B49028DB-BB68-4F26-A679-84038D45A1FC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CanonCameraLib", "CanonCameraLib\CanonCameraLib.vcxproj", "{0B2FEBDD-41CC-4999-B342-84F3C0D11B4F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -43,6 +45,10 @@ Global
 		{B49028DB-BB68-4F26-A679-84038D45A1FC}.Debug|Win32.Build.0 = Debug|Win32
 		{B49028DB-BB68-4F26-A679-84038D45A1FC}.Release|Win32.ActiveCfg = Release|Win32
 		{B49028DB-BB68-4F26-A679-84038D45A1FC}.Release|Win32.Build.0 = Release|Win32
+		{0B2FEBDD-41CC-4999-B342-84F3C0D11B4F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0B2FEBDD-41CC-4999-B342-84F3C0D11B4F}.Debug|Win32.Build.0 = Debug|Win32
+		{0B2FEBDD-41CC-4999-B342-84F3C0D11B4F}.Release|Win32.ActiveCfg = Release|Win32
+		{0B2FEBDD-41CC-4999-B342-84F3C0D11B4F}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

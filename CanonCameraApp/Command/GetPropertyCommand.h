@@ -37,6 +37,8 @@ public:
 		EdsError err = EDS_ERR_OK;
 		bool	 locked = false;
 		
+        LOG_INFO("Get Property command starts...");
+
 		// For cameras earlier than the 30D , the UI must be locked before commands are reissued
 		if( _model->isLegacy())
 		{
