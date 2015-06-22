@@ -87,46 +87,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CameraObserver.cpp" />
-    <ClCompile Include="Camera\CameraController.cpp" />
-    <ClCompile Include="Camera\CameraEvent.cpp" />
-    <ClCompile Include="Camera\CameraEventListener.cpp" />
-    <ClCompile Include="Camera\CameraModel.cpp" />
-    <ClCompile Include="Camera\CliProcessor.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="utils\CanonDict.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CameraObserver.h" />
-    <ClInclude Include="Camera\CameraController.h" />
-    <ClInclude Include="Camera\CameraEvent.h" />
-    <ClInclude Include="Camera\CameraEventListener.h" />
-    <ClInclude Include="Camera\CameraModel.h" />
-    <ClInclude Include="Camera\CameraModelLegacy.h" />
-    <ClInclude Include="Camera\CliProcessor.h" />
-    <ClInclude Include="Class\ActionEvent.h" />
-    <ClInclude Include="Class\ActionListener.h" />
-    <ClInclude Include="Class\ActionSource.h" />
-    <ClInclude Include="Class\Observer.h" />
-    <ClInclude Include="Class\Synchronized.h" />
-    <ClInclude Include="Class\Thread.h" />
-    <ClInclude Include="Command\CloseSessionCommand.h" />
-    <ClInclude Include="Command\Command.h" />
-    <ClInclude Include="Command\DoEvfAFCommand.h" />
-    <ClInclude Include="Command\DownloadCommand.h" />
-    <ClInclude Include="Command\DownloadEvfCommand.h" />
-    <ClInclude Include="Command\DriveLensCommand.h" />
-    <ClInclude Include="Command\EndEvfCommand.h" />
-    <ClInclude Include="Command\GetPropertyCommand.h" />
-    <ClInclude Include="Command\GetPropertyDescCommand.h" />
-    <ClInclude Include="Command\NotifyCommand.h" />
-    <ClInclude Include="Command\OpenSessionCommand.h" />
-    <ClInclude Include="Command\PressShutterButtonCommand.h" />
-    <ClInclude Include="Command\SaveSettingCommand.h" />
-    <ClInclude Include="Command\SetCapacityCommand.h" />
-    <ClInclude Include="Command\SetPropertyCommand.h" />
-    <ClInclude Include="Command\StartEvfCommand.h" />
-    <ClInclude Include="Command\TakePictureCommand.h" />
-    <ClInclude Include="utils\CanonDict.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
