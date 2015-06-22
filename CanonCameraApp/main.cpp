@@ -1,7 +1,6 @@
 #include "stdlib.h"
 #include <cassert>
 #include <iostream>
-//#include "CameraController.h"
 #include "CameraModel.h"
 #include "CameraModelLegacy.h"
 #include "CameraEventListener.h"

@@ -261,7 +261,7 @@ void CameraModel::setPropertyUInt32(EdsUInt32 propertyID, EdsUInt32 value)
 {
     switch(propertyID)
     {
-    case kEdsPropID_AEModeSelect:			setAEMode(value);					break;
+    case kEdsPropID_AEMode:     			setAEMode(value);					break;
     case kEdsPropID_Tv:						setTv(value);						break;
     case kEdsPropID_Av:						setAv(value);						break;
     case kEdsPropID_ISOSpeed:				setIso(value);						break;
