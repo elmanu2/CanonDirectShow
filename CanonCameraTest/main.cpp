@@ -17,6 +17,7 @@ using namespace std;
 void test(CameraModel* pModel)
 {
     
+    GetPropertyCommand* _propProductName = new GetPropertyCommand(pModel, kEdsPropID_ProductName);
     GetPropertyCommand* _propBatteryLvlCmd = new GetPropertyCommand(pModel, kEdsPropID_BatteryLevel);
     GetPropertyCommand* _propAEModeCmd = new GetPropertyCommand(pModel, kEdsPropID_AEMode);
     GetPropertyCommand* _propAvCmd = new GetPropertyCommand(pModel, kEdsPropID_Av);
@@ -34,6 +35,7 @@ void test(CameraModel* pModel)
     GetPropertyCommand* _propEvfAFCmd = new GetPropertyCommand(pModel, kEdsPropID_Evf_AFMode);
     GetPropertyCommand* _propFocusInfoCmd = new GetPropertyCommand(pModel, kEdsPropID_FocusInfo);
     
+    _propProductName->execute();
     _propBatteryLvlCmd->execute();
     _propAEModeCmd->execute();
     _propAvCmd->execute();
@@ -54,6 +56,8 @@ void test(CameraModel* pModel)
     EdsPoint zoomPosition;
     EdsRect zoomRect;
     EdsFocusInfo focusInfo;
+    LOG_DEBUG("Product name             : " + (std::string)pModel->getModelName());
+    LOG_DEBUG("Battery level            : " + Helper::toString((int)pModel->getBatteryLevel()));
     LOG_DEBUG("AE mode                  : " + Helper::toString((int)pModel->getAEMode()));
     LOG_DEBUG("Av                       : " + Helper::toString((int)pModel->getAv()));
     LOG_DEBUG("Tv                       : " + Helper::toString((int)pModel->getTv()));

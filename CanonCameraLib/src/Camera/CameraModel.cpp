@@ -93,6 +93,11 @@ void CameraModel::setFocusInfo( EdsFocusInfo value)
     _focusInfo = value;
 }
 
+void CameraModel::setBatteryLevel(EdsUInt32 value)
+{
+    _batteryLevel = value;
+}
+
 // Taking a picture parameter
 EdsUInt32 CameraModel::getAEMode() const
 {
@@ -172,6 +177,11 @@ EdsChar * CameraModel::getModelName()
 EdsFocusInfo  CameraModel::getFocusInfo()const
 {
     return _focusInfo;
+}
+
+EdsUInt32 CameraModel::getBatteryLevel()const
+{
+    return _batteryLevel;
 }
 
 //List of value in which taking a picture parameter can be set
@@ -261,17 +271,26 @@ void CameraModel::setPropertyUInt32(EdsUInt32 propertyID, EdsUInt32 value)
 {
     switch(propertyID)
     {
-    case kEdsPropID_AEMode:     			setAEMode(value);					break;
-    case kEdsPropID_Tv:						setTv(value);						break;
-    case kEdsPropID_Av:						setAv(value);						break;
-    case kEdsPropID_ISOSpeed:				setIso(value);						break;
-    case kEdsPropID_MeteringMode:			setMeteringMode(value);				break;
-    case kEdsPropID_ExposureCompensation:	setExposureCompensation(value);		break;
-    case kEdsPropID_ImageQuality:			setImageQuality(value);				break;
-    case kEdsPropID_Evf_Mode:				setEvfMode(value);					break;
-    case kEdsPropID_Evf_OutputDevice:		setEvfOutputDevice(value);			break;
-    case kEdsPropID_Evf_DepthOfFieldPreview:setEvfDepthOfFieldPreview(value);	break;
-    case kEdsPropID_Evf_AFMode:				setEvfAFMode(value);				break;
+        case kEdsPropID_AEMode:     			setAEMode(value);					break;
+        case kEdsPropID_Tv:						setTv(value);						break;
+        case kEdsPropID_Av:						setAv(value);						break;
+        case kEdsPropID_ISOSpeed:				setIso(value);						break;
+        case kEdsPropID_MeteringMode:			setMeteringMode(value);				break;
+        case kEdsPropID_ExposureCompensation:	setExposureCompensation(value);		break;
+        case kEdsPropID_ImageQuality:			setImageQuality(value);				break;
+        case kEdsPropID_Evf_Mode:				setEvfMode(value);					break;
+        case kEdsPropID_Evf_OutputDevice:		setEvfOutputDevice(value);			break;
+        case kEdsPropID_Evf_DepthOfFieldPreview:setEvfDepthOfFieldPreview(value);	break;
+        case kEdsPropID_Evf_AFMode:				setEvfAFMode(value);				break;
+    }
+}
+
+//Setting of taking a picture parameter(Int32)
+void CameraModel::setPropertyInt32(EdsInt32 propertyID, EdsUInt32 value)
+{
+    switch(propertyID)
+    {
+        case kEdsPropID_BatteryLevel:           setBatteryLevel(value);             break;
     }
 }
 

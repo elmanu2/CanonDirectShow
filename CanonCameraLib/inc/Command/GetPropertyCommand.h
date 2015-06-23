@@ -140,6 +140,24 @@ private:
 					_model->setPropertyUInt32(propertyID, data);
 				}
 			}
+
+            if(dataType == kEdsDataType_Int32)
+			{
+				EdsInt32 data;
+
+				//Acquisition of the property
+				err = EdsGetPropertyData( _model->getCameraObject(),
+										propertyID,
+										0,
+										dataSize,
+										&data );
+
+				//Acquired property value is set
+				if(err == EDS_ERR_OK)
+				{
+					_model->setPropertyInt32(propertyID, data);
+				}
+			}
 			
 			if(dataType == kEdsDataType_String)
 			{
