@@ -19,6 +19,12 @@ using namespace std;
 
 void main()
 {
+    Logger* logger = Logger::getInstance();
+    logger->setLevel(Logger::eLevelDebug);
+    logger->setLogDirectory(environment::getUserTempDir()+ "/wistiti");
+    logger->addPrefixLogFile("CanonCameraApp-");
+    logger->createLogFile();
+
 	environment::logEnvironment();
 
     EdsError error;

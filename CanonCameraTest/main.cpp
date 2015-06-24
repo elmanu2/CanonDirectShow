@@ -72,6 +72,7 @@ void test(CameraModel* pModel)
     zoomRect    = pModel->getEvfZoomRect();
     focusInfo   = pModel->getFocusInfo();
 
+    delete _propProductName;
     delete _propBatteryLvlCmd;
     delete _propAEModeCmd;
     delete _propAvCmd;

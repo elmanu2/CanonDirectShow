@@ -30,6 +30,14 @@ CUnknown * WINAPI CVCam::CreateInstance(LPUNKNOWN lpunk, HRESULT *phr)
 	//}
 
 	CUnknown *punk = _instance;
+    
+    //Init the logger
+    Logger* logger = Logger::getInstance();
+    logger->setLevel(Logger::eLevelDebug);
+    logger->setLogDirectory(environment::getUserTempDir()+ "/wistiti");
+    logger->addPrefixLogFile("CanonFilter-");
+    logger->createLogFile();
+
 	environment::logEnvironment();
 	LOG_INFO("Create directshow filter instance");
 

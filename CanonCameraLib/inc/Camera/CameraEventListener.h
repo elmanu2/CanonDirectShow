@@ -27,6 +27,8 @@
 #include "CanonDict.h"
 #include "CameraEvent.h"
 #include "logger.h"
+#include "environment.h"
+#include "date.h"
 
 using namespace std;
 
@@ -48,7 +50,9 @@ public:
         {
         case kEdsObjectEvent_DirItemRequestTransfer:
 			controller->getCameraModel()->notifyObservers(new CameraEvent("DownloadStart"));
-			downloadImage(inRef,"","","");
+            downloadImage(inRef,
+                                environment::getUserTempDir() + "/wistiti",
+                                Date::getNow().toLog(),".jpg");
 			controller->getCameraModel()->notifyObservers(new CameraEvent("DownloadComplete"));
             //fireEvent(controller, "download", inRef);
             break;
