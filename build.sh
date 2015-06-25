@@ -5,7 +5,7 @@ rm -r bin
 mkdir bin
 
 cd CppUtil
-./install.sh
+./build.sh
 cd ..
 
 cd oscpack_1_1_0
@@ -13,14 +13,14 @@ cd oscpack_1_1_0
 cd ..
 
 $MSBUILD CanonCameraLib/CanonCameraLib.vcxproj //t:Clean
-$MSBUILD CanonCameraLib/CanonCameraTest.vcxproj //t:Clean
+$MSBUILD CanonCameraTest/CanonCameraTest.vcxproj //t:Clean
 $MSBUILD CanonCameraApp/CanonCameraApp.vcxproj //t:Clean
 $MSBUILD CanonCameraApp/CanonFilter.vcxproj //t:Clean
 
 $MSBUILD CanonCameraLib/CanonCameraLib.vcxproj //p:Configuration=Debug
 $MSBUILD CanonCameraLib/CanonCameraLib.vcxproj //p:Configuration=Release
-$MSBUILD CanonCameraLib/CanonCameraTest.vcxproj //p:Configuration=Debug
-$MSBUILD CanonCameraLib/CanonCameraTest.vcxproj //p:Configuration=Release
+$MSBUILD CanonCameraTest/CanonCameraTest.vcxproj //p:Configuration=Debug
+$MSBUILD CanonCameraTest/CanonCameraTest.vcxproj //p:Configuration=Release
 $MSBUILD CanonCameraApp/CanonCameraApp.vcxproj //p:Configuration=Debug
 $MSBUILD CanonCameraApp/CanonCameraApp.vcxproj //p:Configuration=Release
 $MSBUILD CanonFilter/CanonFilter.vcxproj //p:Configuration=Debug

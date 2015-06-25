@@ -94,7 +94,7 @@
       <EntryPointSymbol>DllEntryPoint%4012</EntryPointSymbol>
       <ModuleDefinitionFile>.\Filters.def</ModuleDefinitionFile>
       <AdditionalLibraryDirectories>$(ProjectDir)..\oscpack_1_1_0\lib;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses\release;$(ProjectDir)..\EDSDK\Library;$(ProjectDir)..\libjpeg-turbo\lib;$(ProjectDir)..\CppUtil\CppUtil\lib;$(ProjectDir)..\CanonCameraLib\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>CanonCameraLib.lib;oscpack.d.lib;EDSDK.lib;turbojpeg.lib;CppUtil.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>CanonCameraLib.lib;oscpack.lib;EDSDK.lib;turbojpeg.lib;CppUtil.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

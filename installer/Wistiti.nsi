@@ -13,11 +13,18 @@ SetOutPath $INSTDIR
  
 # define what to install and place it in the output path
 File ..\bin\CanonFilter.ax
+File ..\bin\CanonCameraApp.exe
+File ..\bin\CanonCameraTest.exe
+File ..\bin\TestCppUtil.exe
 File ..\bin\CanonCameraLib.dll
-File ..\bin\OscPack.d.dll
+File ..\bin\OscPack.dll
 File ..\bin\TurboJpeg.dll
 File ..\bin\CppUtil.dll
 File ..\bin\EDSDK.dll
+File ..\bin\EdsImage.dll
+File ..\bin\DPPLibCom.dll
+
+
 
 # define uninstaller name
 WriteUninstaller $INSTDIR\uninstaller.exe
@@ -37,10 +44,15 @@ ExecWait "$\"$SYSDIR\regsvr32.exe$\" /u $\"$INSTDIR\CanonFilter.ax$\""
 
 # now delete installed file
 Delete $INSTDIR\CanonFilter.ax
+Delete $INSTDIR\CanonCameraApp.exe
+Delete $INSTDIR\CanonCameraTest.exe
+Delete $INSTDIR\TestCppUtil.exe
 Delete $INSTDIR\CanonCameraLib.dll
-Delete $INSTDIR\OscPack.d.dll
+Delete $INSTDIR\OscPack.dll
 Delete $INSTDIR\TurboJpeg.dll
 Delete $INSTDIR\CppUtil.dll
 Delete $INSTDIR\EDSDK.dll
+Delete $INSTDIR\DPPLibCom.dll
+Delete $INSTDIR\EdsImage.dll
 
 SectionEnd
