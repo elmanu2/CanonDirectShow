@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{0B2FEBDD-41CC-4999-B342-84F3C0D11B4F}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>CanonCameraApp</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)bin\</OutDir>
+    <TargetExt>.dll</TargetExt>
+    <TargetName>$(ProjectName).d</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)bin\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;CANCAMBUILDDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\EDSDK\Header;$(ProjectDir)\inc\Camera;$(ProjectDir)\inc\Command;$(ProjectDir)\inc\Utils;$(ProjectDir)\inc\Class;$(ProjectDir);$(ProjectDir)..\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)\..\EDSDK\Library;$(ProjectDir)\..\CppUtil\CppUtil\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>EDSDK.lib;CppUtil.d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <ProgramDatabaseFile>$(TargetDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(ProjectDir)\lib\$(ProjectName).d.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;CANCAMBUILDDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\EDSDK\Header;$(ProjectDir)\inc\Camera;$(ProjectDir)\inc\Command;$(ProjectDir)\inc\Utils;$(ProjectDir)\inc\Class;$(ProjectDir);$(ProjectDir)..\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>EDSDK.lib;CppUtil.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\EDSDK\Library;$(ProjectDir)..\CppUtil\CppUtil\lib</AdditionalLibraryDirectories>
+      <ImportLibrary>$(ProjectDir)\lib\$(ProjectName).lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Camera\CameraController.cpp" />
+    <ClCompile Include="src\Camera\CameraEvent.cpp" />
+    <ClCompile Include="src\Camera\CameraEventListener.cpp" />
+    <ClCompile Include="src\Camera\CameraModel.cpp" />
+    <ClCompile Include="src\Camera\CliProcessor.cpp" />
+    <ClCompile Include="src\utils\CanonDict.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="inc\Camera\CameraController.h" />
+    <ClInclude Include="inc\Camera\CameraEvent.h" />
+    <ClInclude Include="inc\Camera\CameraEventListener.h" />
+    <ClInclude Include="inc\Camera\CameraModel.h" />
+    <ClInclude Include="inc\Camera\CameraModelLegacy.h" />
+    <ClInclude Include="inc\Camera\CliProcessor.h" />
+    <ClInclude Include="inc\Class\ActionEvent.h" />
+    <ClInclude Include="inc\Class\ActionListener.h" />
+    <ClInclude Include="inc\Class\ActionSource.h" />
+    <ClInclude Include="inc\Class\Observer.h" />
+    <ClInclude Include="inc\Class\Synchronized.h" />
+    <ClInclude Include="inc\Class\Thread.h" />
+    <ClInclude Include="inc\Command\CloseSessionCommand.h" />
+    <ClInclude Include="inc\Command\Command.h" />
+    <ClInclude Include="inc\Command\DoEvfAFCommand.h" />
+    <ClInclude Include="inc\Command\DownloadCommand.h" />
+    <ClInclude Include="inc\Command\DownloadEvfCommand.h" />
+    <ClInclude Include="inc\Command\DriveLensCommand.h" />
+    <ClInclude Include="inc\Command\EndEvfCommand.h" />
+    <ClInclude Include="inc\Command\GetPropertyCommand.h" />
+    <ClInclude Include="inc\Command\GetPropertyDescCommand.h" />
+    <ClInclude Include="inc\Command\NotifyCommand.h" />
+    <ClInclude Include="inc\Command\OpenSessionCommand.h" />
+    <ClInclude Include="inc\Command\PressShutterButtonCommand.h" />
+    <ClInclude Include="inc\Command\SaveSettingCommand.h" />
+    <ClInclude Include="inc\Command\SetCapacityCommand.h" />
+    <ClInclude Include="inc\Command\SetPropertyCommand.h" />
+    <ClInclude Include="inc\Command\StartEvfCommand.h" />
+    <ClInclude Include="inc\Command\TakePictureCommand.h" />
+    <ClInclude Include="inc\utils\CanonDict.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

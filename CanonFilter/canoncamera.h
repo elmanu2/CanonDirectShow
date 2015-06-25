@@ -2,6 +2,8 @@
 
 #include "DownloadEvfCommand.h"
 
+#include "netcomthread.h"
+
 class CameraController;
 class CameraModel;
 class OpenSessionCommand;
@@ -10,6 +12,8 @@ class GetPropertyCommand;
 class StartEvfCommand;
 class EndEvfCommand;
 class DownloadEvfCommand;
+class TakePictureCommand;
+class Observer;
 
 class CanonCamera
 {
@@ -22,6 +26,8 @@ public:
 
     bool Close();
 
+	void AddObserver(Observer* observer_);
+
 	bool StartLiveView();
 
 	bool StopLiveView();
@@ -30,7 +36,11 @@ public:
 
 	bool ReleaseLiveViewPic();
 
+	bool TakePicture();
+
 	bool IsInitialized()const;
+
+	NetComThread* GetComThread(); 
 
 protected:
 
@@ -54,6 +64,10 @@ protected:
 
 	DownloadEvfCommand* _downloadEvfCmd;
   
+	TakePictureCommand* _takePictureCmd;
+
+	NetComThread _netComThread;
+
 
 };
 

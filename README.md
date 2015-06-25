@@ -8,4 +8,10 @@ Build with :
 - Build of Samples\multimedia\directshow\baseclasses on the Windows SDK v7.1
 - EDSDK version 2.13.20.6
 
+install the filter
+use regdll.bat as administrator in bin folder
+
+Test :
+Launch graphedit application with the file GRP in the resources folder
+
 

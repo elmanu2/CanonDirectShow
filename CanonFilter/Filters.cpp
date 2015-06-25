@@ -6,8 +6,14 @@
 #include <olectl.h>
 #include <dvdmedia.h>
 #include "filters.h"
+#include "turbojpeg.h"
 
 #include "canoncamera.h"
+
+#include "logger.h"
+#include "environment.h"
+
+CVCam* CVCam::_instance = NULL;
 
 //////////////////////////////////////////////////////////////////////////
 //  CVCam is the source filter which masquerades as a capture device
@@ -18,7 +24,23 @@ CUnknown * WINAPI CVCam::CreateInstance(LPUNKNOWN lpunk, HRESULT *phr)
     //1-when the filter is inserted from graphedit
     //2-when GetUserMedia is called from the browser
     ASSERT(phr);
-    CUnknown *punk = new CVCam(lpunk, phr);
+	//if(_instance == NULL)
+	//{
+		_instance = new CVCam(lpunk, phr);
+	//}
+
+	CUnknown *punk = _instance;
+    
+    //Init the logger
+    Logger* logger = Logger::getInstance();
+    logger->setLevel(Logger::eLevelDebug);
+    logger->setLogDirectory(environment::getUserTempDir()+ "/wistiti");
+    logger->addPrefixLogFile("CanonFilter-");
+    logger->createLogFile();
+
+	environment::logEnvironment();
+	LOG_INFO("Create directshow filter instance");
+
     return punk;
 }
 
@@ -56,19 +78,12 @@ CVCamStream::CVCamStream(HRESULT *phr, CVCam *pParent, LPCWSTR pPinName) :
     // Set the default media type as 320x240x24@15
     GetMediaType(4, &m_mt);
 
-    _canonCamera = new CanonCamera();
-    _canonCamera->Initialize();
-	_canonCamera->StartLiveView();
+
 }
 
 CVCamStream::~CVCamStream()
 {
-    //Called when the filter is released :
-    //1-when the filter is released from graphedit
-    //2-when the webrowser close the page
-	_canonCamera->StopLiveView();
-    _canonCamera->Close();
-    int a = 10;
+
 } 
 
 HRESULT CVCamStream::QueryInterface(REFIID riid, void **ppv)
@@ -90,7 +105,8 @@ HRESULT CVCamStream::QueryInterface(REFIID riid, void **ppv)
 //  This is the routine where we create the data being output by the Virtual
 //  Camera device.
 //////////////////////////////////////////////////////////////////////////
-
+int frameToShoot = 100;
+int cptFrame = 0;
 HRESULT CVCamStream::FillBuffer(IMediaSample *pms)
 {
     REFERENCE_TIME rtNow;
@@ -106,22 +122,86 @@ HRESULT CVCamStream::FillBuffer(IMediaSample *pms)
     long lDataLen;
     pms->GetPointer(&pData);
     lDataLen = pms->GetSize();
-    for(int i = 0; i < lDataLen; ++i)
-        pData[i] = rand();
 
 	EVF_DATASET* canonDataset;
 	_canonCamera->DownloadLiveViewPic(canonDataset);
 
-				unsigned char *data;
+	EdsError error;
+	if(_canonCamera->IsInitialized())
+	{
+		if(_modeVideo)
+		{
 			EdsVoid* ptr;
-			EdsGetPointer(canonDataset->stream, (EdsVoid**) &ptr);
-			memcpy(data, ptr, canonDataset->dataLength); 
+			error = EdsGetPointer(canonDataset->stream, (EdsVoid**) &ptr);
+			if(error != EDS_ERR_OK)
+			{
+				return NOERROR;
+			}
+			long unsigned int _jpegSize = canonDataset->dataLength;
 
+			tjhandle _jpegDecompressor = tjInitDecompress();
 
-	_canonCamera->ReleaseLiveViewPic();
+			int width;
+			int height;
+			int jpegsubsamp;
+			int colorspace;
+			tjDecompressHeader3(_jpegDecompressor,(unsigned char*)ptr,_jpegSize,&width,&height,&jpegsubsamp,&colorspace);
+
+			int resultat = tjDecompress2(_jpegDecompressor, (unsigned char*)ptr, 
+				canonDataset->dataLength, 
+				pData, 
+				width, 0, height, 
+				colorspace,TJFLAG_BOTTOMUP);
+
+			std::string errorStr;
+
+			if(resultat == -1)
+			{
+				errorStr = tjGetErrorStr();
+			}
+			tjDestroy(_jpegDecompressor);
+
+			_canonCamera->ReleaseLiveViewPic();
+
+			if(_canonCamera->GetComThread()->getCanonServer()->getOrderToTakePhoto())
+			{
+				_modeVideo = false;
+			}
+		} 
+		else
+		{
+			bool res;
+			res = _canonCamera->StopLiveView();
+			if(res)
+			{
+				res = _canonCamera->TakePicture();
+			}
+			if(res)
+			{
+				_pictureDownloaded = false;
+				while(!_pictureDownloaded)
+				{
+					EdsGetEvent();
+				}
+			}
+			res = _canonCamera->StartLiveView();
+			_modeVideo = true;
+			_canonCamera->GetComThread()->photoTaked();
+		}
+	}
+
     return NOERROR;
 } // FillBuffer
 
+
+void CVCamStream::update(Observable* from, CameraEvent *e)
+{
+	int myevent = 1;
+	if(e->getEvent() == "DownloadComplete")
+	{
+		_pictureDownloaded = true;
+	}
+}
 
 //
 // Notify
@@ -159,8 +239,8 @@ HRESULT CVCamStream::GetMediaType(int iPosition, CMediaType *pmt)
     pvi->bmiHeader.biCompression = BI_RGB;
     pvi->bmiHeader.biBitCount    = 24;
     pvi->bmiHeader.biSize       = sizeof(BITMAPINFOHEADER);
-    pvi->bmiHeader.biWidth      = 80 * iPosition;
-    pvi->bmiHeader.biHeight     = 60 * iPosition;
+    pvi->bmiHeader.biWidth      = 1056;
+    pvi->bmiHeader.biHeight     = 704;
     pvi->bmiHeader.biPlanes     = 1;
     pvi->bmiHeader.biSizeImage  = GetBitmapSize(&pvi->bmiHeader);
     pvi->bmiHeader.biClrImportant = 0;
@@ -215,9 +295,30 @@ HRESULT CVCamStream::DecideBufferSize(IMemAllocator *pAlloc, ALLOCATOR_PROPERTIE
 // Called when graph is run
 HRESULT CVCamStream::OnThreadCreate()
 {
-    m_rtLastTime = 0;
+    LOG_INFO("Directshow graph has started. trying to initialize Canon camera...");
+	_canonCamera = new CanonCamera();
+    _canonCamera->Initialize();
+	if(_canonCamera->IsInitialized())
+	{
+		_canonCamera->StartLiveView();
+		_canonCamera->AddObserver(this);
+		_modeVideo = true;
+	}
+
     return NOERROR;
 } // OnThreadCreate
+
+// Called when graph is destroyed
+HRESULT CVCamStream::OnThreadDestroy()
+{
+    LOG_INFO("Directshow graph has ended. closing Canon camera...");
+    //1-when the filter is released from graphedit
+    //2-when the webrowser close the page
+	_canonCamera->StopLiveView();
+    _canonCamera->Close();
+
+    return NOERROR;
+} // OnThreadDestroy
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -261,8 +362,8 @@ HRESULT STDMETHODCALLTYPE CVCamStream::GetStreamCaps(int iIndex, AM_MEDIA_TYPE *
     pvi->bmiHeader.biCompression = BI_RGB;
     pvi->bmiHeader.biBitCount    = 24;
     pvi->bmiHeader.biSize       = sizeof(BITMAPINFOHEADER);
-    pvi->bmiHeader.biWidth      = 80 * iIndex;
-    pvi->bmiHeader.biHeight     = 60 * iIndex;
+    pvi->bmiHeader.biWidth      = 1056;
+    pvi->bmiHeader.biHeight     = 704;
     pvi->bmiHeader.biPlanes     = 1;
     pvi->bmiHeader.biSizeImage  = GetBitmapSize(&pvi->bmiHeader);
     pvi->bmiHeader.biClrImportant = 0;
@@ -282,8 +383,8 @@ HRESULT STDMETHODCALLTYPE CVCamStream::GetStreamCaps(int iIndex, AM_MEDIA_TYPE *
     
     pvscc->guid = FORMAT_VideoInfo;
     pvscc->VideoStandard = AnalogVideo_None;
-    pvscc->InputSize.cx = 640;
-    pvscc->InputSize.cy = 480;
+    pvscc->InputSize.cx = 1056;
+    pvscc->InputSize.cy = 704;
     pvscc->MinCroppingSize.cx = 80;
     pvscc->MinCroppingSize.cy = 60;
     pvscc->MaxCroppingSize.cx = 640;
@@ -295,8 +396,8 @@ HRESULT STDMETHODCALLTYPE CVCamStream::GetStreamCaps(int iIndex, AM_MEDIA_TYPE *
 
     pvscc->MinOutputSize.cx = 80;
     pvscc->MinOutputSize.cy = 60;
-    pvscc->MaxOutputSize.cx = 640;
-    pvscc->MaxOutputSize.cy = 480;
+    pvscc->MaxOutputSize.cx = 1056;
+    pvscc->MaxOutputSize.cy = 704;
     pvscc->OutputGranularityX = 0;
     pvscc->OutputGranularityY = 0;
     pvscc->StretchTapsX = 0;
@@ -306,7 +407,7 @@ HRESULT STDMETHODCALLTYPE CVCamStream::GetStreamCaps(int iIndex, AM_MEDIA_TYPE *
     pvscc->MinFrameInterval = 200000;   //50 fps
     pvscc->MaxFrameInterval = 50000000; // 0.2 fps
     pvscc->MinBitsPerSecond = (80 * 60 * 3 * 8) / 5;
-    pvscc->MaxBitsPerSecond = 640 * 480 * 3 * 8 * 50;
+    pvscc->MaxBitsPerSecond = 1056 * 704 * 3 * 8 * 50;
 
     return S_OK;
 }

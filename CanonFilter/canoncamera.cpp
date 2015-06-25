@@ -2,20 +2,29 @@
 #include "stdlib.h"
 #include <cassert>
 #include <iostream>
-//#include "CameraController.h"
 #include "CameraModel.h"
 #include "CameraModelLegacy.h"
 #include "CameraEventListener.h"
 #include "OpenSessionCommand.h"
 #include "CloseSessionCommand.h"
-#include "CameraObserver.h"
 #include "StartEvfCommand.h"
 #include "EndEvfCommand.h"
 #include "DownloadEvfCommand.h"
+#include "TakePictureCommand.h"
+
+#include "logger.h"
+#include "helper.h"
+
+
+
+
 
 CanonCamera::CanonCamera(void)
 {
 	_isInitialized = false;
+	
+
+
 }
 
 
@@ -30,28 +39,34 @@ bool CanonCamera::Initialize()
     EdsCameraRef camera;
     EdsUInt32 count = 0;
 
+	_netComThread.start();
+
     error = EdsInitializeSDK();
     if(error == EDS_ERR_OK)
     {
-        cout<<"EDSDK initialized successfully"<<endl;
+		LOG_INFO("EDSDK initialization succeed");
     }
     else
     {
+        LOG_ERROR("EDSDK initialization failed");
 		return false;
 	}
 
     error = EdsGetCameraList(&cameraListRef);
-    cout<<"EDSDK Get Camera List successfully"<<endl;
-
+	if(error == EDS_ERR_OK)
+	{
+		LOG_INFO("EDSDK Get Camera List successfully");
+	}
     // Get number of cameras
     if(error == EDS_ERR_OK)
     {
         error = EdsGetChildCount(cameraListRef, &count);
-        cout<<"Found "<<count<<" camera(s)"<<endl;
+		LOG_INFO("Found " + Helper::toString((int)count) + " camera(s)");
 
         if(count == 0)
         {
             error = EDS_ERR_DEVICE_NOT_FOUND;
+            LOG_ERROR("No Canon Camera found");
             return false;
         }
     }
@@ -65,8 +80,7 @@ bool CanonCamera::Initialize()
     _camController = new CameraController();
 
     _camModel = new CameraModel(camera);
-    _camModel->addObserver(new CameraObserver());
-
+    
     _camController->setCameraModel(_camModel);
 
     _openSessionCmd = new OpenSessionCommand(_camModel);
@@ -76,6 +90,7 @@ bool CanonCamera::Initialize()
     _startLiveViewCmd = new StartEvfCommand(_camModel);
 	_stopLiveViewCmd = new EndEvfCommand(_camModel);
 	_downloadEvfCmd = new DownloadEvfCommand(_camModel);
+	_takePictureCmd = new TakePictureCommand(_camModel);
     
 
     //Set Property Event Handler
@@ -101,8 +116,17 @@ bool CanonCamera::Initialize()
     return _isInitialized;
 }
 
+void CanonCamera::AddObserver(Observer* observer_)
+{
+	_camModel->addObserver(observer_);
+}
+
 bool CanonCamera::Close()
 {
+
+	_netComThread.closeCamera();
+
+	_netComThread.stop();
 
 	if(_isInitialized)
 	{
@@ -113,11 +137,11 @@ bool CanonCamera::Close()
     error = EdsTerminateSDK();
     if(error != EDS_ERR_OK)
     {
-        cout<<"Fail to terminate EDSDK"<<endl;
+        LOG_ERROR("Fail to terminate EDSDK");
     }
     else
     {
-        cout<<"EDSDK terminated successfully"<<endl;
+        LOG_INFO("EDSDK terminated successfully");
     }
     return true;
 }
@@ -165,9 +189,23 @@ bool CanonCamera::ReleaseLiveViewPic()
 	return _downloadEvfCmd->releaseImage();
 }
 
+bool CanonCamera::TakePicture()
+{
+	if(!IsInitialized())
+	{
+		return _isInitialized;
+	}
+	return _takePictureCmd->execute();
+}
+
 
 bool CanonCamera::IsInitialized()const
 {
 	return _isInitialized;
+}
+
+NetComThread* CanonCamera::GetComThread()
+{
+	return &_netComThread;
 }
 

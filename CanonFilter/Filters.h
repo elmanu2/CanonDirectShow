@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Observer.h"
+
 #define DECLARE_PTR(type, ptr, expr) type* ptr = (type*)(expr);
 
 EXTERN_C const GUID CLSID_VirtualCam;
@@ -18,10 +20,11 @@ public:
     IFilterGraph *GetGraph() {return m_pGraph;}
 
 private:
+	static CVCam *_instance;
     CVCam(LPUNKNOWN lpunk, HRESULT *phr);
 };
 
-class CVCamStream : public CSourceStream, public IAMStreamConfig, public IKsPropertySet
+class CVCamStream : public CSourceStream, public IAMStreamConfig, public IKsPropertySet, public Observer
 {
 public:
 
@@ -64,6 +67,12 @@ public:
     HRESULT GetMediaType(int iPosition, CMediaType *pmt);
     HRESULT SetMediaType(const CMediaType *pmt);
     HRESULT OnThreadCreate(void);
+	HRESULT OnThreadDestroy(void);
+
+	//////////////////////////////////////////////////////////////////////////
+    //  Observer
+    //////////////////////////////////////////////////////////////////////////
+    virtual void update(Observable *,CameraEvent *);
     
 private:
     CVCam *m_pParent;
@@ -72,7 +81,9 @@ private:
     CCritSec m_cSharedState;
     IReferenceClock *m_pClock;
 
-    CanonCamera* _canonCamera;
+    CanonCamera*	_canonCamera;
+	bool			_modeVideo;
+	bool			_pictureDownloaded;
 
 };
 

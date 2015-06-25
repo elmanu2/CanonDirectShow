@@ -1,7 +1,6 @@
 #include "stdlib.h"
 #include <cassert>
 #include <iostream>
-//#include "CameraController.h"
 #include "CameraModel.h"
 #include "CameraModelLegacy.h"
 #include "CameraEventListener.h"
@@ -11,12 +10,23 @@
 
 #include "CameraObserver.h"
 
+#include "logger.h"
+#include "helper.h"
+#include "environment.h"
 
 using namespace std;
 
 
 void main()
 {
+    Logger* logger = Logger::getInstance();
+    logger->setLevel(Logger::eLevelDebug);
+    logger->setLogDirectory(environment::getUserTempDir()+ "/wistiti");
+    logger->addPrefixLogFile("CanonCameraApp-");
+    logger->createLogFile();
+
+	environment::logEnvironment();
+
     EdsError error;
     EdsCameraListRef cameraListRef = NULL;
     EdsCameraRef camera;
@@ -25,7 +35,7 @@ void main()
     error = EdsInitializeSDK();
     if(error == EDS_ERR_OK)
     {
-        cout<<"EDSDK initilized successfully"<<endl;
+        LOG_INFO("EDSDK initilized successfully");
     }
     else
     {
@@ -33,13 +43,13 @@ void main()
     }
 
     error = EdsGetCameraList(&cameraListRef);
-    cout<<"EDSDK Get Camera List successfully"<<endl;
+    LOG_INFO("EDSDK Get Camera List successfully");
 
     // Get number of cameras
     if(error == EDS_ERR_OK)
     {
         error = EdsGetChildCount(cameraListRef, &count);
-        cout<<"Found "<<count<<" camera(s)"<<endl;
+		LOG_INFO("Found " + Helper::toString((int)count) +" camera(s)");
 
         if(count == 0)
         {
@@ -104,12 +114,10 @@ void main()
         }
         if(error != EDS_ERR_OK)
         {
-            cout<<"Error : "<<CanonDict::getInstance()->ErrToString(error);
+            LOG_ERROR(CanonDict::getInstance()->ErrToString(error));
             cout<<endl;
         }
     }
 
     system("Pause");
-
-
 }

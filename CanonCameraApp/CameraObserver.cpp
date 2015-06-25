@@ -1,7 +1,7 @@
 #include "CameraObserver.h"
 #include "Observer.h"
 #include "CameraEvent.h"
-#include <iostream>
+#include "logger.h"
 
 CameraObserver::CameraObserver(void)
 {
@@ -15,5 +15,5 @@ CameraObserver::~CameraObserver(void)
 
 void CameraObserver::update(Observable* from, CameraEvent *e)
 {
-	std::cout<<"Camera observer notified : "<<e->getEvent()<<std::endl;
+	LOG_INFO("Camera observer notified : " + e->getEvent());
 }

@@ -11,7 +11,7 @@
 /Filters
 
 # Ignore file type
-*.vcxproj.*
+*.vcxproj.user
 *.jpg
 *.suo
 

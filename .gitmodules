@@ -1,0 +1,3 @@
+[submodule "CppUtil"]
+	path = CppUtil
+	url = https://github.com/elmanu2/CppUtil.git

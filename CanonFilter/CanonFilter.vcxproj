@@ -37,14 +37,17 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>.\Release\</OutDir>
-    <IntDir>.\Release\</IntDir>
+    <OutDir>$(ProjectDir)\bin\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <TargetExt>.ax</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>.\Debug\</OutDir>
-    <IntDir>.\Debug\</IntDir>
+    <OutDir>$(ProjectDir)\bin\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
     <LinkIncremental>false</LinkIncremental>
+    <TargetExt>.ax</TargetExt>
+    <TargetName>$(ProjectName).d</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -60,8 +63,8 @@
       <PrecompiledHeaderOutputFile>.\Release\Filters.pch</PrecompiledHeaderOutputFile>
       <ObjectFileName>.\Release\</ObjectFileName>
       <ProgramDataBaseFileName>.\Release\</ProgramDataBaseFileName>
-      <CallingConvention>StdCall</CallingConvention>
-      <AdditionalIncludeDirectories>C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <CallingConvention>Cdecl</CallingConvention>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\oscpack_1_1_0\;$(ProjectDir)..\EDSDK\Header;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(ProjectDir)..\CanonCameraLib\inc\Camera;$(ProjectDir)..\CanonCameraLib\inc\Command;$(ProjectDir)..\CanonCameraLib\inc\Class;$(ProjectDir)..\CanonCameraLib\inc\utils;$(ProjectDir)..\libjpeg-turbo\include;$(ProjectDir)..\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -84,13 +87,14 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <OutputFile>..\Bin\VCam.ax</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <ImportLibrary>.\Release\VCam.lib</ImportLibrary>
       <StackReserveSize>2097152</StackReserveSize>
       <StackCommitSize>2097152</StackCommitSize>
       <EntryPointSymbol>DllEntryPoint%4012</EntryPointSymbol>
       <ModuleDefinitionFile>.\Filters.def</ModuleDefinitionFile>
-      <AdditionalLibraryDirectories>C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses\release</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\oscpack_1_1_0\lib;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses\release;$(ProjectDir)..\EDSDK\Library;$(ProjectDir)..\libjpeg-turbo\lib;$(ProjectDir)..\CppUtil\CppUtil\lib;$(ProjectDir)..\CanonCameraLib\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CanonCameraLib.lib;oscpack.lib;EDSDK.lib;turbojpeg.lib;CppUtil.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -108,7 +112,7 @@
       <ProgramDataBaseFileName>.\Debug\</ProgramDataBaseFileName>
       <CallingConvention>Cdecl</CallingConvention>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <AdditionalIncludeDirectories>$(SolutionDir)\EDSDK\Header;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(SolutionDir)\CanonCameraApp\Camera;$(SolutionDir)\CanonCameraApp\Command;$(SolutionDir)\CanonCameraApp\Class;$(SolutionDir)\CanonCameraApp\utils;$(SolutionDir)\CanonCameraApp\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\oscpack_1_1_0\;$(ProjectDir)..\EDSDK\Header;C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses;$(ProjectDir)..\CanonCameraLib\inc\Camera;$(ProjectDir)..\CanonCameraLib\inc\Command;$(ProjectDir)..\CanonCameraLib\inc\Class;$(ProjectDir)..\CanonCameraLib\inc\utils;$(ProjectDir)..\libjpeg-turbo\include;$(ProjectDir)..\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Midl>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -131,63 +135,31 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
-      <OutputFile>$(SolutionDir)\Bin\VCanonCamD.ax</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <ImportLibrary>.\Debug\VCamD.lib</ImportLibrary>
       <StackReserveSize>2097152</StackReserveSize>
       <StackCommitSize>2097152</StackCommitSize>
       <EntryPointSymbol>DllEntryPoint%4012</EntryPointSymbol>
       <ModuleDefinitionFile>.\Filters.def</ModuleDefinitionFile>
-      <AdditionalLibraryDirectories>C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses\debug;$(SolutionDir)\EDSDK\Library</AdditionalLibraryDirectories>
-      <AdditionalDependencies>EDSDK.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files\Microsoft SDKs\Windows\v7.1\Samples\multimedia\directshow\baseclasses\debug;$(ProjectDir)..\EDSDK\Library;$(ProjectDir)..\libjpeg-turbo\lib;$(ProjectDir)..\CppUtil\CppUtil\lib;$(ProjectDir)..\oscpack_1_1_0\lib;$(ProjectDir)..\CanonCameraLib\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>CanonCameraLib.d.lib;oscpack.d.lib;EDSDK.lib;turbojpeg.lib;CppUtil.d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\CanonCameraApp\CameraObserver.cpp" />
-    <ClCompile Include="..\CanonCameraApp\Camera\CameraController.cpp" />
-    <ClCompile Include="..\CanonCameraApp\Camera\CameraEvent.cpp" />
-    <ClCompile Include="..\CanonCameraApp\Camera\CameraEventListener.cpp" />
-    <ClCompile Include="..\CanonCameraApp\Camera\CameraModel.cpp" />
-    <ClCompile Include="..\CanonCameraApp\Camera\CliProcessor.cpp" />
-    <ClCompile Include="..\CanonCameraApp\utils\CanonDict.cpp" />
     <ClCompile Include="canoncamera.cpp" />
+    <ClCompile Include="canonserver.cpp" />
     <ClCompile Include="Dll.cpp" />
     <ClCompile Include="Filters.cpp" />
+    <ClCompile Include="netcomthread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="Filters.def" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\CanonCameraApp\Camera\CameraController.h" />
-    <ClInclude Include="..\CanonCameraApp\Camera\CameraEvent.h" />
-    <ClInclude Include="..\CanonCameraApp\Camera\CameraEventListener.h" />
-    <ClInclude Include="..\CanonCameraApp\Camera\CameraModel.h" />
-    <ClInclude Include="..\CanonCameraApp\Camera\CameraModelLegacy.h" />
-    <ClInclude Include="..\CanonCameraApp\Camera\CliProcessor.h" />
-    <ClInclude Include="..\CanonCameraApp\Class\ActionEvent.h" />
-    <ClInclude Include="..\CanonCameraApp\Class\ActionListener.h" />
-    <ClInclude Include="..\CanonCameraApp\Class\ActionSource.h" />
-    <ClInclude Include="..\CanonCameraApp\Class\Observer.h" />
-    <ClInclude Include="..\CanonCameraApp\Class\Synchronized.h" />
-    <ClInclude Include="..\CanonCameraApp\Class\Thread.h" />
-    <ClInclude Include="..\CanonCameraApp\Command\CloseSessionCommand.h" />
-    <ClInclude Include="..\CanonCameraApp\Command\Command.h" />
-    <ClInclude Include="..\CanonCameraApp\Command\DoEvfAFCommand.h" />
-    <ClInclude Include="..\CanonCameraApp\Command\DownloadCommand.h" />
-    <ClInclude Include="..\CanonCameraApp\Command\DownloadEvfCommand.h" />
-    <ClInclude Include="..\CanonCameraApp\Command\DriveLensCommand.h" />
-    <ClInclude Include="..\CanonCameraApp\Command\EndEvfCommand.h" />
-    <ClInclude Include="..\CanonCameraApp\Command\GetPropertyCommand.h" />
-    <ClInclude Include="..\CanonCameraApp\Command\GetPropertyDescCommand.h" />
-    <ClInclude Include="..\CanonCameraApp\Command\NotifyCommand.h" />
-    <ClInclude Include="..\CanonCameraApp\Command\OpenSessionCommand.h" />
-    <ClInclude Include="..\CanonCameraApp\Command\PressShutterButtonCommand.h" />
-    <ClInclude Include="..\CanonCameraApp\Command\SaveSettingCommand.h" />
-    <ClInclude Include="..\CanonCameraApp\Command\SetCapacityCommand.h" />
-    <ClInclude Include="..\CanonCameraApp\Command\SetPropertyCommand.h" />
-    <ClInclude Include="..\CanonCameraApp\Command\StartEvfCommand.h" />
-    <ClInclude Include="..\CanonCameraApp\Command\TakePictureCommand.h" />
     <ClInclude Include="canoncamera.h" />
+    <ClInclude Include="canonserver.h" />
     <ClInclude Include="Filters.h" />
+    <ClInclude Include="netcomthread.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
