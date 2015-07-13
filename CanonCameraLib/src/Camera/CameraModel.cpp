@@ -98,6 +98,12 @@ void CameraModel::setBatteryLevel(EdsUInt32 value)
     _batteryLevel = value;
 }
 
+void CameraModel::setBatteryQuality(EdsUInt32 value)
+{
+    _batteryQuality = value;
+}
+
+
 // Taking a picture parameter
 EdsUInt32 CameraModel::getAEMode() const
 {
@@ -183,6 +189,12 @@ EdsUInt32 CameraModel::getBatteryLevel()const
 {
     return _batteryLevel;
 }
+
+EdsUInt32 CameraModel::getBatteryQuality()const
+{
+    return _batteryQuality;
+}
+
 
 //List of value in which taking a picture parameter can be set
 EdsPropertyDesc CameraModel::getAEModeDesc() const
@@ -290,7 +302,8 @@ void CameraModel::setPropertyInt32(EdsInt32 propertyID, EdsUInt32 value)
 {
     switch(propertyID)
     {
-        case kEdsPropID_BatteryLevel:           setBatteryLevel(value);             break;
+        case kEdsPropID_BatteryLevel    :           setBatteryLevel(value);             break;
+        case kEdsPropID_BatteryQuality  :          setBatteryQuality(value);           break;
     }
 }
 

@@ -1,5 +1,4 @@
 #include "CanonDict.h"
-#include "EDSDKTypes.h"
 #include "EDSDKErrors.h"
 
 CanonDict* CanonDict::_instance = NULL;
@@ -317,6 +316,120 @@ CanonDict::CanonDict(void)
     prefix = errPrefix + "Generic-";
     _errorDict[EDS_ERR_LAST_GENERIC_ERROR_PLUS_ONE] = prefix + "GenericError+1";
 
+    //Property values
+    _propValueUintDict[kEdsPropID_AEMode][0] = "Program AE";
+    _propValueUintDict[kEdsPropID_AEMode][1] = "Shutter-Speed priority AE";
+    _propValueUintDict[kEdsPropID_AEMode][2] = "Aperture Priority AE";
+    _propValueUintDict[kEdsPropID_AEMode][3] = "Manual Exposure";
+    _propValueUintDict[kEdsPropID_AEMode][4] = "Bulb";
+    _propValueUintDict[kEdsPropID_AEMode][5] = "Auto depth of field AE";
+    _propValueUintDict[kEdsPropID_AEMode][6] = "Depth of field AE";
+    _propValueUintDict[kEdsPropID_AEMode][7] = "Camera Settings registered";
+    _propValueUintDict[kEdsPropID_AEMode][8] = "Lock";
+    _propValueUintDict[kEdsPropID_AEMode][9] = "Auto";
+
+    _propValueUintDict[kEdsPropID_AEMode][10] = "Night scene portrait";
+    _propValueUintDict[kEdsPropID_AEMode][11] = "Sport";
+    _propValueUintDict[kEdsPropID_AEMode][12] = "Portrait";
+    _propValueUintDict[kEdsPropID_AEMode][13] = "Landscape";
+    _propValueUintDict[kEdsPropID_AEMode][14] = "Close-Up";
+    _propValueUintDict[kEdsPropID_AEMode][15] = "Flash off";
+    _propValueUintDict[kEdsPropID_AEMode][18] = "Auto";
+    _propValueUintDict[kEdsPropID_AEMode][20] = "Movies";
+    _propValueUintDict[kEdsPropID_AEMode][21] = "Photo in Movies";
+
+    _propValueUintDict[kEdsPropID_AEMode][22] = "Scene intelligent Auto";
+    _propValueUintDict[kEdsPropID_AEMode][23] = "Night Scenes";
+    _propValueUintDict[kEdsPropID_AEMode][24] = "Backlit Scenes";
+
+    _propValueUintDict[kEdsPropID_AEMode][26] = "Children";
+    _propValueUintDict[kEdsPropID_AEMode][27] = "Food";
+    _propValueUintDict[kEdsPropID_AEMode][28] = "Candlelight portraits";
+
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x0] = "ISO Auto";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x40] = "ISO 50";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x48] = "ISO 100";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x50] = "ISO 200";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x53] = "ISO 250";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x55] = "ISO 320";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x58] = "ISO 400";
+
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x5b] = "ISO 500";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x5d] = "ISO 640";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x60] = "ISO 800";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x63] = "ISO 1000";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x65] = "ISO 1250";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x68] = "ISO 1600";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x6b] = "ISO 2000";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x6d] = "ISO 2500";
+
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x70] = "ISO 3200";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x73] = "ISO 4000";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x75] = "ISO 5000";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x78] = "ISO 6400";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x7b] = "ISO 8000";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x7d] = "ISO 10000";
+
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x80] = "ISO 12800";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x88] = "ISO 25600";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x90] = "ISO 51200";
+    _propValueUintDict[kEdsPropID_ISOSpeed][0x98] = "ISO 102400";
+
+    _propValueUintDict[kEdsPropID_Av][0x08] = "1";
+    _propValueUintDict[kEdsPropID_Av][0x0B] = "1.1";
+    _propValueUintDict[kEdsPropID_Av][0x0C] = "1.2";
+    _propValueUintDict[kEdsPropID_Av][0x0D] = "1.2";
+    _propValueUintDict[kEdsPropID_Av][0x10] = "1.4";
+    _propValueUintDict[kEdsPropID_Av][0x13] = "1.6";
+    _propValueUintDict[kEdsPropID_Av][0x14] = "1.8";
+    _propValueUintDict[kEdsPropID_Av][0x15] = "1.8 (1/3)"; 
+    _propValueUintDict[kEdsPropID_Av][0x18] = "2";
+    _propValueUintDict[kEdsPropID_Av][0x1B] = "2.2";
+    _propValueUintDict[kEdsPropID_Av][0x1C] = "2.5";
+    _propValueUintDict[kEdsPropID_Av][0x1D] = "2.5 (1/3)";
+    _propValueUintDict[kEdsPropID_Av][0x20] = "2.8";
+    _propValueUintDict[kEdsPropID_Av][0x23] = "3.2";
+    _propValueUintDict[kEdsPropID_Av][0x24] = "3.5";
+    _propValueUintDict[kEdsPropID_Av][0x25] = "3.5 (1/3)";
+    _propValueUintDict[kEdsPropID_Av][0x28] = "4";
+    _propValueUintDict[kEdsPropID_Av][0x2B] = "4.5";
+    _propValueUintDict[kEdsPropID_Av][0x2C] = "4.5 (1/3)";
+    _propValueUintDict[kEdsPropID_Av][0x2D] = "5.0";
+    _propValueUintDict[kEdsPropID_Av][0x30] = "5.6";
+    _propValueUintDict[kEdsPropID_Av][0x33] = "6.3";
+    _propValueUintDict[kEdsPropID_Av][0x34] = "6.7";
+    _propValueUintDict[kEdsPropID_Av][0x35] = "7.1";
+    _propValueUintDict[kEdsPropID_Av][0x38] = "8";
+    _propValueUintDict[kEdsPropID_Av][0x3B] = "9";
+    _propValueUintDict[kEdsPropID_Av][0x3C] = "9.5";
+    _propValueUintDict[kEdsPropID_Av][0x3D] = "10";
+    _propValueUintDict[kEdsPropID_Av][0x40] = "11";
+    _propValueUintDict[kEdsPropID_Av][0x43] = "13 (1/3)";
+    _propValueUintDict[kEdsPropID_Av][0x44] = "13";
+    _propValueUintDict[kEdsPropID_Av][0x45] = "14";
+    _propValueUintDict[kEdsPropID_Av][0x48] = "16";
+    _propValueUintDict[kEdsPropID_Av][0x4B] = "18";
+    _propValueUintDict[kEdsPropID_Av][0x4C] = "19";
+    _propValueUintDict[kEdsPropID_Av][0x4D] = "20";
+    _propValueUintDict[kEdsPropID_Av][0x50] = "22";
+    _propValueUintDict[kEdsPropID_Av][0x53] = "25";
+    _propValueUintDict[kEdsPropID_Av][0x54] = "27";
+    _propValueUintDict[kEdsPropID_Av][0x55] = "29";
+    _propValueUintDict[kEdsPropID_Av][0x58] = "32";
+    _propValueUintDict[kEdsPropID_Av][0x5B] = "36";
+    _propValueUintDict[kEdsPropID_Av][0x5C] = "38";
+    _propValueUintDict[kEdsPropID_Av][0x5D] = "40";
+    _propValueUintDict[kEdsPropID_Av][0x60] = "45";
+    _propValueUintDict[kEdsPropID_Av][0x63] = "51";
+    _propValueUintDict[kEdsPropID_Av][0x64] = "54";
+    _propValueUintDict[kEdsPropID_Av][0x65] = "57";
+    _propValueUintDict[kEdsPropID_Av][0x68] = "64";
+    _propValueUintDict[kEdsPropID_Av][0x6B] = "72";
+    _propValueUintDict[kEdsPropID_Av][0x6C] = "76";
+    _propValueUintDict[kEdsPropID_Av][0x6D] = "80";
+    _propValueUintDict[kEdsPropID_Av][0x70] = "91";
+    
+                                          
 }
 
 
@@ -342,6 +455,11 @@ std::string CanonDict::StateEventToString(unsigned long objEvent_)
 std::string CanonDict::PropIdToString(unsigned long objEvent_)
 {
     return _propIdDict[objEvent_];
+}
+
+std::string CanonDict::PropValueToString(unsigned long prop_, unsigned long value_)
+{
+    return _propValueUintDict[prop_][value_];
 }
 
 std::string CanonDict::ErrToString(unsigned long objEvent_)

@@ -19,6 +19,7 @@ void test(CameraModel* pModel)
     
     GetPropertyCommand* _propProductName = new GetPropertyCommand(pModel, kEdsPropID_ProductName);
     GetPropertyCommand* _propBatteryLvlCmd = new GetPropertyCommand(pModel, kEdsPropID_BatteryLevel);
+    GetPropertyCommand* _propBatteryQuaCmd = new GetPropertyCommand(pModel, kEdsPropID_BatteryQuality);
     GetPropertyCommand* _propAEModeCmd = new GetPropertyCommand(pModel, kEdsPropID_AEMode);
     GetPropertyCommand* _propAvCmd = new GetPropertyCommand(pModel, kEdsPropID_Av);
     GetPropertyCommand* _propTvCmd = new GetPropertyCommand(pModel, kEdsPropID_Tv);
@@ -37,6 +38,7 @@ void test(CameraModel* pModel)
     
     _propProductName->execute();
     _propBatteryLvlCmd->execute();
+    _propBatteryQuaCmd->execute();
     _propAEModeCmd->execute();
     _propAvCmd->execute();
     _propTvCmd->execute();
@@ -56,12 +58,14 @@ void test(CameraModel* pModel)
     EdsPoint zoomPosition;
     EdsRect zoomRect;
     EdsFocusInfo focusInfo;
+    CanonDict* cdict = CanonDict::getInstance();
     LOG_DEBUG("Product name             : " + (std::string)pModel->getModelName());
     LOG_DEBUG("Battery level            : " + Helper::toString((int)pModel->getBatteryLevel()));
-    LOG_DEBUG("AE mode                  : " + Helper::toString((int)pModel->getAEMode()));
-    LOG_DEBUG("Av                       : " + Helper::toString((int)pModel->getAv()));
+    LOG_DEBUG("Battery quality          : " + Helper::toString((int)pModel->getBatteryQuality()));
+    LOG_DEBUG("AE mode                  : " + cdict->PropValueToString(kEdsPropID_AEMode, pModel->getAEMode()));
+    LOG_DEBUG("Av                       : " + cdict->PropValueToString(kEdsPropID_Av, pModel->getAv()));
     LOG_DEBUG("Tv                       : " + Helper::toString((int)pModel->getTv()));
-    LOG_DEBUG("Iso                      : " + Helper::toString((int)pModel->getIso()));
+    LOG_DEBUG("Iso                      : " + cdict->PropValueToString(kEdsPropID_ISOSpeed, pModel->getIso()));
     LOG_DEBUG("Metering mode            : " + Helper::toString((int)pModel->getMeteringMode()));
     LOG_DEBUG("Exposure compensation    : " + Helper::toString((int)pModel->getExposureCompensation()));
     LOG_DEBUG("Image quality            : " + Helper::toString((int)pModel->getImageQuality()));

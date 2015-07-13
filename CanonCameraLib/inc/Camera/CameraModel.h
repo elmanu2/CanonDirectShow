@@ -53,6 +53,8 @@ protected:
     EdsRect	  _evfZoomRect;
     EdsUInt32 _evfAFMode;
     EdsUInt32 _batteryLevel;
+    EdsUInt32 _batteryQuality;
+
 
     EdsFocusInfo _focusInfo;
 
@@ -92,8 +94,8 @@ public:
     void setModelName(EdsChar *modelName)			;
     void setEvfAFMode( EdsUInt32 value)				;
     void setFocusInfo( EdsFocusInfo value)			;
-
     void setBatteryLevel(EdsUInt32 value)           ;
+    void setBatteryQuality(EdsUInt32 value)           ;
 
     // Taking a picture parameter
     EdsUInt32 getAEMode() const					;
@@ -113,6 +115,8 @@ public:
     EdsChar *getModelName()						;
     EdsFocusInfo getFocusInfo()const			;
     EdsUInt32 getBatteryLevel()const            ;
+    EdsUInt32 getBatteryQuality()const            ;
+
 
     //List of value in which taking a picture parameter can be set
     EdsPropertyDesc getAEModeDesc() const					;

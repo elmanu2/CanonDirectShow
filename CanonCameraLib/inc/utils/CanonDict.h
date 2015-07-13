@@ -8,6 +8,7 @@
 
 #include <map>
 #include <string>
+#include "EDSDKTypes.h"
 
 class CANCAMEXPORT CanonDict
 {
@@ -32,6 +33,9 @@ public:
     std::string PropIdToString(unsigned long propEvent_);
 
     //transform property id into string
+    std::string PropValueToString(unsigned long prop_, unsigned long value_);
+
+    //transform property id into string
     std::string ErrToString(unsigned long propEvent_);
 
 
@@ -47,6 +51,8 @@ protected :
 
     //property map
     std::map<unsigned long, std::string> _propIdDict;
+
+    std::map<unsigned long, std::map <EdsUInt32,std::string> > _propValueUintDict;
 
     std::map<unsigned long, std::string> _errorDict;
 
