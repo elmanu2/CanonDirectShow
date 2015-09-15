@@ -98,7 +98,13 @@ void test(CameraModel* pModel)
 
 void main()
 {
-	environment::logEnvironment();
+        Logger* logger = Logger::getInstance();
+    logger->setLevel(Logger::eLevelDebug);
+    logger->setLogDirectory(environment::getUserTempDir()+ "/wistiti");
+    logger->addPrefixLogFile("CanonCameraTest-");
+    logger->createLogFile();
+
+    environment::logEnvironment();
 
     EdsError error;
     EdsCameraListRef cameraListRef = NULL;
