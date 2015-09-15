@@ -30,6 +30,7 @@ File ..\bin\DPPLibCom.dll
 WriteUninstaller $INSTDIR\uninstaller.exe
 
 Exec "$\"$SYSDIR\regsvr32.exe$\" CanonFilter.ax$\""
+CreateDirectory $TEMP\wistiti
 
 SectionEnd
 
