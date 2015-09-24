@@ -1,13 +1,27 @@
 # define the name of the installer
-Outfile "Wistiti-CanonFilter.v1.1.exe"
+Outfile "Wistiti-CanonFilter.v1.2.exe"
  
 # define the directory to install to, the desktop in this case as specified  
 # by the predefined $DESKTOP variable
 InstallDir $PROGRAMFILES32\Wistiti
  
+ 
+ ; These are the programs that are needed by ACME Suite.
+Section -Prerequisites
+  SetOutPath $INSTDIR\Prerequisites
+  MessageBox MB_YESNO "Install vcredist_x86" /SD IDYES IDNO endActiveSync
+    File ".\vcredist_x86.exe"
+    ExecWait "$INSTDIR\Prerequisites\vcredist_x86.exe"
+    Goto endActiveSync
+  endActiveSync:
+SectionEnd
+ 
 # default section
 Section
  
+File "vcredist_x86.exe"
+ExecWait '"$INSTDIR\vcredist_x86.exe"'
+        
 # define the output path for this file
 SetOutPath $INSTDIR
  
