@@ -1,5 +1,5 @@
 # define the name of the installer
-Outfile "Wistiti-CanonFilter.v1.2.exe"
+Outfile "Wistiti-CanonFilter.v1.3.exe"
  
 # define the directory to install to, the desktop in this case as specified  
 # by the predefined $DESKTOP variable
