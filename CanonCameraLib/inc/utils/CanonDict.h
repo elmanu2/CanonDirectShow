@@ -10,6 +10,8 @@
 #include <string>
 #include "EDSDKTypes.h"
 
+#define LOG_EDSDK_ERROR_IF_NOTOK(message) CanonDict::getInstance()->LogErrorIfNotOk(message)
+
 class CANCAMEXPORT CanonDict
 {
 public:
@@ -37,6 +39,8 @@ public:
 
     //transform property id into string
     std::string ErrToString(unsigned long propEvent_);
+
+    void LogErrorIfNotOk(unsigned long propEvent_);
 
 
 protected :

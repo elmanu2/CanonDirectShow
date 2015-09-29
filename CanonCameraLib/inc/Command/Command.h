@@ -36,6 +36,6 @@ public:
 	CameraModel* getCameraModel(){return _model;}
 
 	// Execute command	
-	virtual bool execute() = 0;
+	virtual EdsError execute() = 0;
 };
 

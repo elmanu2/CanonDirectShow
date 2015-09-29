@@ -24,6 +24,7 @@
 #include "Command.h"
 #include "CameraEvent.h"
 #include "EDSDK.h"
+#include "CanonDict.h"
 
 
 	typedef struct _EVF_DATASET 
@@ -53,7 +54,7 @@ public:
 	DownloadEvfCommand(CameraModel *model) : Command(model){}
 
 	// Execute command	
-	virtual bool execute()
+	virtual EdsError execute()
 	{
 
 		evfImage = NULL;
@@ -69,6 +70,7 @@ public:
 
 		// Create memory stream.
 		err = EdsCreateMemoryStream(0, &stream);
+        LOG_EDSDK_ERROR_IF_NOTOK(err);
 
 		// When creating to a file.
 		//err = EdsCreateFileStream("D:\\liveview.jpg", kEdsFileCreateDisposition_CreateAlways, kEdsAccess_ReadWrite, &stream);
@@ -79,12 +81,14 @@ public:
 		if (err == EDS_ERR_OK)
 		{
 			err = EdsCreateEvfImageRef(stream, &evfImage);
+            LOG_EDSDK_ERROR_IF_NOTOK(err);
 		}
 
 		// Download live view image data.
 		if (err == EDS_ERR_OK)
 		{
 			err = EdsDownloadEvfImage(_model->getCameraObject(), evfImage);
+            LOG_EDSDK_ERROR_IF_NOTOK(err);
 		}
 
 		// Get meta data for live view image data.
@@ -93,23 +97,28 @@ public:
 			dataSet.stream = stream;
 
 			// Get magnification ratio (x1, x5, or x10).
-			EdsGetPropertyData(evfImage, kEdsPropID_Evf_Zoom, 0, sizeof(dataSet.zoom),  &dataSet.zoom);
-
+			err = EdsGetPropertyData(evfImage, kEdsPropID_Evf_Zoom, 0, sizeof(dataSet.zoom),  &dataSet.zoom);
+            LOG_EDSDK_ERROR_IF_NOTOK(err);
 
 			// Get position of image data. (when enlarging)
 			// Upper left coordinate using JPEG Large size as a reference.
-			EdsGetPropertyData(evfImage, kEdsPropID_Evf_ImagePosition, 0, sizeof(dataSet.imagePosition), &dataSet.imagePosition);
+			err = EdsGetPropertyData(evfImage, kEdsPropID_Evf_ImagePosition, 0, sizeof(dataSet.imagePosition), &dataSet.imagePosition);
+            LOG_EDSDK_ERROR_IF_NOTOK(err);
 
 			// Get histogram (RGBY).
-			EdsGetPropertyData(evfImage, kEdsPropID_Evf_Histogram, 0, sizeof(dataSet.histogram), dataSet.histogram);
+			//err = EdsGetPropertyData(evfImage, kEdsPropID_Evf_Histogram, 0, sizeof(dataSet.histogram), dataSet.histogram);
+            //LOG_EDSDK_ERROR_IF_NOTOK(err);
 
 			// Get rectangle of the focus border.
-			EdsGetPropertyData(evfImage, kEdsPropID_Evf_ZoomRect, 0, sizeof(dataSet.zoomRect), &dataSet.zoomRect);
+			err = EdsGetPropertyData(evfImage, kEdsPropID_Evf_ZoomRect, 0, sizeof(dataSet.zoomRect), &dataSet.zoomRect);
+            LOG_EDSDK_ERROR_IF_NOTOK(err);
 
 			// Get the size as a reference of the coordinates of rectangle of the focus border.
-			EdsGetPropertyData(evfImage, kEdsPropID_Evf_CoordinateSystem, 0, sizeof(dataSet.sizeJpegLarge), &dataSet.sizeJpegLarge);
+			err = EdsGetPropertyData(evfImage, kEdsPropID_Evf_CoordinateSystem, 0, sizeof(dataSet.sizeJpegLarge), &dataSet.sizeJpegLarge);
+            LOG_EDSDK_ERROR_IF_NOTOK(err);
 
-			EdsGetLength(stream, &(dataSet.dataLength));
+			err = EdsGetLength(stream, &(dataSet.dataLength));
+            LOG_EDSDK_ERROR_IF_NOTOK(err);
 
 			// Set to model.
 			_model->setEvfZoom(dataSet.zoom);
@@ -123,7 +132,7 @@ public:
 				_model->notifyObservers(&e);		
 			}
 		}
-		return true;
+		return err;
 	}
 
 	bool getDataset(EVF_DATASET* &dataset_)

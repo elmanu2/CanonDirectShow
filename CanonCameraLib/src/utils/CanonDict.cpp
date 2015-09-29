@@ -1,5 +1,6 @@
 #include "CanonDict.h"
 #include "EDSDKErrors.h"
+#include "logger.h"
 
 CanonDict* CanonDict::_instance = NULL;
 
@@ -12,6 +13,12 @@ CanonDict* CanonDict::getInstance()
     else
     {
         return _instance;
+    }
+}
+
+void CanonDict::LogErrorIfNotOk(unsigned long propEvent_){
+    if(propEvent_ != EDS_ERR_OK){
+        LOG_ERROR(ErrToString(propEvent_));
     }
 }
 

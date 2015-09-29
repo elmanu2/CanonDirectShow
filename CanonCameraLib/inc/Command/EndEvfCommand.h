@@ -37,7 +37,7 @@ public:
 
 
     // Execute command	
-	virtual bool execute()
+	virtual EdsError execute()
 	{
 		EdsError err = EDS_ERR_OK;
 
@@ -61,6 +61,7 @@ public:
 		{
 			depthOfFieldPreview = 0;
 			err = EdsSetPropertyData(_model->getCameraObject(), kEdsPropID_Evf_DepthOfFieldPreview, 0, sizeof(depthOfFieldPreview), &depthOfFieldPreview);
+            LOG_EDSDK_ERROR_IF_NOTOK(err);
 
 			// Standby because commands are not accepted for awhile when the depth of field has been released.
 			if (err == EDS_ERR_OK)
@@ -75,6 +76,7 @@ public:
 		{
 			device &= ~kEdsEvfOutputDevice_PC;
 			err = EdsSetPropertyData(_model->getCameraObject(), kEdsPropID_Evf_OutputDevice, 0, sizeof(device), &device);
+            LOG_EDSDK_ERROR_IF_NOTOK(err);
 		}
 
 		//Notification of error

@@ -25,6 +25,7 @@
 #include "CameraEvent.h"
 #include "EDSDK.h"
 #include "logger.h"
+#include "CanonDict.h"
 
 
 class CANCAMEXPORT StartEvfCommand : public Command
@@ -34,7 +35,7 @@ public:
 	StartEvfCommand(CameraModel *model) : Command(model){}
 
     // Execute command	
-	virtual bool execute()
+	virtual EdsError execute()
 	{
 		EdsError err = EDS_ERR_OK;
 
@@ -49,6 +50,7 @@ public:
 
 			// Set to the camera.
 			err = EdsSetPropertyData(_model->getCameraObject(), kEdsPropID_Evf_Mode, 0, sizeof(evfMode), &evfMode);
+            LOG_EDSDK_ERROR_IF_NOTOK(err);
 		}
 			
 
@@ -62,7 +64,8 @@ public:
 
 			// Set to the camera.
 			err = EdsSetPropertyData(_model->getCameraObject(), kEdsPropID_Evf_OutputDevice, 0, sizeof(device), &device);
-		}
+		    LOG_EDSDK_ERROR_IF_NOTOK(err);
+        }
 
 		//Notification of error
 		if(err != EDS_ERR_OK)

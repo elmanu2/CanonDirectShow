@@ -57,7 +57,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)..\EDSDK\Header;$(ProjectDir)\inc\Camera;$(ProjectDir)\inc\Command;$(ProjectDir)\inc\Utils;$(ProjectDir)\inc\Class;$(ProjectDir);$(ProjectDir)..\CppUtil\CppUtil\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>NotSet</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(ProjectDir)\..\EDSDK\Library;$(ProjectDir)\..\CppUtil\CppUtil\lib</AdditionalLibraryDirectories>
       <AdditionalDependencies>EDSDK.lib;CppUtil.d.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -79,7 +79,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>EDSDK.lib;CppUtil.lib;%(AdditionalDependencies)</AdditionalDependencies>

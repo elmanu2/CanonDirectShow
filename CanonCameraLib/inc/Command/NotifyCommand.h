@@ -36,7 +36,7 @@ public:
 		: Command(model) , _notifyString(notifyString){}
 
     // Execute command	
-	virtual bool execute()
+	virtual EdsError execute()
 	{
 		CameraEvent e(_notifyString, NULL);
 		_model->notifyObservers(&e);

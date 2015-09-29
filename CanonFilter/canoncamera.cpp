@@ -23,8 +23,6 @@ CanonCamera::CanonCamera(void)
 {
 	_isInitialized = false;
 	
-
-
 }
 
 
@@ -156,6 +154,9 @@ bool CanonCamera::StartLiveView()
 	_propEvfOutputDeviceCmd->execute();
 	bool res = _startLiveViewCmd->execute();
 	_propEvfOutputDeviceCmd->execute();
+
+    _startLiveView = Date::getNow();
+
 	return res;
 }
 
@@ -171,13 +172,27 @@ bool CanonCamera::StopLiveView()
 
 bool CanonCamera::DownloadLiveViewPic(EVF_DATASET* &dataset_)
 {
-	bool res;
+	EdsError err;
 	if(!IsInitialized())
 	{
 		return _isInitialized;
 	}
-	res = _downloadEvfCmd->execute();
-	_downloadEvfCmd->getDataset(dataset_);
+
+    Date now = Date::getNow();
+
+    double secondElapsed = Date::calculerDiff(_startLiveView, now);
+    if(secondElapsed > 60.0 * 29.0){
+        StopLiveView();
+        StartLiveView();
+    }
+
+	err = _downloadEvfCmd->execute();
+    //if(err == EDS_ERR_OBJECT_NOTREADY){
+    //    StartLiveView();
+    //    return false;
+    //}
+	err = _downloadEvfCmd->getDataset(dataset_);
+    return true;
 }
 
 bool CanonCamera::ReleaseLiveViewPic()

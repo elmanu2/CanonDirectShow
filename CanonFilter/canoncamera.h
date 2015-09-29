@@ -1,7 +1,7 @@
 #pragma once
 
 #include "DownloadEvfCommand.h"
-
+#include "date.h"
 #include "netcomthread.h"
 
 class CameraController;
@@ -68,6 +68,6 @@ protected:
 
 	NetComThread _netComThread;
 
-
+    Date _startLiveView;
 };
 

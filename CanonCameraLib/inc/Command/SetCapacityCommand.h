@@ -40,7 +40,7 @@ public:
 	}
 
 	// Execute command	
-	virtual bool execute()
+	virtual EdsError execute()
 	{
 		// It is a function only of the model since 30D.
 		if(! _model->isLegacy())

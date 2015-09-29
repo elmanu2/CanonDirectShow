@@ -47,7 +47,7 @@ public:
 
 
 	// Execute command 	
-	virtual bool execute()
+	virtual EdsError execute()
 	{
 		EdsError				err = EDS_ERR_OK;
 		EdsStreamRef			stream = NULL;

@@ -1,10 +1,14 @@
 #!/bin/bash
 MSBUILD=C:/Windows/Microsoft.NET/Framework/v4.0.30319/msbuild.exe
 
-cp -r -v CanonCameraLib/bin/* bin/
-cp -r -v CanonCameraTest/bin/* bin/
+cp -r -v CanonCameraLib/bin/*.dll bin/
+cp -r -v CanonCameraLib/bin/*.pdb bin/
+cp -r -v CanonCameraTest/bin/*.exe bin/
+cp -r -v CanonCameraTest/bin/*.pdb bin/
 cp -r -v CanonCameraApp/bin/*.exe bin/
+cp -r -v CanonCameraApp/bin/*.pdb bin/
 cp -r -v CanonFilter/bin/*.ax bin/
+cp -r -v CanonFilter/bin/*.pdb bin/
 cp -r -v CanonFilterClient/bin/*.exe bin/
 cp -r -v oscpack_1_1_0/bin/*.dll bin/
 cp -r -v batch/*.bat bin/
